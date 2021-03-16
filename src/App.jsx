@@ -1,12 +1,13 @@
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { HomePage, LoginPage } from './pages';
+import { LoginPage, HomePage, ProfilePage } from './pages';
 
 const App = () => {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path="/home" component={HomePage} />
+                <Route exact path="/profile" component={ProfilePage} />
                 <Route exact path="/login" component={LoginPage} />
                 <Route
                     exact

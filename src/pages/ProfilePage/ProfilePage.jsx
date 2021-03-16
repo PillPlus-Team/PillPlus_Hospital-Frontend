@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import { PageLayout } from '../../components';
 
-import MenuButton from './components/ManuButton';
+import ProfileDisplay from './components/ProfileDisplay';
+import ProfileEditor from './components/ProfileEditor';
 
 /*********** DUMMY ***********/
 const USERINFO = {
@@ -45,18 +48,29 @@ const MENULIST = [
         url: '/',
     },
 ];
-/*********** DUMMY ***********/
 
-const HomePage = () => {
+const ProfilePage = () => {
+    const [isEdit, setIsEdit] = useState(false);
+
     return (
-        <PageLayout pageTitle="หน้าหลัก" userInfo={USERINFO} menuList={MENULIST}>
-            <div className="grid grid-flow-row justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 ">
-                {MENULIST.map((value) => {
-                    return <MenuButton title={value.title} url={value.url} />;
-                })}
-            </div>
+        <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={USERINFO} menuList={MENULIST}>
+            {!isEdit && (
+                <ProfileDisplay
+                    userInfo={USERINFO}
+                    onEdit={() => {
+                        setIsEdit(true);
+                    }}
+                />
+            )}
+            {isEdit && (
+                <ProfileEditor
+                    userInfo={USERINFO}
+                    onCompleted={() => {
+                        setIsEdit(false);
+                    }}
+                />
+            )}
         </PageLayout>
     );
 };
-
-export default HomePage;
+export default ProfilePage;

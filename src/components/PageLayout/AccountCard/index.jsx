@@ -9,9 +9,9 @@ const AccountCard = ({ name, role, avatarUrl }) => {
             </div>
             <Link to="/profile">
                 <img
+                    className="w-20 h-20 rounded-full bg-blue-400 border-2 border-white shadow-md duration-500 ease-out transform hover:scale-110"
                     src={avatarUrl}
                     alt="user-avatar"
-                    className="flex w-20 h-20 rounded-full bg-blue-400 border-2 border-white shadow-md duration-500 ease-out transform hover:scale-110"
                 />
             </Link>
         </div>
