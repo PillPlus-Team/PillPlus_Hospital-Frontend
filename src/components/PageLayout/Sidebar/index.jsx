@@ -9,7 +9,7 @@ const SideBar = ({ menuList }) => {
     };
 
     return (
-        <div className="flex flex-col items-center w-96 pt-8 bg-blue-500 shadow-md">
+        <div className="flex flex-col items-center w-96 pt-8 bg-blue-500 shadow-md overflow-y-auto">
             <div className="text-white text-5xl font-bold">PILLPLUS+</div>
             <div className="flex flex-col justify-between w-full h-full mt-8 text-md text-white">
                 <div className="flex flex-col">
@@ -18,10 +18,10 @@ const SideBar = ({ menuList }) => {
                             <NavLink
                                 exact
                                 to={value.url}
-                                className="flex justify-start items-center w-full h-16 pl-4 hover:bg-blue-400 bg-blue-500"
+                                className="flex justify-start items-center w-full h-16 hover:bg-blue-400 bg-blue-500"
                                 activeClassName="border-l-4 text-xl"
                             >
-                                <p className="pl-4">{value.title}</p>
+                                <p className="pl-8">{value.title}</p>
                             </NavLink>
                         );
                     })}

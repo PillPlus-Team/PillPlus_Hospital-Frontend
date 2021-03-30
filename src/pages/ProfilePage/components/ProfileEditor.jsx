@@ -25,7 +25,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
     };
 
     return (
-        <form className="flex flex-row bg-white rounded-lg shadow-md" onSubmit={submitHandler}>
+        <form className="flex flex-row min-w-max bg-white rounded-lg shadow-md" onSubmit={submitHandler}>
             <input
                 className="hidden"
                 type="file"
