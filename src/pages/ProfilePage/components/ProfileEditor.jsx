@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const ProfileEditor = ({ userInfo, onCompleted }) => {
     const [name, setName] = useState(userInfo.name);
+    const [surname, setSurname] = useState(userInfo.surname);
     const [email, setEmail] = useState(userInfo.email);
     const [avatarUrl, setAvatarUrl] = useState(userInfo.avatarUrl);
 
@@ -56,7 +57,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                     <td className="w-96">{userInfo.ID}</td>
                 </tr>
                 <tr>
-                    <td className="font-bold w-32 min-w-min py-4">ชื่อ - นามสกุล</td>
+                    <td className="font-bold w-32 min-w-min py-4">ชื่อ</td>
                     <td>
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
@@ -66,7 +67,24 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                             onChange={(event) => {
                                 setName(event.target.value);
                             }}
-                            placeholder="ชื่อ นามสกุล"
+                            placeholder="ชื่อ"
+                            autoComplete="off"
+                            required
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td className="font-bold w-32 min-w-min py-4">นามสกุล</td>
+                    <td>
+                        <input
+                            className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            name="surname"
+                            type="text"
+                            value={surname}
+                            onChange={(event) => {
+                                setSurname(event.target.value);
+                            }}
+                            placeholder="นามสกุล"
                             autoComplete="off"
                             required
                         />

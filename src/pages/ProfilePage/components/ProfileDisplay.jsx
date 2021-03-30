@@ -16,8 +16,12 @@ const ProfileDisplay = ({ userInfo, onEdit }) => {
                         <td className="w-96">{userInfo.ID}</td>
                     </tr>
                     <tr>
-                        <td className="font-bold w-32 min-w-min py-4">ชื่อ - นามสกุล</td>
+                        <td className="font-bold w-32 min-w-min py-4">ชื่อ</td>
                         <td>{userInfo.name}</td>
+                    </tr>
+                    <tr>
+                        <td className="font-bold w-32 min-w-min py-4">นามสกุล</td>
+                        <td>{userInfo.surname}</td>
                     </tr>
                     <tr>
                         <td className="font-bold w-32 min-w-min py-4">Email</td>
