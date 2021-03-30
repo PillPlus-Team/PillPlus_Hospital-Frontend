@@ -1,14 +1,15 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { LoginPage, HomePage, ProfilePage } from './pages';
+import { LoginPage, HomePage, ProfilePage, ManageAccountPage } from './pages';
 
 const App = () => {
     return (
         <BrowserRouter>
             <Switch>
+                <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/home" component={HomePage} />
                 <Route exact path="/profile" component={ProfilePage} />
-                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/manage-account" component={ManageAccountPage} />
                 <Route
                     exact
                     path="/forgot-password"
