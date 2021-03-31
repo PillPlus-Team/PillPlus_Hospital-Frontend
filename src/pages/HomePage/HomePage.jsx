@@ -2,7 +2,7 @@ import { PageLayout } from '../../components';
 
 import MenuButton from './components/ManuButton';
 
-/*MOCKDATA*/ 
+/*MOCKDATA*/
 import { USERINFO, MENULIST } from '../mock-data';
 
 const HomePage = () => {

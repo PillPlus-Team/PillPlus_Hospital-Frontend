@@ -1,6 +1,8 @@
 const ProfileDisplay = ({ userInfo, onEdit }) => {
     const changePasswordHandler = () => {
+        //for Debug
         console.log('Change Password Click!');
+        
         /*
             Logic here!
         */

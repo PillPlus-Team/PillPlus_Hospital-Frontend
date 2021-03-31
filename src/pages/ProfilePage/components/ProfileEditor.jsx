@@ -9,7 +9,9 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
     const [mouseOnAvatar, setMouseOnAvatar] = useState(false);
 
     const changePasswordHandler = () => {
+        //for Debug
         console.log('Change Password Click!');
+
         /*
             Logic here!
         */
@@ -18,7 +20,9 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
     const submitHandler = async (event) => {
         event.preventDefault();
 
+        //for Debug
         console.log({ name, email, avatarUrl });
+        
         /*
             Logic here!
         */

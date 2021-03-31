@@ -18,10 +18,10 @@ const AccountRowTitle = () => {
                     Email
                 </th>
                 <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-                    กลุ่มผู้ใช้
+                    ชื่อผู้ใช้
                 </th>
                 <th scope="col" class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">
-                    สร้างโดย
+                    กลุ่มผู้ใช้
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                     <span class="sr-only">แก้ไข</span>

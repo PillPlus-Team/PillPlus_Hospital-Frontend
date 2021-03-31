@@ -8,6 +8,7 @@ const LoginPage = () => {
     const submitHandler = async (event) => {
         event.preventDefault();
 
+        //For Debug
         console.log({ username, password });
         /*
             Logic here!

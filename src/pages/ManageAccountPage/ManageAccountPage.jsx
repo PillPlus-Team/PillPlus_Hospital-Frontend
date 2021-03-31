@@ -23,6 +23,7 @@ const ManageAccountPage = () => {
 
                 {isInsert && (
                     <AccountRowInsert
+                        accounts={ACCOUNTS}
                         onCompleted={() => {
                             setIsInsert(false);
                         }}
