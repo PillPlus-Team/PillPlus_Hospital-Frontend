@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { PageLayout, TableRowSlot } from '../../components';
 
 import AccountRowTitle from './components/AccountRowTitle';
-import AccountRowDisplay from './components/AccountRowDisplay';
+import AccountRow from './components/AccountRow';
 import AccountRowInsert from './components/AccountRowInsert';
 
 /*MOCKDATA*/
@@ -18,7 +18,7 @@ const ManageAccountPage = () => {
                 <AccountRowTitle />
 
                 {ACCOUNTS.map((account, index) => {
-                    return <AccountRowDisplay index={index + 1} account={account} />;
+                    return <AccountRow index={index + 1} account={account} accounts={ACCOUNTS} />;
                 })}
 
                 {isInsert && (

@@ -1,16 +1,8 @@
-const AccountRowDisplay = ({ index, account }) => {
-    const editHandler = () => {
-        //For Debug 
-        console.log('ID ' + account.ID + ' >> Edit Click!');
-
-        /*
-            Logic here!
-        */
-    };
-
+const AccountRowDisplay = ({ index, account, onEditClick }) => {
+    
     const deleteHandler = () => {
-        //For Debug 
-        console.log('ID ' + account.ID + ' >> Delete Click!');
+        //For Debug
+        console.log('>> Delete Click! '+ account.ID);
 
         /*
             Logic here!
@@ -31,7 +23,7 @@ const AccountRowDisplay = ({ index, account }) => {
                     <p className="text-gray-400 italic">ระดับ : {account.role_level}</p>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-center font-medium">
-                    <button class="text-indigo-600 hover:text-indigo-900 hover:underline focus:outline-none" type="button" onClick={editHandler}>
+                    <button class="text-indigo-600 hover:text-indigo-900 hover:underline focus:outline-none" type="button" onClick={onEditClick}>
                         แก้ไข
                     </button>
                 </td>

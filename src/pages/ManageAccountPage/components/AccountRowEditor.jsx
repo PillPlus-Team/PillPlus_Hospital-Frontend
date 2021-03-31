@@ -2,24 +2,28 @@ import { useState, useEffect } from 'react';
 
 import { InputText } from '../../../components';
 
-const AccountRowInsert = ({ accounts, onCompleted }) => {
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
+    const [name, setName] = useState(account.name);
+    const [surname, setSurname] = useState(account.surname);
+    const [email, setEmail] = useState(account.email);
+    const [username, setUsername] = useState(account.username);
 
-    const [isValidName, setIsValidName] = useState(false);
-    const [isValidSurname, setIsValidSurname] = useState(false);
-    const [isValidEmail, setIsValidEmail] = useState(false);
-    const [isValidUsername, setIsValidUsername] = useState(false);
+    const [isValidName, setIsValidName] = useState(true);
+    const [isValidSurname, setIsValidSurname] = useState(true);
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidUsername, setIsValidUsername] = useState(true);
 
     const [canSubmit, setCanSubmit] = useState(false);
 
     let emailAlreadyUse = [];
     let usernameAlreadyUse = [];
-    accounts.map((account) => {
-        emailAlreadyUse.push(account.email);
-        usernameAlreadyUse.push(account.username);
+    accounts.map((value) => {
+        if (value.email != account.email) {
+            emailAlreadyUse.push(value.email);
+        }
+        if (value.username != account.username) {
+            usernameAlreadyUse.push(value.username);
+        }
     });
 
     useEffect(() => {
@@ -47,14 +51,15 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
     };
 
     return (
-        <tbody class="bg-gray-100 divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500"></td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500 ">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         name="name"
                         type="text"
+                        initValue={account.name}
                         placeholder="ชื่อ"
                         autoComplete="off"
                         required
@@ -70,10 +75,11 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         name="surname"
                         type="text"
+                        initValue={account.surname}
                         placeholder="นามสกุล"
                         autoComplete="off"
                         required
@@ -89,10 +95,11 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         name="email"
                         type="text"
+                        initValue={account.email}
                         placeholder="goodboy@mail.com"
                         autoComplete="off"
                         required
@@ -110,10 +117,11 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         name="username"
                         type="text"
+                        initValue={account.username}
                         placeholder="ชื่อผู้ใช้"
                         autoComplete="off"
                         required
@@ -131,20 +139,23 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">role - [dropdown]</td>
-                <td class="px-6 py-2 whitespace-nowrap text-center font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                    <p>{account.role}</p>
+                    <p className="text-gray-400 italic">ระดับ : {account.role_level}</p>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
                         class={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
                         }`}
-                        type="bitton"
+                        type="button"
                         onClick={submitHandler}
                         disabled={!canSubmit}
                     >
-                        เพิ่ม
+                        บันทึก
                     </button>
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-center font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button class="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
                         ยกเลิก
                     </button>
@@ -154,4 +165,4 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
     );
 };
 
-export default AccountRowInsert;
+export default AccountRowDisplay;
