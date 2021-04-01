@@ -1,16 +1,46 @@
-import { PageLayout } from '../../components';
+import { useState } from 'react';
+
+import { PageLayout, TableRowSlot } from '../../components';
+
+import AccountRowTitle from './components/AccountRowTitle';
+import AccountRow from './components/AccountRow';
+import AccountRowInsert from './components/AccountRowInsert';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST } from '../mock-data';
+import { USERINFO, MENULIST, ACCOUNTS, ROLES } from '../mock-data';
 
 const ManageAccountPage = () => {
+    const [isInsert, setIsInsert] = useState(false);
+
     return (
         <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={USERINFO} menuList={MENULIST}>
-            {/* <div className="grid grid-flow-row justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 ">
-                {MENULIST.map((value) => {
-                    return <MenuButton title={value.title} url={value.url} />;
+            <TableRowSlot>
+                <AccountRowTitle />
+
+                {ACCOUNTS.map((account, index) => {
+                    return <AccountRow index={index + 1} account={account} accounts={ACCOUNTS} roles={ROLES} />;
                 })}
-            </div> */}
+
+                {isInsert && (
+                    <AccountRowInsert
+                        accounts={ACCOUNTS}
+                        roles={ROLES}
+                        onCompleted={() => {
+                            setIsInsert(false);
+                        }}
+                    />
+                )}
+            </TableRowSlot>
+            {!isInsert && (
+                <button
+                    className="w-24 mt-4 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
+                    onClick={() => {
+                        setIsInsert(true);
+                    }}
+                >
+                    เพิ่ม
+                </button>
+            )}
         </PageLayout>
     );
 };
