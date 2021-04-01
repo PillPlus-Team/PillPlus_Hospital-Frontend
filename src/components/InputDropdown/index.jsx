@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
 const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, onValueChange = () => {} }) => {
+    if (selectedIndex === -1) {
+        selectedIndex = 0;
+    }
+
     const [value, setValue] = useState(optionList[selectedIndex]);
     const [indexSelected, setIndexSelected] = useState(selectedIndex);
     const [showOption, setShowOption] = useState(false);
@@ -57,15 +61,12 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
                     <ul
                         class="z-50 absolute mt-1 w-full bg-white shadow-lg max-h-28 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
                         role="listbox"
-                        aria-labelledby="listbox-label"
-                        aria-activedescendant="listbox-option-3"
                     >
                         {optionList.map((option, index) => {
                             return (
                                 <li
                                     className="text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-blue-200"
                                     id={`listbox-option-${index}`}
-                                    role="option"
                                     onClick={() => {
                                         setValue(option);
 
@@ -76,7 +77,7 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
                                     <div class="flex items-center">
                                         <span class="font-normal ml-3 block truncate">{option}</span>
                                     </div>
-                                    {index == indexSelected && (
+                                    {index === indexSelected && (
                                         <span class="text-green-600 absolute inset-y-0 right-0 flex items-center pr-4">
                                             <svg
                                                 class="h-5 w-5"

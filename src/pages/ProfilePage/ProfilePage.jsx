@@ -6,7 +6,7 @@ import ProfileDisplay from './components/ProfileDisplay';
 import ProfileEditor from './components/ProfileEditor';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST } from '../mock-data';
+import { USERINFO, MENULIST, ACCOUNTS } from '../mock-data';
 
 const ProfilePage = () => {
     const [isEdit, setIsEdit] = useState(false);
@@ -24,6 +24,7 @@ const ProfilePage = () => {
             {isEdit && (
                 <ProfileEditor
                     userInfo={USERINFO}
+                    accounts={ACCOUNTS}
                     onCompleted={() => {
                         setIsEdit(false);
                     }}

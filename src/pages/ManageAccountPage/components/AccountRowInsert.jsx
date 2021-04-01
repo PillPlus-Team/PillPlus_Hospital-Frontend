@@ -7,7 +7,7 @@ const AccountRowInsert = ({ accounts, roles, onCompleted }) => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
-    const [role, setRole] = useState(roles[0]);
+    const [role, setRole] = useState();
 
     const [isValidName, setIsValidName] = useState(false);
     const [isValidSurname, setIsValidSurname] = useState(false);
