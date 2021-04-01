@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 
-import { InputText } from '../../../components';
+import { InputText, InputDropdown } from '../../../components';
 
-const AccountRowInsert = ({ accounts, onCompleted }) => {
+const AccountRowInsert = ({ accounts, roles, onCompleted }) => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
+    const [role, setRole] = useState(roles[0]);
 
     const [isValidName, setIsValidName] = useState(false);
     const [isValidSurname, setIsValidSurname] = useState(false);
@@ -23,9 +24,6 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
     });
 
     useEffect(() => {
-        //For Debug
-        console.log({ isValidName, isValidSurname, isValidEmail, isValidUsername });
-
         setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidUsername);
     }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
 
@@ -37,6 +35,7 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                 surname,
                 email,
                 username,
+                role,
             });
         }
 
@@ -47,12 +46,13 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
     };
 
     return (
-        <tbody class="bg-gray-100 divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200">
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500"></td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500 ">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500"></td>
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500"></td>
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
+                        id="InputText-name-insert"
                         name="name"
                         type="text"
                         placeholder="ชื่อ"
@@ -70,8 +70,9 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
+                        id="InputText-surname-insert"
                         name="surname"
                         type="text"
                         placeholder="นามสกุล"
@@ -89,8 +90,9 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
+                        id="InputText-email-insert"
                         name="email"
                         type="text"
                         placeholder="goodboy@mail.com"
@@ -110,8 +112,9 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
+                        id="InputText-username-insert"
                         name="username"
                         type="text"
                         placeholder="ชื่อผู้ใช้"
@@ -131,10 +134,19 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-gray-500">role - [dropdown]</td>
-                <td class="px-6 py-2 whitespace-nowrap text-center font-medium">
+                <td className="px-6 py-2 whitespace-nowrap text-gray-500">
+                    <InputDropdown
+                        id={`InputDropdown-role-insert`}
+                        name="role"
+                        optionList={roles}
+                        onValueChange={(state) => {
+                            setRole(state);
+                        }}
+                    />
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-center font-medium">
                     <button
-                        class={`focus:outline-none ${
+                        className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
                         }`}
                         type="bitton"
@@ -144,8 +156,8 @@ const AccountRowInsert = ({ accounts, onCompleted }) => {
                         เพิ่ม
                     </button>
                 </td>
-                <td class="px-6 py-2 whitespace-nowrap text-center font-medium">
-                    <button class="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
+                <td className="px-6 py-2 whitespace-nowrap text-center font-medium">
+                    <button className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
                         ยกเลิก
                     </button>
                 </td>

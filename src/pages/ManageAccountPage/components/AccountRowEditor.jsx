@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 
-import { InputText } from '../../../components';
+import { InputText, InputDropdown } from '../../../components';
 
-const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
+const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => {
     const [name, setName] = useState(account.name);
     const [surname, setSurname] = useState(account.surname);
     const [email, setEmail] = useState(account.email);
     const [username, setUsername] = useState(account.username);
+    const [role, setRole] = useState(roles[0]);
 
     const [isValidName, setIsValidName] = useState(true);
     const [isValidSurname, setIsValidSurname] = useState(true);
@@ -27,9 +28,6 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
     });
 
     useEffect(() => {
-        //For Debug
-        console.log({ isValidName, isValidSurname, isValidEmail, isValidUsername });
-
         setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidUsername);
     }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
 
@@ -41,6 +39,7 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                 surname,
                 email,
                 username,
+                role,
             });
         }
 
@@ -51,12 +50,13 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
     };
 
     return (
-        <tbody class="bg-white divide-y divide-gray-200">
+        <tbody className="divide-y divide-gray-200">
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
+                        id={`InputText-name-${index}`}
                         name="name"
                         type="text"
                         initValue={account.name}
@@ -75,8 +75,9 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
+                        id={`InputText-surname-${index}`}
                         name="surname"
                         type="text"
                         initValue={account.surname}
@@ -95,8 +96,9 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
+                        id={`InputText-email-${index}`}
                         name="email"
                         type="text"
                         initValue={account.email}
@@ -117,8 +119,9 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
+                        id={`InputText-username-${index}`}
                         name="username"
                         type="text"
                         initValue={account.username}
@@ -139,13 +142,19 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                         }}
                     />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">
-                    <p>{account.role}</p>
-                    <p className="text-gray-400 italic">ระดับ : {account.role_level}</p>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                    <InputDropdown
+                        id={`InputDropdown-role-${index}`}
+                        name="role"
+                        optionList={roles}
+                        onValueChange={(state) => {
+                            setRole(state);
+                        }}
+                    />
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
-                        class={`focus:outline-none ${
+                        className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
                         }`}
                         type="button"
@@ -155,8 +164,8 @@ const AccountRowDisplay = ({ index, account, accounts, onCompleted }) => {
                         บันทึก
                     </button>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-center font-medium">
-                    <button class="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
+                <td className="px-6 py-4 whitespace-nowrap text-center font-medium">
+                    <button className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
                         ยกเลิก
                     </button>
                 </td>

@@ -24,6 +24,7 @@ const LoginPage = () => {
                     <form className="mt-8 w-80" onSubmit={submitHandler} autoComplete="off">
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            id="input-username"
                             name="username"
                             type="text"
                             value={username}
@@ -35,6 +36,7 @@ const LoginPage = () => {
                         />
                         <input
                             className="w-full mt-4 p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            id="input-password"
                             name="password"
                             type="password"
                             value={password}

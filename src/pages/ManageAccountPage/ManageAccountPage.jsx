@@ -7,7 +7,7 @@ import AccountRow from './components/AccountRow';
 import AccountRowInsert from './components/AccountRowInsert';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST, ACCOUNTS } from '../mock-data';
+import { USERINFO, MENULIST, ACCOUNTS, ROLES } from '../mock-data';
 
 const ManageAccountPage = () => {
     const [isInsert, setIsInsert] = useState(false);
@@ -18,12 +18,13 @@ const ManageAccountPage = () => {
                 <AccountRowTitle />
 
                 {ACCOUNTS.map((account, index) => {
-                    return <AccountRow index={index + 1} account={account} accounts={ACCOUNTS} />;
+                    return <AccountRow index={index + 1} account={account} accounts={ACCOUNTS} roles={ROLES} />;
                 })}
 
                 {isInsert && (
                     <AccountRowInsert
                         accounts={ACCOUNTS}
+                        roles={ROLES}
                         onCompleted={() => {
                             setIsInsert(false);
                         }}

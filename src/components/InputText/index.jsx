@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const InputText = ({
+    id,
     name,
     type,
     initValue = '',
@@ -13,8 +14,8 @@ const InputText = ({
     msgPatternError,
     dupList,
     msgDupError,
-    onValidChange,
-    onValueChange,
+    onValidChange = () => {},
+    onValueChange = () => {},
 }) => {
     const [value, setValue] = useState(initValue);
     const [isValid, setIsValid] = useState(true);
@@ -53,6 +54,14 @@ const InputText = ({
         // eslint-disable-next-line
     }, []);
 
+    useEffect(() => {
+        onValueChange(value);
+    }, [value]);
+
+    useEffect(() => {
+        onValidChange(isValid);
+    }, [isValid]);
+
     return (
         <div>
             <p className="mb-1 text-red-400 italic ">{errorMessage}</p>
@@ -60,6 +69,7 @@ const InputText = ({
                 className={`w-full p-2 pl-4 rounded-lg border-2 focus:outline-none ${
                     isValid ? 'border-gray-200  focus:border-blue-500 ' : 'border-red-300 focus:border-red-500'
                 }`}
+                id={id}
                 name={name}
                 type={type}
                 value={value}
@@ -68,12 +78,10 @@ const InputText = ({
                 required={required}
                 onChange={(event) => {
                     setValue(event.target.value);
-                    onValueChange(event.target.value);
 
                     if (required && event.target.value.length === 0) {
                         setErrorMessege('โปรดกรอก');
                         setIsValid(false);
-                        onValidChange(false);
                     } else {
                         if (minLength <= event.target.value.length && event.target.value.length <= maxLength) {
                             let regExpression = new RegExp(pattern);
@@ -81,28 +89,23 @@ const InputText = ({
                             if (!regExpression.test(event.target.value) && event.target.value.length !== 0) {
                                 setErrorMessege(msgPatternError);
                                 setIsValid(false);
-                                onValidChange(false);
                             } else {
                                 if (dupList != null) {
                                     if (dupList.includes(event.target.value)) {
                                         setErrorMessege(msgDupError);
                                         setIsValid(false);
-                                        onValidChange(false);
                                     } else {
                                         setErrorMessege('');
                                         setIsValid(true);
-                                        onValidChange(true);
                                     }
                                 } else {
                                     setErrorMessege('');
                                     setIsValid(true);
-                                    onValidChange(true);
                                 }
                             }
                         } else {
                             setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
                             setIsValid(false);
-                            onValidChange(false);
                         }
                     }
                 }}

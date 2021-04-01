@@ -3,7 +3,7 @@ import { useState } from 'react';
 import AccountRowDisplay from './AccountRowDisplay';
 import AccountRowEditor from './AccountRowEditor';
 
-const AccountRow = ({ index, account, accounts }) => {
+const AccountRow = ({ index, account, accounts, roles }) => {
     const [isEdit, setIsEdit] = useState(false);
 
     return (
@@ -22,6 +22,7 @@ const AccountRow = ({ index, account, accounts }) => {
                     index={index}
                     account={account}
                     accounts={accounts}
+                    roles={roles}
                     onCompleted={() => {
                         setIsEdit(false);
                     }}

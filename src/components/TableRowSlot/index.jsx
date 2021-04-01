@@ -1,6 +1,6 @@
 const TableRowSlot = ({ children }) => {
     return (
-        <div className="shadow-md overflow-hidden border-b rounded-lg">
+        <div className="min-w-min bg-white shadow-md border-b rounded-lg">
             <table className="w-full min-w-full divide-y divide-gray-200">{children}</table>
         </div>
     );

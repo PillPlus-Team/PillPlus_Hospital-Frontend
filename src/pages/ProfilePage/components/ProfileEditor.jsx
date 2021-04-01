@@ -33,9 +33,10 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
         <form className="flex flex-row min-w-max bg-white rounded-lg shadow-md" onSubmit={submitHandler}>
             <input
                 className="hidden"
+                id="input-avatar"
+                name="avatar"
                 type="file"
                 accept="image/jpeg"
-                id="image-input"
                 onChange={(event) => {
                     setAvatarUrl(URL.createObjectURL(event.target.files[0]));
                     setMouseOnAvatar(false);
@@ -52,7 +53,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                     setMouseOnAvatar(false);
                 }}
                 onClick={() => {
-                    document.getElementById('image-input').click();
+                    document.getElementById('input-avatar').click();
                 }}
             />
             <table className="table-fixed w-96 ml-32 mt-24 text-lg">
@@ -65,6 +66,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                     <td>
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            id="input-name"
                             name="name"
                             type="text"
                             value={name}
@@ -82,6 +84,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                     <td>
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            id="input-surname"
                             name="surname"
                             type="text"
                             value={surname}
@@ -99,6 +102,7 @@ const ProfileEditor = ({ userInfo, onCompleted }) => {
                     <td>
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
+                            id="input-email"
                             name="email"
                             type="email"
                             value={email}
