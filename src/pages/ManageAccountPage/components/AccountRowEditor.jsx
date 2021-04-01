@@ -7,7 +7,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
     const [surname, setSurname] = useState(account.surname);
     const [email, setEmail] = useState(account.email);
     const [username, setUsername] = useState(account.username);
-    const [role, setRole] = useState(roles[0]);
+    const [role, setRole] = useState(account.role);
 
     const [isValidName, setIsValidName] = useState(true);
     const [isValidSurname, setIsValidSurname] = useState(true);
@@ -19,10 +19,10 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
     let emailAlreadyUse = [];
     let usernameAlreadyUse = [];
     accounts.map((value) => {
-        if (value.email != account.email) {
+        if (value.email !== account.email) {
             emailAlreadyUse.push(value.email);
         }
-        if (value.username != account.username) {
+        if (value.username !== account.username) {
             usernameAlreadyUse.push(value.username);
         }
     });
@@ -59,7 +59,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         id={`InputText-name-${index}`}
                         name="name"
                         type="text"
-                        initValue={account.name}
+                        initValue={name}
                         placeholder="ชื่อ"
                         autoComplete="off"
                         required
@@ -80,7 +80,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         id={`InputText-surname-${index}`}
                         name="surname"
                         type="text"
-                        initValue={account.surname}
+                        initValue={surname}
                         placeholder="นามสกุล"
                         autoComplete="off"
                         required
@@ -101,7 +101,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         id={`InputText-email-${index}`}
                         name="email"
                         type="text"
-                        initValue={account.email}
+                        initValue={email}
                         placeholder="goodboy@mail.com"
                         autoComplete="off"
                         required
@@ -124,7 +124,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         id={`InputText-username-${index}`}
                         name="username"
                         type="text"
-                        initValue={account.username}
+                        initValue={username}
                         placeholder="ชื่อผู้ใช้"
                         autoComplete="off"
                         required
@@ -147,6 +147,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         id={`InputDropdown-role-${index}`}
                         name="role"
                         optionList={roles}
+                        selectedIndex={roles.indexOf(role)}
                         onValueChange={(state) => {
                             setRole(state);
                         }}
