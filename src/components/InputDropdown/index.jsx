@@ -26,7 +26,7 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
     }, [value]);
 
     return (
-        <div className="w-48">
+        <div className="w-full">
             <label className="block mb-1 text-sm font-medium text-gray-700" id="listbox-label">
                 {label}
             </label>

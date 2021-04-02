@@ -87,8 +87,8 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
                             required
                             minLength={1}
                             maxLength={30}
-                            pattern="^[a-zA-Zก-๏]+$"
-                            msgPatternError="ตัวอักษร อังกฤษ/ไทย เท่านั้น"
+                            pattern="^[a-zA-Zก-๏\s]+$"
+                            msgPatternError="อังกฤษ/ไทย เท่านั้น"
                             onValidChange={(state) => {
                                 setIsValidName(state);
                             }}
@@ -111,8 +111,8 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
                             required
                             minLength={1}
                             maxLength={30}
-                            pattern="^[a-zA-Zก-๏]+$"
-                            msgPatternError="ตัวอักษร อังกฤษ/ไทย เท่านั้น"
+                            pattern="^[a-zA-Zก-๏\s]+$"
+                            msgPatternError="อังกฤษ/ไทย เท่านั้น"
                             onValidChange={(state) => {
                                 setIsValidSurname(state);
                             }}

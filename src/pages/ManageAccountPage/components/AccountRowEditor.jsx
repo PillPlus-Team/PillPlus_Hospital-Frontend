@@ -52,9 +52,9 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-name-${index}`}
                         name="name"
@@ -65,8 +65,8 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏]+$"
-                        msgPatternError="ตัวอักษร อังกฤษ/ไทย เท่านั้น"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidName(state);
                         }}
@@ -75,7 +75,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         }}
                     />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-surname-${index}`}
                         name="surname"
@@ -86,8 +86,8 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏]+$"
-                        msgPatternError="ตัวอักษร อังกฤษ/ไทย เท่านั้น"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidSurname(state);
                         }}
@@ -96,7 +96,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         }}
                     />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-email-${index}`}
                         name="email"
@@ -119,7 +119,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         }}
                     />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-40 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-username-${index}`}
                         name="username"
@@ -131,7 +131,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         minLength={1}
                         maxLength={30}
                         pattern="^[a-zA-Z0-9]+$"
-                        msgPatternError="ตัวอักษร อังกฤษ/ตัวเลข เท่านั้น"
+                        msgPatternError="อังกฤษ/ตัวเลข เท่านั้น"
                         dupList={usernameAlreadyUse}
                         msgDupError="Username ถูกไปใช้เเล้ว"
                         onValidChange={(state) => {
@@ -142,7 +142,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         }}
                     />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-40 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputDropdown
                         id={`InputDropdown-role-${index}`}
                         name="role"
@@ -153,7 +153,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         }}
                     />
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
                         className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
@@ -165,7 +165,7 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                         บันทึก
                     </button>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
                         ยกเลิก
                     </button>
