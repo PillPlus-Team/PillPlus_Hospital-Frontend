@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import { PageLayout, TableRowSlot } from '../../components';
@@ -7,13 +8,15 @@ import AccountRow from './components/AccountRow';
 import AccountRowInsert from './components/AccountRowInsert';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST, ACCOUNTS, ROLES } from '../mock-data';
+import { MENULIST, ACCOUNTS, ROLES } from '../mock-data';
 
 const ManageAccountPage = () => {
+    const user = useSelector((state) => state.user);
+
     const [isInsert, setIsInsert] = useState(false);
 
     return (
-        <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={USERINFO} menuList={MENULIST}>
+        <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={MENULIST}>
             <TableRowSlot>
                 <AccountRowTitle />
 

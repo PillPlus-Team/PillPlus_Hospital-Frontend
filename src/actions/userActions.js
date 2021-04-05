@@ -2,8 +2,8 @@ import { USER_LOGIN, USER_EDIT_PROFILE, USER_LOGOUT } from './types';
 
 export const userLogin = ({ username, password, history }) => {
     return async (dispatch) => {
-        /* For Production
-        const user = await fetch('/api/v1/login', {
+        /*For Production
+        const res = await fetch('/api/v1/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -13,6 +13,7 @@ export const userLogin = ({ username, password, history }) => {
                 password,
             }),
         });
+        const user = await res.json();
 
         if (res.status == 200) {
             dispatch({ type: USER_LOGIN, payload: { ...user } });
@@ -22,7 +23,7 @@ export const userLogin = ({ username, password, history }) => {
         }*/
 
         const user = {
-            ID: 1234567890,
+            ID: 62010609,
             name: 'พักตร์ภูมิ',
             surname: 'ตาแพร่',
             username: 'phoom0529',
@@ -37,29 +38,40 @@ export const userLogin = ({ username, password, history }) => {
     };
 };
 
-export const userEditProfile = ({ name, surname, email }) => {
+export const userEditProfile = ({ avatarUrl, name, surname, email }) => {
     return async (dispatch, getState) => {
         /*For Production
+        const { user } = getState();
+
+        let updateAvatarUrl;
+        if (avatarUrl === user.avatarUrl) {
+            updateAvatarUrl = '';
+        } else {
+            updateAvatarUrl = avatarUrl;
+        }
+
         const res = await fetch('/api/v1/editProfile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                avatarUrl: updateAvatarUrl,
                 name,
                 surname,
                 email,
             }),
         });
+        const editedUser = await res.json();
 
         if (res.status == 200) {
-            const { user } = getState();
-            dispatch({ type: USER_EDIT_PROFILE, payload: { ...user, name, surname, email } });
-        }
-        else{
+            dispatch({ type: USER_EDIT_PROFILE, payload: { ...editedUser } });
+        } else {
             // Swal.fire (SweetAlert2) Here
-        }
-        */
+        }*/
+
+        const { user } = getState();
+        dispatch({ type: USER_EDIT_PROFILE, payload: { ...user, avatarUrl, name, surname, email } });
     };
 };
 
@@ -75,9 +87,8 @@ export const userLogout = ({ history }) => {
 
         if (res.status == 200) {
             dispatch({ type: USER_LOGOUT });
-            history.push('/login')
-        }
-        */
+            history.push('/login');
+        }*/
 
         dispatch({ type: USER_LOGOUT });
         history.push('/login');

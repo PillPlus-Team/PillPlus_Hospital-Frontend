@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import { PageLayout } from '../../components';
@@ -6,16 +7,18 @@ import ProfileDisplay from './components/ProfileDisplay';
 import ProfileEditor from './components/ProfileEditor';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST, ACCOUNTS } from '../mock-data';
+import { MENULIST, ACCOUNTS } from '../mock-data';
 
 const ProfilePage = () => {
+    const user = useSelector((state) => state.user);
+
     const [isEdit, setIsEdit] = useState(false);
 
     return (
-        <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={USERINFO} menuList={MENULIST}>
+        <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={user} menuList={MENULIST}>
             {!isEdit && (
                 <ProfileDisplay
-                    userInfo={USERINFO}
+                    userInfo={user}
                     onEdit={() => {
                         setIsEdit(true);
                     }}
@@ -23,7 +26,7 @@ const ProfilePage = () => {
             )}
             {isEdit && (
                 <ProfileEditor
-                    userInfo={USERINFO}
+                    userInfo={user}
                     accounts={ACCOUNTS}
                     onCompleted={() => {
                         setIsEdit(false);

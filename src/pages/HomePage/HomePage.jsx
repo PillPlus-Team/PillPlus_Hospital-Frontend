@@ -1,13 +1,17 @@
+import { useSelector } from 'react-redux';
+
 import { PageLayout } from '../../components';
 
 import MenuButton from './components/ManuButton';
 
 /*MOCKDATA*/
-import { USERINFO, MENULIST } from '../mock-data';
+import { MENULIST } from '../mock-data';
 
 const HomePage = () => {
+    const user = useSelector((state) => state.user);
+
     return (
-        <PageLayout pageTitle="หน้าหลัก" userInfo={USERINFO} menuList={MENULIST}>
+        <PageLayout pageTitle="หน้าหลัก" userInfo={user} menuList={MENULIST}>
             <div className="grid grid-flow-row justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 ">
                 {MENULIST.map((menu) => {
                     return <MenuButton title={menu.title} url={menu.url} />;

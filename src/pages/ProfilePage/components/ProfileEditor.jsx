@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { InputText, InputImageFile } from '../../../components';
+
+import { userEditProfile } from '../../../actions/userActions';
 
 const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
     const [avatarUrl, setAvatarUrl] = useState(userInfo.avatarUrl);
@@ -14,6 +17,8 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
 
     const [canSubmit, setCanSubmit] = useState(false);
+
+    const dispatch = useDispatch();
 
     let emailAlreadyUse = [];
     accounts.map((value) => {
@@ -37,19 +42,11 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
 
     const submitHandler = () => {
         if (isValidAvatarUrl && isValidName && isValidSurname && isValidEmail) {
-            let updateAvatarUrl;
-            if (avatarUrl === userInfo.avatarUrl) {
-                updateAvatarUrl = '';
-            } else {
-                updateAvatarUrl = avatarUrl;
-            }
             //For Debug
-            console.log({ avatarUrl: updateAvatarUrl, name, surname, email });
-        }
+            console.log({ avatarUrl, name, surname, email });
 
-        /*
-            Logic here!
-        */
+            dispatch(userEditProfile({ avatarUrl, name, surname, email }));
+        }
         onCompleted();
     };
 
