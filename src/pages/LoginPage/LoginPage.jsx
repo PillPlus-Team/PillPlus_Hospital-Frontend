@@ -8,15 +8,16 @@ const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch();
     const history = useHistory();
-    
+
     const submitHandler = async (event) => {
-        /*For Debug*/ 
+        event.preventDefault();
+
+        /*For Debug*/
         console.log({ username, password });
 
-        event.preventDefault();
-        dispatch(userLogin({username, password, history}));
+        dispatch(userLogin({ username, password, history }));
     };
 
     return (

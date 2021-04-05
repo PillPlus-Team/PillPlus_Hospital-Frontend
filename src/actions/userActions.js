@@ -2,7 +2,7 @@ import { USER_LOGIN, USER_EDIT_PROFILE, USER_LOGOUT } from './types';
 
 export const userLogin = ({ username, password, history }) => {
     return async (dispatch) => {
-        /*For Production
+        /* For Production
         const user = await fetch('/api/v1/login', {
             method: 'POST',
             headers: {
@@ -16,14 +16,12 @@ export const userLogin = ({ username, password, history }) => {
 
         if (res.status == 200) {
             dispatch({ type: USER_LOGIN, payload: { ...user } });
-            history.push('/home')
-        }
-        else{ 
-            // Swal.fire (SweetAlert2) Here
-        }
-        */
+            history.push('/home');
+        } else {
+            //Swal.fire (SweetAlert2) Here
+        }*/
 
-        const USERINFO = {
+        const user = {
             ID: 1234567890,
             name: 'พักตร์ภูมิ',
             surname: 'ตาแพร่',
@@ -34,13 +32,14 @@ export const userLogin = ({ username, password, history }) => {
             createdBy: '-',
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
-        dispatch({ type: USER_LOGIN, payload: { ...USERINFO } });
-        history.push('/home')
+        dispatch({ type: USER_LOGIN, payload: { ...user } });
+        history.push('/home');
     };
 };
 
 export const userEditProfile = ({ name, surname, email }) => {
     return async (dispatch, getState) => {
+        /*For Production
         const res = await fetch('/api/v1/editProfile', {
             method: 'POST',
             headers: {
@@ -57,11 +56,16 @@ export const userEditProfile = ({ name, surname, email }) => {
             const { user } = getState();
             dispatch({ type: USER_EDIT_PROFILE, payload: { ...user, name, surname, email } });
         }
+        else{
+            // Swal.fire (SweetAlert2) Here
+        }
+        */
     };
 };
 
-export const userLogout = () => {
+export const userLogout = ({ history }) => {
     return async (dispatch) => {
+        /*For Production
         const res = await fetch('/api/v1/logout', {
             method: 'POST',
             headers: {
@@ -71,6 +75,11 @@ export const userLogout = () => {
 
         if (res.status == 200) {
             dispatch({ type: USER_LOGOUT });
+            history.push('/login')
         }
+        */
+
+        dispatch({ type: USER_LOGOUT });
+        history.push('/login');
     };
 };

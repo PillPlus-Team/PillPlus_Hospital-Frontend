@@ -6,10 +6,13 @@ const userReducer = (state = initState, action) => {
     switch (action.type) {
         case USER_LOGIN:
             return action.payload;
+
         case USER_EDIT_PROFILE:
             return action.payload;
+
         case USER_LOGOUT:
             return null;
+
         default:
             return state;
     }
