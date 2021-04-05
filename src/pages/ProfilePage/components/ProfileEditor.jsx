@@ -53,7 +53,7 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
     return (
         <div className="flex flex-row min-w-max bg-white rounded-lg shadow-md">
             <InputImageFile
-                className="ml-24 mt-24 rounded-full"
+                className="ml-24 mt-24 rounded-lg"
                 id="InputImageFile-avatar"
                 name="avatar"
                 accept="image/jpeg"

@@ -12,7 +12,7 @@ const AccountCard = ({ name, surname, role, avatarUrl }) => {
             </div>
             <Link to="/profile">
                 <img
-                    className="w-20 h-20 rounded-full bg-blue-400 border-2 border-white shadow-md duration-500 ease-out transform hover:scale-110"
+                    className="w-20 h-20 rounded-full bg-blue-400 border-2 border-white shadow-md object-cover duration-500 ease-out transform hover:scale-110"
                     src={avatarUrl}
                     alt="user-avatar"
                 />
