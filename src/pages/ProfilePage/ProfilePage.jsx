@@ -7,15 +7,16 @@ import ProfileDisplay from './components/ProfileDisplay';
 import ProfileEditor from './components/ProfileEditor';
 
 /*MOCKDATA*/
-import { MENULIST, ACCOUNTS } from '../mock-data';
+import { ACCOUNTS } from '../mock-data';
 
 const ProfilePage = () => {
     const user = useSelector((state) => state.user);
+    const menuList = useSelector((state) => state.menuList);
 
     const [isEdit, setIsEdit] = useState(false);
 
     return (
-        <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={user} menuList={MENULIST}>
+        <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={user} menuList={menuList}>
             {!isEdit && (
                 <ProfileDisplay
                     userInfo={user}

@@ -8,15 +8,16 @@ import AccountRow from './components/AccountRow';
 import AccountRowInsert from './components/AccountRowInsert';
 
 /*MOCKDATA*/
-import { MENULIST, ACCOUNTS, ROLES } from '../mock-data';
+import { ACCOUNTS, ROLES } from '../mock-data';
 
 const ManageAccountPage = () => {
     const user = useSelector((state) => state.user);
+    const menuList = useSelector((state) => state.menuList);
 
     const [isInsert, setIsInsert] = useState(false);
 
     return (
-        <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={MENULIST}>
+        <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={menuList}>
             <TableRowSlot>
                 <AccountRowTitle />
 

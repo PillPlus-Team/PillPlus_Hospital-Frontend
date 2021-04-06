@@ -4,16 +4,21 @@ import { PageLayout } from '../../components';
 
 import MenuButton from './components/ManuButton';
 
-/*MOCKDATA*/
-import { MENULIST } from '../mock-data';
-
 const HomePage = () => {
     const user = useSelector((state) => state.user);
+    const menuList = useSelector((state) => state.menuList);
+
+    let menuButtons = [];
+    menuList.map((value) => {
+        if (value.url !== '/home') {
+            menuButtons.push(value);
+        }
+    });
 
     return (
-        <PageLayout pageTitle="หน้าหลัก" userInfo={user} menuList={MENULIST}>
+        <PageLayout pageTitle="หน้าหลัก" userInfo={user} menuList={menuList}>
             <div className="grid grid-flow-row justify-items-center grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 ">
-                {MENULIST.map((menu) => {
+                {menuButtons.map((menu) => {
                     return <MenuButton title={menu.title} url={menu.url} />;
                 })}
             </div>

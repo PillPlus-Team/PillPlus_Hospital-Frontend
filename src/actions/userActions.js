@@ -1,5 +1,7 @@
 import { USER_LOGIN, USER_EDIT_PROFILE, USER_LOGOUT } from './types';
 
+import { menuListFetch } from './menuListActions';
+
 export const userLogin = ({ username, password, history }) => {
     return async (dispatch) => {
         /*For Production
@@ -13,10 +15,11 @@ export const userLogin = ({ username, password, history }) => {
                 password,
             }),
         });
-        const user = await res.json();
-
+        
         if (res.status == 200) {
+            const user = await res.json();
             dispatch({ type: USER_LOGIN, payload: { ...user } });
+            dispatch(menuListFetch());
             history.push('/home');
         } else {
             //Swal.fire (SweetAlert2) Here
@@ -34,6 +37,7 @@ export const userLogin = ({ username, password, history }) => {
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
         dispatch({ type: USER_LOGIN, payload: { ...user } });
+        dispatch(menuListFetch());
         history.push('/home');
     };
 };
@@ -62,9 +66,9 @@ export const userEditProfile = ({ avatarUrl, name, surname, email }) => {
                 email,
             }),
         });
-        const editedUser = await res.json();
-
+        
         if (res.status == 200) {
+            const editedUser = await res.json();
             dispatch({ type: USER_EDIT_PROFILE, payload: { ...editedUser } });
         } else {
             // Swal.fire (SweetAlert2) Here
