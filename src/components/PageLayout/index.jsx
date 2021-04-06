@@ -9,7 +9,7 @@ const PageLayout = ({ userInfo, menuList, pageTitle, children }) => {
                 <Sidebar menuList={menuList} />
             </div>
             <div className="flex flex-col w-full">
-                <div className="flex flex-row justify-end items-center h-24">
+                <div className="flex flex-row justify-end items-center h-24 min-w-min">
                     <AccountCard name={userInfo.name} surname={userInfo.surname} role={userInfo.role} avatarUrl={userInfo.avatarUrl} />
                 </div>
                 <div className="w-full h-full pt-8 pl-16 pr-16 overflow-y-auto">
