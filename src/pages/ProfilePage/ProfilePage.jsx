@@ -1,39 +1,28 @@
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { PageLayout } from '../../components';
 
 import ProfileDisplay from './components/ProfileDisplay';
 import ProfileEditor from './components/ProfileEditor';
 
-/*MOCKDATA*/
-import { ACCOUNTS } from '../mock-data';
+import { accountsFetch } from '../../actions/accountsAction';
 
 const ProfilePage = () => {
+    const dispatch = useDispatch();
+
     const user = useSelector((state) => state.user);
     const menuList = useSelector((state) => state.menuList);
+    const accounts = useSelector((state) => state.accounts);
 
-    const [isEdit, setIsEdit] = useState(false);
+    useEffect(() => {
+        dispatch(accountsFetch());
+    }, []);
 
     return (
         <PageLayout pageTitle="บัญชีผู้ใช้" userInfo={user} menuList={menuList}>
-            {!isEdit && (
-                <ProfileDisplay
-                    userInfo={user}
-                    onEdit={() => {
-                        setIsEdit(true);
-                    }}
-                />
-            )}
-            {isEdit && (
-                <ProfileEditor
-                    userInfo={user}
-                    accounts={ACCOUNTS}
-                    onCompleted={() => {
-                        setIsEdit(false);
-                    }}
-                />
-            )}
+            {!user.editing && <ProfileDisplay userInfo={user} />}
+            {user.editing && <ProfileEditor userInfo={user} accounts={accounts.list} />}
         </PageLayout>
     );
 };

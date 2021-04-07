@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 import { InputText, InputImageFile } from '../../../components';
 
-import { userEditProfile } from '../../../actions/userActions';
+import { userEditProfileToggle, userUpdateProfile } from '../../../actions/userActions';
 
-const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
+const ProfileEditor = ({ userInfo, accounts }) => {
+    const dispatch = useDispatch();
+
     const [avatarUrl, setAvatarUrl] = useState(userInfo.avatarUrl);
     const [name, setName] = useState(userInfo.name);
     const [surname, setSurname] = useState(userInfo.surname);
@@ -17,8 +19,6 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
 
     const [canSubmit, setCanSubmit] = useState(false);
-
-    const dispatch = useDispatch();
 
     let emailAlreadyUse = [];
     accounts.map((value) => {
@@ -41,13 +41,9 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
     };
 
     const submitHandler = () => {
-        if (isValidAvatarUrl && isValidName && isValidSurname && isValidEmail) {
-            //For Debug
-            console.log({ avatarUrl, name, surname, email });
-
-            dispatch(userEditProfile({ avatarUrl, name, surname, email }));
+        if (canSubmit) {
+            dispatch(userUpdateProfile({ avatarUrl, name, surname, email }));
         }
-        onCompleted();
     };
 
     return (
@@ -171,7 +167,9 @@ const ProfileEditor = ({ userInfo, accounts, onCompleted }) => {
                     <button
                         className="w-24 mb-2 mr-2 p-2 bg-gray-500 text-white rounded-lg focus:outline-none hover:bg-gray-400"
                         type="button"
-                        onClick={onCompleted}
+                        onClick={() => {
+                            dispatch(userEditProfileToggle());
+                        }}
                     >
                         ยกเลิก
                     </button>

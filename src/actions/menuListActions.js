@@ -2,24 +2,6 @@ import { MENULIST_FETCH } from './types';
 
 export const menuListFetch = () => {
     return async (dispatch, getState) => {
-        /*For Production
-        const { user } = getState();
-
-        const res = await fetch('/api/v1/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ID: user.ID,
-            }),
-        });
-
-        if(res.status === 200){
-            const menuList = await res.json();
-            dispatch({ type: MENULIST_FETCH, payload: menuList });
-        }*/
-
         const menuList = [
             {
                 title: 'หน้าหลัก',
@@ -54,6 +36,28 @@ export const menuListFetch = () => {
                 url: '/',
             },
         ];
-        dispatch({ type: MENULIST_FETCH, payload: menuList });
+        dispatch({ type: MENULIST_FETCH, menuList: menuList });
     };
 };
+
+/* For Production */
+// export const menuListFetch = () => {
+//     return async (dispatch, getState) => {
+//         /*For Production
+//         const { user } = getState();
+
+//         const res = await fetch('/api/v1/getMyMenuList', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 ID: user.ID,
+//             }),
+//         });
+
+//         if(res.status === 200){
+//             const menuList = await res.json();
+//             dispatch({ type: MENULIST_FETCH, menuList: menuList });
+//         }*/
+// };

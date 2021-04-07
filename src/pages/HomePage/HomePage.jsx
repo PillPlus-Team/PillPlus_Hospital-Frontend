@@ -8,12 +8,7 @@ const HomePage = () => {
     const user = useSelector((state) => state.user);
     const menuList = useSelector((state) => state.menuList);
 
-    let menuButtons = [];
-    menuList.map((value) => {
-        if (value.url !== '/home') {
-            menuButtons.push(value);
-        }
-    });
+    const menuButtons = menuList.filter((menu) => menu.url !== '/home');
 
     return (
         <PageLayout pageTitle="หน้าหลัก" userInfo={user} menuList={menuList}>

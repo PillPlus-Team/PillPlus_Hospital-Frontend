@@ -1,8 +1,13 @@
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import { InputText, InputDropdown } from '../../../components';
 
-const AccountRowInsert = ({ accounts, roles, onCompleted }) => {
+import { accountAddToggle, accountsAdd } from '../../../actions/accountsAction';
+
+const AccountRowInsert = ({ accounts, roles }) => {
+    const dispatch = useDispatch();
+
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
@@ -28,21 +33,9 @@ const AccountRowInsert = ({ accounts, roles, onCompleted }) => {
     }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
 
     const submitHandler = () => {
-        if (isValidName && isValidSurname && isValidEmail && isValidUsername) {
-            //For Debug
-            console.log({
-                name,
-                surname,
-                email,
-                username,
-                role,
-            });
+        if (canSubmit) {
+            dispatch(accountsAdd({ name, surname, email, username, role }));
         }
-
-        /*
-            Logic here!
-        */
-        onCompleted();
     };
 
     return (
@@ -157,7 +150,13 @@ const AccountRowInsert = ({ accounts, roles, onCompleted }) => {
                     </button>
                 </td>
                 <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
-                    <button className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
+                    <button
+                        className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
+                        type="button"
+                        onClick={() => {
+                            dispatch(accountAddToggle());
+                        }}
+                    >
                         ยกเลิก
                     </button>
                 </td>

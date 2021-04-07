@@ -1,8 +1,13 @@
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import { InputText, InputDropdown } from '../../../components';
 
-const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => {
+import { accountsEditToggle, accountUpdate } from '../../../actions/accountsAction.js';
+
+const AccountRowEditor = ({ index, account, accounts, roles }) => {
+    const dispatch = useDispatch();
+
     const [name, setName] = useState(account.name);
     const [surname, setSurname] = useState(account.surname);
     const [email, setEmail] = useState(account.email);
@@ -32,21 +37,9 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
     }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
 
     const submitHandler = () => {
-        if (isValidName && isValidSurname && isValidEmail && isValidUsername) {
-            //For Debug
-            console.log({
-                name,
-                surname,
-                email,
-                username,
-                role,
-            });
+        if (canSubmit) {
+            dispatch(accountUpdate({ ID: account.ID, name, surname, email, username, role }));
         }
-
-        /*
-            Logic here!
-        */
-        onCompleted();
     };
 
     return (
@@ -166,7 +159,13 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
                     </button>
                 </td>
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
-                    <button className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none" type="button" onClick={onCompleted}>
+                    <button
+                        className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
+                        type="button"
+                        onClick={() => {
+                            dispatch(accountsEditToggle({ ID: account.ID }));
+                        }}
+                    >
                         ยกเลิก
                     </button>
                 </td>
@@ -175,4 +174,4 @@ const AccountRowDisplay = ({ index, account, accounts, roles, onCompleted }) => 
     );
 };
 
-export default AccountRowDisplay;
+export default AccountRowEditor;

@@ -1,31 +1,21 @@
-import { useState } from 'react';
-
 import AccountRowDisplay from './AccountRowDisplay';
 import AccountRowEditor from './AccountRowEditor';
 
 const AccountRow = ({ index, account, accounts, roles }) => {
-    const [isEdit, setIsEdit] = useState(false);
-
     return (
         <>
-            {!isEdit && (
+            {!account.editing && (
                 <AccountRowDisplay
                     index={index}
                     account={account}
-                    onEditClick={() => {
-                        setIsEdit(true);
-                    }}
                 />
             )}
-            {isEdit && (
+            {account.editing && (
                 <AccountRowEditor
                     index={index}
                     account={account}
                     accounts={accounts}
                     roles={roles}
-                    onCompleted={() => {
-                        setIsEdit(false);
-                    }}
                 />
             )}
         </>

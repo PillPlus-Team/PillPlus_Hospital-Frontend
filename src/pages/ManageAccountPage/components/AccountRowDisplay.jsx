@@ -1,12 +1,9 @@
-const AccountRowDisplay = ({ index, account, onEditClick }) => {
-    const deleteHandler = () => {
-        //For Debug
-        console.log('>> Delete Click! ' + account.ID);
+import { useDispatch } from 'react-redux';
 
-        /*
-            Logic here!
-        */
-    };
+import { accountsEditToggle, accountsDelete } from '../../../actions/accountsAction.js';
+
+const AccountRowDisplay = ({ index, account }) => {
+    const dispatch = useDispatch();
 
     return (
         <tbody className="divide-y divide-gray-200">
@@ -24,12 +21,24 @@ const AccountRowDisplay = ({ index, account, onEditClick }) => {
                     <p className="text-gray-400 italic">ระดับ : {account.role_level}</p>
                 </td>
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
-                    <button class="text-indigo-600 hover:text-indigo-900 hover:underline focus:outline-none" type="button" onClick={onEditClick}>
+                    <button
+                        class="text-indigo-600 hover:text-indigo-900 hover:underline focus:outline-none"
+                        type="button"
+                        onClick={() => {
+                            dispatch(accountsEditToggle({ ID: account.ID }));
+                        }}
+                    >
                         แก้ไข
                     </button>
                 </td>
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
-                    <button className="text-red-600 hover:text-red-900 hover:underline focus:outline-none" type="button" onClick={deleteHandler}>
+                    <button
+                        className="text-red-600 hover:text-red-900 hover:underline focus:outline-none"
+                        type="button"
+                        onClick={() => {
+                            dispatch(accountsDelete({ ID: account.ID }));
+                        }}
+                    >
                         ลบ
                     </button>
                 </td>

@@ -1,8 +1,14 @@
-const ProfileDisplay = ({ userInfo, onEdit }) => {
+import { useDispatch } from 'react-redux';
+
+import { userEditProfileToggle } from '../../../actions/userActions';
+
+const ProfileDisplay = ({ userInfo }) => {
+    const dispatch = useDispatch();
+
     const changePasswordHandler = () => {
         //for Debug
         console.log('Change Password Click!');
-        
+
         /*
             Logic here!
         */
@@ -50,7 +56,12 @@ const ProfileDisplay = ({ userInfo, onEdit }) => {
                     </tr>
                 </table>
                 <div className="flex flex-col items-end w-full mb-64 h-96">
-                    <button className="w-24 mt-2 mr-2 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800" onClick={onEdit}>
+                    <button
+                        className="w-24 mt-2 mr-2 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
+                        onClick={() => {
+                            dispatch(userEditProfileToggle());
+                        }}
+                    >
                         เเก้ไข
                     </button>
                 </div>

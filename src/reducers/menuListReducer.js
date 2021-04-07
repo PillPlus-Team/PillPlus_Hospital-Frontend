@@ -5,7 +5,7 @@ const initState = [];
 const menuListReducer = (state = initState, action) => {
     switch (action.type) {
         case MENULIST_FETCH:
-            return action.payload;
+            return action.menuList;
 
         default:
             return state;
