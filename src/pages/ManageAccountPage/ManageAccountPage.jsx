@@ -4,8 +4,9 @@ import { useEffect } from 'react';
 import { PageLayout, TableRowSlot } from '../../components';
 
 import AccountRowTitle from './components/AccountRowTitle';
+import AccountRowEmpty from './components/AccountRowEmpty';
 import AccountRow from './components/AccountRow';
-import AccountRowInsert from './components/AccountRowInsert';
+import AccountRowAdder from './components/AccountRowAdder';
 
 import { accountsFetch, accountAddToggle } from '../../actions/accountsAction';
 
@@ -19,6 +20,8 @@ const ManageAccountPage = () => {
     const menuList = useSelector((state) => state.menuList);
     const accounts = useSelector((state) => state.accounts);
 
+    const isEmpty = accounts.list.length === 0;
+
     useEffect(() => {
         dispatch(accountsFetch());
     }, []);
@@ -27,12 +30,13 @@ const ManageAccountPage = () => {
         <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={menuList}>
             <TableRowSlot>
                 <AccountRowTitle />
+                {isEmpty && !accounts.adding && <AccountRowEmpty />}
 
                 {accounts.list.map((account, index) => {
                     return <AccountRow index={index + 1} account={account} accounts={accounts.list} roles={ROLES} />;
                 })}
 
-                {accounts.adding && <AccountRowInsert accounts={accounts.list} roles={ROLES} />}
+                {accounts.adding && <AccountRowAdder accounts={accounts.list} roles={ROLES} />}
             </TableRowSlot>
 
             {!accounts.adding && (
