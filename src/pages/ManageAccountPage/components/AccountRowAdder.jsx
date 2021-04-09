@@ -42,7 +42,7 @@ const AccountRowAdder = ({ accounts, roles }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500"></td>
+                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500"></td>
                 <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id="InputText-name-adder"

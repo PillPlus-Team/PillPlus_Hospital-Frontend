@@ -43,19 +43,19 @@ const PillStoreRowAdder = ({ pillStores }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-24 px-6 py-2 whitespace-nowrap text-gray-500"></td>
+                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500"></td>
                 <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id="InputText-name-adder"
                         name="name"
                         type="text"
-                        placeholder="ชื่อร้าน"
+                        placeholder="ชื่อ-นามสกุล"
                         autoComplete="off"
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidName(state);
                         }}
@@ -69,13 +69,13 @@ const PillStoreRowAdder = ({ pillStores }) => {
                         id="InputText-phamacy-adder"
                         name="phamacy"
                         type="text"
-                        placeholder="ชื่อ-นามสกุล"
+                        placeholder="ชื่อร้าน"
                         autoComplete="off"
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏\s]+$"
-                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
+                        pattern="^[a-zA-Zก-๏0-9\s]+$"
+                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidPhamacy(state);
                         }}

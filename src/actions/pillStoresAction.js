@@ -5,8 +5,8 @@ export const pillStoresFetch = () => {
         const pillStores = [
             {
                 ID: 10000001,
-                name: 'ยาอม ยาดม ยาหม่อง',
-                phamacy: 'พักตร์ภูมิ ตาแพร่',
+                name: 'พักตร์ภูมิ ตาแพร่',
+                phamacy: 'ยาอม ยาดม ยาหม่อง',
                 location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 email: 'phoom0529@gmail.com',
                 phone: '0891234567',
@@ -14,20 +14,20 @@ export const pillStoresFetch = () => {
             },
             {
                 ID: 10000002,
-                name: 'ยาพิษ bodyslam',
-                phamacy: 'พักตร์ภูมิ ตาแพร่',
+                name: 'พักตร์ภูมิ ตาแพร่',
+                phamacy: 'ยาพิษ bodyslam',
                 location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 email: 'phoom1477@gmail.com',
                 phone: '0899997333',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
-                ID: 10000001,
-                name: 'ยาดี ยาอี ยาไอซ์',
-                phamacy: 'พักตร์ภูมิ ตาแพร่',
+                ID: 10000003,
+                name: 'พักตร์ภูมิ ตาแพร่',
+                phamacy: 'ยาดี ยาอี ยาไอซ์',
                 location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 email: 'phukphoomtaphrae@gmail.com',
-                phone: '0891234567',
+                phone: '0891234765',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
         ];

@@ -48,6 +48,7 @@ const ProfileDisplay = ({ userInfo }) => {
                         <td>
                             <button
                                 className="w-52 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
+                                type="button"
                                 onClick={changePasswordHandler}
                             >
                                 เปลี่ยนรหัสผ่าน
@@ -58,6 +59,7 @@ const ProfileDisplay = ({ userInfo }) => {
                 <div className="flex flex-col items-end w-full mb-64 h-96">
                     <button
                         className="w-24 mt-2 mr-2 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
+                        type="button"
                         onClick={() => {
                             dispatch(userEditProfileToggle());
                         }}

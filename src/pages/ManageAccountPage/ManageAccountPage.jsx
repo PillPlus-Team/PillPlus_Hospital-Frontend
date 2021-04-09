@@ -42,6 +42,7 @@ const ManageAccountPage = () => {
             {!accounts.adding && (
                 <button
                     className="w-24 mt-4 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
+                    type="button"
                     onClick={() => {
                         dispatch(accountAddToggle());
                     }}
