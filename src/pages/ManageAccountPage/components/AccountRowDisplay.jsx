@@ -8,14 +8,14 @@ const AccountRowDisplay = ({ index, account }) => {
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 text-gray-500 pl-10">{index}</td>
-                <td className="w-32 px-6 py-4 text-gray-500">{account.ID}</td>
-                <td className="w-36 px-6 py-4 text-gray-500">{account.name}</td>
-                <td className="w-36 px-6 py-4 text-gray-500">{account.surname}</td>
+                <td className="w-10 px-6 py-4 text-gray-500 pl-10">{index}</td>
+                <td className="w-24 px-6 py-4 text-gray-500">{account.ID}</td>
+                <td className="w-28 px-6 py-4 text-gray-500">{account.name}</td>
+                <td className="w-28 px-6 py-4 text-gray-500">{account.surname}</td>
                 <td className="w-48 px-6 py-4 text-gray-500">
                     <p className="break-words">{account.email}</p>
                 </td>
-                <td className="w-40 px-6 py-4 text-gray-500">{account.username}</td>
+                <td className="w-40 px-6 py-4 text-gray-500">{account.phone}</td>
                 <td className="w-40 px-6 py-4 text-gray-500">
                     <p>{account.role}</p>
                     <p className="text-gray-400 italic">ระดับ : {account.role_level}</p>

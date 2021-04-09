@@ -36,12 +36,12 @@ const ProfileDisplay = ({ userInfo }) => {
                         <td>{userInfo.email}</td>
                     </tr>
                     <tr>
-                        <td className="font-bold w-32 min-w-min py-4">กลุ่มผู้ใช้</td>
-                        <td>{userInfo.role}</td>
+                        <td className="font-bold w-32 min-w-min py-4">เบอร์ติดต่อ</td>
+                        <td>{userInfo.phone}</td>
                     </tr>
                     <tr>
-                        <td className="font-bold w-32 min-w-min py-4">สร้างโดย</td>
-                        <td>{userInfo.createdBy}</td>
+                        <td className="font-bold w-32 min-w-min py-4">กลุ่มผู้ใช้</td>
+                        <td>{userInfo.role}</td>
                     </tr>
                     <tr>
                         <td className="font-bold w-32 min-w-min py-4">รหัสผ่าน</td>

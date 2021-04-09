@@ -7,8 +7,8 @@ export const accountsFetch = () => {
                 ID: 10000001,
                 name: 'พักตร์ภูมิ',
                 surname: 'ตาแพร่',
-                username: 'phoom0529',
                 email: 'phoom0529@gmail.com',
+                phone: '0899997333',
                 role: 'Adminstrator',
                 role_level: 0,
                 createdBy: '-',
@@ -18,8 +18,8 @@ export const accountsFetch = () => {
                 ID: 10000002,
                 name: 'พักตร์ภูมิ',
                 surname: 'ตาแพร่',
-                username: 'phoom1477',
                 email: 'phoom1477@gmail.com',
+                phone: '0899997222',
                 role: 'Service',
                 role_level: 1,
                 createdBy: '-',
@@ -29,8 +29,8 @@ export const accountsFetch = () => {
                 ID: 10000003,
                 name: 'พักตร์ภูมิ',
                 surname: 'ตาแพร่',
-                username: 'phoom1234',
                 email: 'phoom1234@gmail.com',
+                phone: '0899997444',
                 role: 'Cashier',
                 role_level: 2,
                 createdBy: '-',
@@ -40,8 +40,8 @@ export const accountsFetch = () => {
                 ID: 10000004,
                 name: 'พักตร์ภูมิ',
                 surname: 'ตาแพร่',
-                username: 'phoom007',
                 email: 'phukphoomtaphrae@gmail.com',
+                phone: '0899997123',
                 role: 'Unknown',
                 role_level: 10,
                 createdBy: '-',
@@ -59,18 +59,18 @@ export const accountAddToggle = () => {
     };
 };
 
-export const accountsAdd = ({ name, surname, email, username, role }) => {
+export const accountsAdd = ({ name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
-        const { user } = getState();
+        const roleLevel = ['Adminstrator', 'Service', 'Cashier'];
 
         const account = {
             ID: Math.floor(Math.random() * 100000000),
             name,
             surname,
-            username,
+            phone,
             email,
             role,
-            createdBy: user.ID,
+            role_level: roleLevel.indexOf(role),
             avatarUrl: 'https://www.journalnetwork.org/assets/default-profile-54364fb08cf8b2a24e80ed8969012690.jpg',
         };
 
@@ -85,11 +85,14 @@ export const accountsEditToggle = ({ ID }) => {
     };
 };
 
-export const accountUpdate = ({ ID, name, surname, email, username, role }) => {
+export const accountUpdate = ({ ID, name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
         const { accounts } = getState();
         const account = accounts.list.find((account) => account.ID == ID);
-        dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, name, surname, email, username, role } });
+
+        const roleLevel = ['Adminstrator', 'Service', 'Cashier'];
+
+        dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, name, surname, email, phone, role, role_level: roleLevel.indexOf(role) } });
     };
 };
 
@@ -122,7 +125,7 @@ export const accountsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const accountsAdd = ({ name, surname, email, username, role }) => {
+// export const accountsAdd = ({ name, surname, email, phone, role }) => {
 //     return async (dispatch, getState) => {
 //         const { user } = getState();
 
@@ -135,8 +138,7 @@ export const accountsDelete = ({ ID }) => {
 //                 name,
 //                 surname,
 //                 email,
-//                 username,
-//                 createdBy:user.ID,
+//                 phone,
 //                 role,
 //             }),
 //         });
@@ -157,7 +159,7 @@ export const accountsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const accountUpdate = ({ ID, name, surname, email, username, role }) => {
+// export const accountUpdate = ({ ID, name, surname, email, phone, role }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/editAccount', {
 //             method: 'POST',
@@ -169,7 +171,7 @@ export const accountsDelete = ({ ID }) => {
 //                 name,
 //                 surname,
 //                 email,
-//                 username,
+//                 phone,
 //                 role,
 //             }),
 //         });

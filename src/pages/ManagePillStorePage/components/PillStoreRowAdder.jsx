@@ -129,7 +129,7 @@ const PillStoreRowAdder = ({ pillStores }) => {
                         id="InputText-phone-adder"
                         name="phone"
                         type="text"
-                        placeholder="091234567"
+                        placeholder="0912345678"
                         autoComplete="off"
                         required
                         minLength={9}
