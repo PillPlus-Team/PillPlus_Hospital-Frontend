@@ -155,7 +155,7 @@ const ProfileEditor = ({ userInfo, accounts }) => {
                             name="phone"
                             type="text"
                             initValue={phone}
-                            placeholder="091234567"
+                            placeholder="0912345678"
                             autoComplete="off"
                             required
                             minLength={9}
