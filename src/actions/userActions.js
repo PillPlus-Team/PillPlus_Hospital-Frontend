@@ -8,11 +8,10 @@ export const userLogin = ({ username, password, history }) => {
             ID: 62010609,
             name: 'พักตร์ภูมิ',
             surname: 'ตาแพร่',
-            username: 'phoom0529',
             email: 'phoom0529@gmail.com',
+            phone: '0931425177',
             role: 'Adminstrator',
             role_level: 0,
-            createdBy: '-',
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
         dispatch({ type: USER_LOGIN, user: { ...user } });
@@ -27,10 +26,10 @@ export const userEditProfileToggle = () => {
     };
 };
 
-export const userUpdateProfile = ({ avatarUrl, name, surname, email }) => {
+export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) => {
     return async (dispatch, getState) => {
         const { user } = getState();
-        dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUrl, name, surname, email } });
+        dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUrl, name, surname, email, phone } });
     };
 };
 
@@ -72,7 +71,7 @@ export const userLogout = ({ history }) => {
 //     };
 // };
 
-// export const userUpdateProfile = ({ avatarUrl, name, surname, email }) => {
+// export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) => {
 //     return async (dispatch, getState) => {
 //         const { user } = getState();
 
@@ -93,6 +92,7 @@ export const userLogout = ({ history }) => {
 //                 name,
 //                 surname,
 //                 email,
+//                 phone,
 //             }),
 //         });
 

@@ -12,24 +12,30 @@ const ProfileEditor = ({ userInfo, accounts }) => {
     const [name, setName] = useState(userInfo.name);
     const [surname, setSurname] = useState(userInfo.surname);
     const [email, setEmail] = useState(userInfo.email);
+    const [phone, setPhone] = useState(userInfo.phone);
 
     const [isValidAvatarUrl, setIsValidAvatarUrl] = useState(true);
     const [isValidName, setIsValidName] = useState(true);
     const [isValidSurname, setIsValidSurname] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidPhone, setIsValidPhone] = useState(true);
 
     const [canSubmit, setCanSubmit] = useState(false);
 
     let emailAlreadyUse = [];
+    let phoneAlreadyUse = [];
     accounts.map((value) => {
         if (value.email !== userInfo.email) {
             emailAlreadyUse.push(value.email);
         }
+        if (value.phone !== userInfo.phone) {
+            phoneAlreadyUse.push(value.phone);
+        }
     });
 
     useEffect(() => {
-        setCanSubmit(isValidAvatarUrl && isValidName && isValidSurname && isValidEmail);
-    }, [isValidAvatarUrl, isValidName, isValidSurname, isValidEmail]);
+        setCanSubmit(isValidAvatarUrl && isValidName && isValidSurname && isValidEmail && isValidPhone);
+    }, [isValidAvatarUrl, isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     const changePasswordHandler = () => {
         //for Debug
@@ -42,7 +48,7 @@ const ProfileEditor = ({ userInfo, accounts }) => {
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(userUpdateProfile({ avatarUrl, name, surname, email }));
+            dispatch(userUpdateProfile({ avatarUrl, name, surname, email, phone }));
         }
     };
 
@@ -142,12 +148,34 @@ const ProfileEditor = ({ userInfo, accounts }) => {
                     </td>
                 </tr>
                 <tr>
-                    <td className="font-bold w-32 min-w-min py-4">กลุ่มผู้ใช้</td>
-                    <td>{userInfo.role}</td>
+                    <td className="font-bold w-32 min-w-min py-4">เบอร์ติดต่อ</td>
+                    <td>
+                        <InputText
+                            id="InputText-phone"
+                            name="phone"
+                            type="text"
+                            initValue={phone}
+                            placeholder="091234567"
+                            autoComplete="off"
+                            required
+                            minLength={9}
+                            maxLength={10}
+                            pattern="^[0-9]+$"
+                            msgPatternError="ตัวเลข เท่านั้น"
+                            dupList={phoneAlreadyUse}
+                            msgDupError="เบอร์ติดต่อ ถูกไปใช้เเล้ว"
+                            onValidChange={(state) => {
+                                setIsValidPhone(state);
+                            }}
+                            onValueChange={(state) => {
+                                setPhone(state);
+                            }}
+                        />
+                    </td>
                 </tr>
                 <tr>
-                    <td className="font-bold w-32 min-w-min py-4">สร้างโดย</td>
-                    <td>{userInfo.createdBy}</td>
+                    <td className="font-bold w-32 min-w-min py-4">กลุ่มผู้ใช้</td>
+                    <td>{userInfo.role}</td>
                 </tr>
                 <tr>
                     <td className="font-bold w-32 min-w-min py-4">รหัสผ่าน</td>

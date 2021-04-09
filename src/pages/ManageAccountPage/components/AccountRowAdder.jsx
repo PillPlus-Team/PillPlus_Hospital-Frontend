@@ -11,39 +11,39 @@ const AccountRowAdder = ({ accounts, roles }) => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [phone, setPhone] = useState('');
     const [role, setRole] = useState();
 
     const [isValidName, setIsValidName] = useState(false);
     const [isValidSurname, setIsValidSurname] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(false);
-    const [isValidUsername, setIsValidUsername] = useState(false);
+    const [isValidPhone, setIsValidPhone] = useState(false);
 
     const [canSubmit, setCanSubmit] = useState(false);
 
     let emailAlreadyUse = [];
-    let usernameAlreadyUse = [];
+    let phoneAlreadyUse = [];
     accounts.map((account) => {
         emailAlreadyUse.push(account.email);
-        usernameAlreadyUse.push(account.username);
+        phoneAlreadyUse.push(account.phone);
     });
 
     useEffect(() => {
-        setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidUsername);
-    }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
+        setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidPhone);
+    }, [isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(accountsAdd({ name, surname, email, username, role }));
+            dispatch(accountsAdd({ name, surname, email, phone, role }));
         }
     };
 
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 ">
+                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500"></td>
+                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500"></td>
+                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id="InputText-name-adder"
                         name="name"
@@ -63,7 +63,7 @@ const AccountRowAdder = ({ accounts, roles }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
                         id="InputText-surname-adder"
                         name="surname"
@@ -107,23 +107,23 @@ const AccountRowAdder = ({ accounts, roles }) => {
                 </td>
                 <td className="w-40 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id="InputText-username-adder"
-                        name="username"
+                        id="InputText-phone-adder"
+                        name="phone"
                         type="text"
-                        placeholder="ชื่อผู้ใช้"
+                        placeholder="091234567"
                         autoComplete="off"
                         required
-                        minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Z0-9]+$"
-                        msgPatternError="อังกฤษ/ตัวเลข เท่านั้น"
-                        dupList={usernameAlreadyUse}
-                        msgDupError="Username ถูกไปใช้เเล้ว"
+                        minLength={9}
+                        maxLength={10}
+                        pattern="^[0-9]+$"
+                        msgPatternError="ตัวเลข เท่านั้น"
+                        dupList={phoneAlreadyUse}
+                        msgDupError="เบอร์ติดต่อ ถูกไปใช้เเล้ว"
                         onValidChange={(state) => {
-                            setIsValidUsername(state);
+                            setIsValidPhone(state);
                         }}
                         onValueChange={(state) => {
-                            setUsername(state);
+                            setPhone(state);
                         }}
                     />
                 </td>
