@@ -3,58 +3,59 @@ import { useState, useEffect } from 'react';
 
 import { InputText, InputDropdown } from '../../../components';
 
-import { accountAddToggle, accountsAdd } from '../../../actions/accountsAction';
+import { pillStoresAddToggle, pillStoresAdd } from '../../../actions/pillStoresAction';
 
-const AccountRowAdder = ({ accounts, roles }) => {
+const PillStoreRowAdder = ({ pillStores }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [role, setRole] = useState();
+    const [phamacy, setPhamacy] = useState('');
+    const [location, setLocation] = useState('');
+    const [email, setEmail] = useState();
+    const [phone, setPhone] = useState('');
 
     const [isValidName, setIsValidName] = useState(false);
-    const [isValidSurname, setIsValidSurname] = useState(false);
+    const [isValidPhamacy, setIsValidPhamacy] = useState(false);
+    const [isValidLocation, setIsValidLocation] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(false);
-    const [isValidUsername, setIsValidUsername] = useState(false);
+    const [isValidPhone, setIsValidPhone] = useState(false);
 
     const [canSubmit, setCanSubmit] = useState(false);
 
     let emailAlreadyUse = [];
-    let usernameAlreadyUse = [];
-    accounts.map((account) => {
-        emailAlreadyUse.push(account.email);
-        usernameAlreadyUse.push(account.username);
+    let phoneAlreadyUse = [];
+    pillStores.map((pillStore) => {
+        emailAlreadyUse.push(pillStore.email);
+        phoneAlreadyUse.push(pillStore.phone);
     });
 
     useEffect(() => {
-        setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidUsername);
-    }, [isValidName, isValidSurname, isValidEmail, isValidUsername]);
+        setCanSubmit(isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone);
+    }, [isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(accountsAdd({ name, surname, email, username, role }));
+            dispatch(pillStoresAdd({ name, phamacy, location, email, phone }));
         }
     };
 
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500"></td>
+                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500"></td>
+                <td className="w-24 px-6 py-2 whitespace-nowrap text-gray-500"></td>
                 <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id="InputText-name-adder"
                         name="name"
                         type="text"
-                        placeholder="ชื่อ"
+                        placeholder="ชื่อร้าน"
                         autoComplete="off"
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏\s]+$"
-                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
+                        pattern="^[a-zA-Zก-๏0-9\s]+$"
+                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidName(state);
                         }}
@@ -65,10 +66,10 @@ const AccountRowAdder = ({ accounts, roles }) => {
                 </td>
                 <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id="InputText-surname-adder"
-                        name="surname"
+                        id="InputText-phamacy-adder"
+                        name="phamacy"
                         type="text"
-                        placeholder="นามสกุล"
+                        placeholder="ชื่อ-นามสกุล"
                         autoComplete="off"
                         required
                         minLength={1}
@@ -76,10 +77,28 @@ const AccountRowAdder = ({ accounts, roles }) => {
                         pattern="^[a-zA-Zก-๏\s]+$"
                         msgPatternError="อังกฤษ/ไทย เท่านั้น"
                         onValidChange={(state) => {
-                            setIsValidSurname(state);
+                            setIsValidPhamacy(state);
                         }}
                         onValueChange={(state) => {
-                            setSurname(state);
+                            setPhamacy(state);
+                        }}
+                    />
+                </td>
+                <td className="w-48 px-6 py-2 whitespace-nowrap text-gray-500">
+                    <InputText
+                        id="InputText-location-adder"
+                        name="location"
+                        type="text"
+                        placeholder="ที่อยู่"
+                        autoComplete="off"
+                        required
+                        minLength={1}
+                        maxLength={50}
+                        onValidChange={(state) => {
+                            setIsValidLocation(state);
+                        }}
+                        onValueChange={(state) => {
+                            setLocation(state);
                         }}
                     />
                 </td>
@@ -105,35 +124,25 @@ const AccountRowAdder = ({ accounts, roles }) => {
                         }}
                     />
                 </td>
-                <td className="w-40 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id="InputText-username-adder"
-                        name="username"
+                        id="InputText-phone-adder"
+                        name="phone"
                         type="text"
-                        placeholder="ชื่อผู้ใช้"
+                        placeholder="091234567"
                         autoComplete="off"
                         required
-                        minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Z0-9]+$"
-                        msgPatternError="อังกฤษ/ตัวเลข เท่านั้น"
-                        dupList={usernameAlreadyUse}
-                        msgDupError="Username ถูกไปใช้เเล้ว"
+                        minLength={9}
+                        maxLength={10}
+                        pattern="^[0-9]+$"
+                        msgPatternError="ตัวเลข เท่านั้น"
+                        dupList={phoneAlreadyUse}
+                        msgDupError="เบอร์ติดต่อ ถูกไปใช้เเล้ว"
                         onValidChange={(state) => {
-                            setIsValidUsername(state);
+                            setIsValidPhone(state);
                         }}
                         onValueChange={(state) => {
-                            setUsername(state);
-                        }}
-                    />
-                </td>
-                <td className="w-40 px-6 py-2 whitespace-nowrap text-gray-500">
-                    <InputDropdown
-                        id={`InputDropdown-role-adder`}
-                        name="role"
-                        optionList={roles}
-                        onValueChange={(state) => {
-                            setRole(state);
+                            setPhone(state);
                         }}
                     />
                 </td>
@@ -154,7 +163,7 @@ const AccountRowAdder = ({ accounts, roles }) => {
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(accountAddToggle());
+                            dispatch(pillStoresAddToggle());
                         }}
                     >
                         ยกเลิก
@@ -165,4 +174,4 @@ const AccountRowAdder = ({ accounts, roles }) => {
     );
 };
 
-export default AccountRowAdder;
+export default PillStoreRowAdder;

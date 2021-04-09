@@ -19,7 +19,7 @@ const AccountRowEditor = ({ index, account, accounts, roles }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidUsername, setIsValidUsername] = useState(true);
 
-    const [canSubmit, setCanSubmit] = useState(false);
+    const [canSubmit, setCanSubmit] = useState(true);
 
     let emailAlreadyUse = [];
     let usernameAlreadyUse = [];

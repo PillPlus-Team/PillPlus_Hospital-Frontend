@@ -25,7 +25,7 @@ const pillStoresReducer = (state = initState, action) => {
 
         case PILLSTORES_EDIT_TOGGLE: {
             let list = state.list;
-            list = list.map((account) => {
+            list = list.map((pillStore) => {
                 if (pillStore.ID === action.ID) {
                     return { ...pillStore, editing: !pillStore.editing };
                 } else {
