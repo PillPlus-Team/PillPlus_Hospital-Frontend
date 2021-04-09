@@ -29,7 +29,7 @@ export const menuListFetch = () => {
             },
             {
                 title: 'จัดการบัญชีร้านขายยา',
-                url: '/',
+                url: '/manage-pillstore',
             },
             {
                 title: 'จัดการข้อมูลยา',
