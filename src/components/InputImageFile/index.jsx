@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const InputImageFile = ({ className, id, name, accept, limitSizeMB, initImageUrl, onValidChange = () => {}, onValueChange = () => {} }) => {
     const [previewImageUrl, setPreviewImageUrl] = useState(initImageUrl);
-    const [isValidSize, setIsValidSizet] = useState(true);
+    const [isValidSize, setIsValidSize] = useState(true);
 
     useEffect(() => {
         onValueChange(previewImageUrl);
@@ -24,9 +24,9 @@ const InputImageFile = ({ className, id, name, accept, limitSizeMB, initImageUrl
                     setPreviewImageUrl(URL.createObjectURL(event.target.files[0]));
 
                     if (event.target.files[0].size <= limitSizeMB * 1e6) {
-                        setIsValidSizet(true);
+                        setIsValidSize(true);
                     } else {
-                        setIsValidSizet(false);
+                        setIsValidSize(false);
                     }
                 }}
             />

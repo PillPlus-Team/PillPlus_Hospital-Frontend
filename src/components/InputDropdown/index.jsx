@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, onValueChange = () => {} }) => {
     if (selectedIndex === -1) {
@@ -16,10 +16,6 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
             }
         }
     });
-
-    useEffect(() => {
-        onValueChange(value);
-    }, []);
 
     useEffect(() => {
         onValueChange(value);

@@ -46,8 +46,8 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500">{pillStore.ID}</td>
+                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500">{pillStore.ID}</td>
                 <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id={`InputText-name-${index}`}
@@ -100,7 +100,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={50}
+                        maxLength={100}
                         onValidChange={(state) => {
                             setIsValidLocation(state);
                         }}
