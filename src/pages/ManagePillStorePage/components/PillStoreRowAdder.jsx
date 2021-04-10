@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputDropdown } from '../../../components';
+import { InputText } from '../../../components';
 
 import { pillStoresAddToggle, pillStoresAdd } from '../../../actions/pillStoresAction';
 

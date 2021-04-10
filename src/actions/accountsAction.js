@@ -88,7 +88,7 @@ export const accountsEditToggle = ({ ID }) => {
 export const accountUpdate = ({ ID, name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
         const { accounts } = getState();
-        const account = accounts.list.find((account) => account.ID == ID);
+        const account = accounts.list.find((account) => account.ID === ID);
 
         const roleLevel = ['Adminstrator', 'Service', 'Cashier'];
 

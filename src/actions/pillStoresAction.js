@@ -67,7 +67,7 @@ export const pillStoresEditToggle = ({ ID }) => {
 export const pillStoresUpdate = ({ ID, name, phamacy, location, email, phone }) => {
     return async (dispatch, getState) => {
         const { pillStores } = getState();
-        const pillStore = pillStores.list.find((pillStore) => pillStore.ID == ID);
+        const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
         dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...pillStore, name, phamacy, location, email, phone } });
     };
 };
