@@ -100,7 +100,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={50}
+                        maxLength={100}
                         onValidChange={(state) => {
                             setIsValidLocation(state);
                         }}

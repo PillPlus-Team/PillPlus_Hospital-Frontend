@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputDropdown } from '../../../components';
+import { InputText, InputNumber, InputDropdown } from '../../../components';
 
 import { pillsEditToggle, pillsUpdate } from '../../../actions/pillsAction';
 
@@ -29,8 +29,8 @@ const PillRowEditor = ({ index, pill, pills }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription);
-    }, [isValidSn && isValidName && isValidDescription]);
+        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidPrice);
+    }, [isValidSn && isValidName && isValidDescription && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {
@@ -41,8 +41,8 @@ const PillRowEditor = ({ index, pill, pills }) => {
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 ">
+                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id={`InputText-sn-${index}`}
                         name="sn"
@@ -65,7 +65,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-52 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-name-${index}`}
                         name="name"
@@ -75,9 +75,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
+                        maxLength={50}
                         onValidChange={(state) => {
                             setIsValidName(state);
                         }}
@@ -86,7 +84,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-64 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-description-${index}`}
                         name="description"
@@ -96,7 +94,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={50}
+                        maxLength={100}
                         onValidChange={(state) => {
                             setIsValidDescription(state);
                         }}
@@ -105,28 +103,24 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
-                    {/* <InputText
-                        id={`InputText-price-${index}`}
-                        name="email"
-                        type="number"
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                    <InputNumber
+                        id={`InputNumber-price-${index}`}
+                        name="price"
                         initValue={price}
-                        placeholder="99.99"
-                        autoComplete="off"
+                        step="0.01"
+                        min="0"
+                        placeholder="ราคาต่อหน่วย"
                         required
-                        minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidPrice(state);
                         }}
                         onValueChange={(state) => {
                             setPrice(state);
                         }}
-                    /> */}
+                    />
                 </td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputDropdown
                         id={`InputDropdown-type-${index}`}
                         name="type"

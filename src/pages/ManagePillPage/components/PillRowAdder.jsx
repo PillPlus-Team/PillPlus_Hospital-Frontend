@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputDropdown } from '../../../components';
+import { InputText, InputNumber, InputDropdown } from '../../../components';
 
 import { pillsAddToggle, pillsAdd } from '../../../actions/pillsAction';
 
@@ -11,12 +11,13 @@ const PillRowAdder = ({ pills }) => {
     const [sn, setSn] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState();
     const [type, setType] = useState();
 
     const [isValidSn, setIsValidSn] = useState(false);
     const [isValidName, setIsValidName] = useState(false);
     const [isValidDescription, setIsValidDescription] = useState(false);
+    const [isValidPrice, setIsValidPrice] = useState(false);
 
     const [canSubmit, setCanSubmit] = useState(false);
 
@@ -26,8 +27,8 @@ const PillRowAdder = ({ pills }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription);
-    }, [isValidSn && isValidName && isValidDescription]);
+        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidPrice);
+    }, [isValidSn && isValidName && isValidDescription && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {
@@ -38,10 +39,10 @@ const PillRowAdder = ({ pills }) => {
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-16 px-6 py-4 whitespace-nowrap text-gray-500"></td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 ">
+                <td className="w-10 px-6 py-2 whitespace-nowrap text-gray-500"></td>
+                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
-                        id={`InputText-sn`}
+                        id="InputText-sn-adder"
                         name="sn"
                         type="text"
                         initValue={sn}
@@ -62,9 +63,9 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-52 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id={`InputText-name`}
+                        id="InputText-name-adder"
                         name="name"
                         type="text"
                         initValue={name}
@@ -72,9 +73,7 @@ const PillRowAdder = ({ pills }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
+                        maxLength={50}
                         onValidChange={(state) => {
                             setIsValidName(state);
                         }}
@@ -83,9 +82,9 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-64 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id={`InputText-description`}
+                        id="InputText-description-adder"
                         name="description"
                         type="text"
                         initValue={description}
@@ -93,7 +92,7 @@ const PillRowAdder = ({ pills }) => {
                         autoComplete="off"
                         required
                         minLength={1}
-                        maxLength={50}
+                        maxLength={100}
                         onValidChange={(state) => {
                             setIsValidDescription(state);
                         }}
@@ -102,30 +101,25 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
-                    {/* <InputText
-                        id={`InputText-price`}
-                        name="email"
-                        type="number"
-                        initValue={price}
-                        placeholder="99.99"
-                        autoComplete="off"
+                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500">
+                    <InputNumber
+                        id="InputNumber-price-adder"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        placeholder="ราคาต่อหน่วย"
                         required
-                        minLength={1}
-                        maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
                             setIsValidPrice(state);
                         }}
                         onValueChange={(state) => {
                             setPrice(state);
                         }}
-                    /> */}
+                    />
                 </td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputDropdown
-                        id={`InputDropdown-type`}
+                        id="InputDropdown-type-adder"
                         name="type"
                         optionList={['in', 'out']}
                         selectedIndex={['in', 'out'].indexOf(type)}
@@ -134,7 +128,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
                     <button
                         className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
@@ -146,7 +140,7 @@ const PillRowAdder = ({ pills }) => {
                         เพิ่ม
                     </button>
                 </td>
-                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
                     <button
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"

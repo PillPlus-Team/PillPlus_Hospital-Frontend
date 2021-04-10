@@ -21,7 +21,7 @@ const InputText = ({
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessege] = useState('');
 
-    useEffect(() => {
+    const validation = () => {
         if (required && value.length === 0) {
             setErrorMessege('โปรดกรอก');
             setIsValid(false);
@@ -47,14 +47,14 @@ const InputText = ({
                 } else {
                     setErrorMessege('ต้องการ ' + minLength + ' ตัวอักษร');
                 }
-
                 setIsValid(false);
             }
         }
-    }, []);
+    };
 
     useEffect(() => {
         onValueChange(value);
+        validation();
     }, [value]);
 
     useEffect(() => {
@@ -74,38 +74,8 @@ const InputText = ({
                 value={value}
                 placeholder={placeholder}
                 autoComplete={autoComplete}
-                required={required}
-                onInvalidCapture
                 onChange={(event) => {
                     setValue(event.target.value);
-
-                    if (required && event.target.value.length === 0) {
-                        setErrorMessege('โปรดกรอก');
-                        setIsValid(false);
-                    } else {
-                        if (minLength <= event.target.value.length && event.target.value.length <= maxLength) {
-                            let regExpression = new RegExp(pattern);
-
-                            if (!regExpression.test(event.target.value) && event.target.value.length !== 0) {
-                                setErrorMessege(msgPatternError);
-                                setIsValid(false);
-                            } else {
-                                if (dupList.includes(event.target.value)) {
-                                    setErrorMessege(msgDupError);
-                                    setIsValid(false);
-                                } else {
-                                    setErrorMessege('');
-                                    setIsValid(true);
-                                }
-                            }
-                        } else {
-                            if (minLength !== maxLength) {
-                                setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
-                            } else {
-                                setErrorMessege('ต้องการ ' + minLength + ' ตัวอักษร');
-                            }
-                        }
-                    }
                 }}
             />
         </>
