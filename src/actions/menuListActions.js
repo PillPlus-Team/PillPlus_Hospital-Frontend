@@ -24,10 +24,6 @@ export const menuListFetch = () => {
                 url: '/manage-account',
             },
             {
-                title: 'จัดการกลุ่มผู้ใช้',
-                url: '/',
-            },
-            {
                 title: 'จัดการบัญชีร้านขายยา',
                 url: '/manage-pillstore',
             },
