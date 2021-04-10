@@ -9,7 +9,7 @@ const InputText = ({
     autoComplete,
     required,
     minLength = 0,
-    maxLength = 100,
+    maxLength = 200,
     pattern,
     msgPatternError,
     dupList = [],
@@ -42,7 +42,12 @@ const InputText = ({
                     }
                 }
             } else {
-                setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
+                if (minLength !== maxLength) {
+                    setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
+                } else {
+                    setErrorMessege('ต้องการ ' + minLength + ' ตัวอักษร');
+                }
+
                 setIsValid(false);
             }
         }
@@ -70,6 +75,7 @@ const InputText = ({
                 placeholder={placeholder}
                 autoComplete={autoComplete}
                 required={required}
+                onInvalidCapture
                 onChange={(event) => {
                     setValue(event.target.value);
 
@@ -93,8 +99,11 @@ const InputText = ({
                                 }
                             }
                         } else {
-                            setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
-                            setIsValid(false);
+                            if (minLength !== maxLength) {
+                                setErrorMessege('ต้องการ ' + minLength + '-' + maxLength + ' ตัวอักษร');
+                            } else {
+                                setErrorMessege('ต้องการ ' + minLength + ' ตัวอักษร');
+                            }
                         }
                     }
                 }}

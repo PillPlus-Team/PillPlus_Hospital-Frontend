@@ -5,26 +5,26 @@ export const pillsFetch = () => {
         const pills = [
             {
                 ID: 10000001,
-                sn: 10225463,
+                sn: '10225463',
                 name: 'ยา A',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 150.0,
+                price: 150.00,
                 type: 'in',
             },
             {
                 ID: 10000002,
-                sn: 10225480,
+                sn: '10225480',
                 name: 'ยา B',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 159.0,
+                price: 159.00,
                 type: 'out',
             },
             {
                 ID: 10000003,
-                sn: 10225888,
+                sn: '10225888',
                 name: 'ยา C',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 12.0,
+                price: 12.00,
                 type: 'in',
             },
         ];
@@ -61,7 +61,7 @@ export const pillsEditToggle = ({ ID }) => {
     };
 };
 
-export const pillsUpdate = ({ sn, name, description, price, type }) => {
+export const pillsUpdate = ({ ID, sn, name, description, price, type }) => {
     return async (dispatch, getState) => {
         const { pills } = getState();
         const pill = pills.list.find((pill) => pill.ID === ID);

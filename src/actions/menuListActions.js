@@ -29,7 +29,7 @@ export const menuListFetch = () => {
             },
             {
                 title: 'จัดการข้อมูลยา',
-                url: '/',
+                url: '/manage-pill',
             },
         ];
         dispatch({ type: MENULIST_FETCH, menuList: menuList });

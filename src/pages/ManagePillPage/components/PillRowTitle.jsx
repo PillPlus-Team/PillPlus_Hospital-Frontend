@@ -1,0 +1,34 @@
+const PillRowTitle = () => {
+    return (
+        <thead className="text-md border-b-2 shadow-sm ">
+            <tr>
+                <th className="w-10 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    ลำดับ
+                </th>
+                <th className="w-24 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    SN
+                </th>
+                <th className="w-36 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    ชื่อยา
+                </th>
+                <th className="w-36 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    คำอธิบาย
+                </th>
+                <th className="w-48 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    ราคาต่อหน่วย (บาท)
+                </th>
+                <th className="w-48 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                    ประเภท
+                </th>
+                <th className="w-20 relative px-6 py-3" scope="col">
+                    <span class="sr-only">แก้ไข</span>
+                </th>
+                <th className="w-20 relative px-6 py-3" scope="col">
+                    <span class="sr-only">ยกเลิก</span>
+                </th>
+            </tr>
+        </thead>
+    );
+};
+
+export default PillRowTitle;
