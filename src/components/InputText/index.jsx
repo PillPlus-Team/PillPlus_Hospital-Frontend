@@ -12,7 +12,7 @@ const InputText = ({
     maxLength = 100,
     pattern,
     msgPatternError,
-    dupList,
+    dupList = [],
     msgDupError,
     onValidChange = () => {},
     onValueChange = () => {},
@@ -33,14 +33,9 @@ const InputText = ({
                     setErrorMessege(msgPatternError);
                     setIsValid(false);
                 } else {
-                    if (dupList != null) {
-                        if (dupList.includes(value)) {
-                            setErrorMessege(msgDupError);
-                            setIsValid(false);
-                        } else {
-                            setErrorMessege('');
-                            setIsValid(true);
-                        }
+                    if (dupList.includes(value)) {
+                        setErrorMessege(msgDupError);
+                        setIsValid(false);
                     } else {
                         setErrorMessege('');
                         setIsValid(true);
@@ -89,14 +84,9 @@ const InputText = ({
                                 setErrorMessege(msgPatternError);
                                 setIsValid(false);
                             } else {
-                                if (dupList != null) {
-                                    if (dupList.includes(event.target.value)) {
-                                        setErrorMessege(msgDupError);
-                                        setIsValid(false);
-                                    } else {
-                                        setErrorMessege('');
-                                        setIsValid(true);
-                                    }
+                                if (dupList.includes(event.target.value)) {
+                                    setErrorMessege(msgDupError);
+                                    setIsValid(false);
                                 } else {
                                     setErrorMessege('');
                                     setIsValid(true);
