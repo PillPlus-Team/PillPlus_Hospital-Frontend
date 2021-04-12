@@ -1,8 +1,10 @@
 import { ACCOUNTS_FETCH, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_DELETE, ACCOUNTS_UPDATE } from './types';
 
+import { roles } from './ultis';
+
 export const accountsFetch = () => {
     return async (dispatch) => {
-        const accounts = [
+        let accounts = [
             {
                 ID: 10000001,
                 name: 'พักตร์ภูมิ',
@@ -10,7 +12,6 @@ export const accountsFetch = () => {
                 email: 'phoom0529@gmail.com',
                 phone: '0899997333',
                 role: 'Adminstrator',
-                role_level: 0,
                 createdBy: '-',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
@@ -20,8 +21,7 @@ export const accountsFetch = () => {
                 surname: 'ตาแพร่',
                 email: 'phoom1477@gmail.com',
                 phone: '0899997222',
-                role: 'Service',
-                role_level: 1,
+                role: 'Staff',
                 createdBy: '-',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
@@ -32,7 +32,6 @@ export const accountsFetch = () => {
                 email: 'phoom1234@gmail.com',
                 phone: '0899997444',
                 role: 'Cashier',
-                role_level: 2,
                 createdBy: '-',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
@@ -42,12 +41,15 @@ export const accountsFetch = () => {
                 surname: 'ตาแพร่',
                 email: 'phukphoomtaphrae@gmail.com',
                 phone: '0899997123',
-                role: 'Unknown',
-                role_level: 10,
+                role: 'Cashier',
                 createdBy: '-',
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
         ];
+
+        accounts = accounts.map((account) => {
+            return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+        });
 
         dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
     };
@@ -61,8 +63,6 @@ export const accountAddToggle = () => {
 
 export const accountsAdd = ({ name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
-        const roleLevel = ['Adminstrator', 'Service', 'Cashier'];
-
         const account = {
             ID: Math.floor(Math.random() * 100000000),
             name,
@@ -70,7 +70,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
             phone,
             email,
             role,
-            role_level: roleLevel.indexOf(role),
+            roleLevel: roles.find((element) => element.role.includes(role)).roleLevel,
             avatarUrl: 'https://www.journalnetwork.org/assets/default-profile-54364fb08cf8b2a24e80ed8969012690.jpg',
         };
 
@@ -90,9 +90,10 @@ export const accountUpdate = ({ ID, name, surname, email, phone, role }) => {
         const { accounts } = getState();
         const account = accounts.list.find((account) => account.ID === ID);
 
-        const roleLevel = ['Adminstrator', 'Service', 'Cashier'];
-
-        dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, name, surname, email, phone, role, role_level: roleLevel.indexOf(role) } });
+        dispatch({
+            type: ACCOUNTS_UPDATE,
+            account: { ...account, name, surname, email, phone, role, roleLevel: roles.find((element) => element.role.includes(role)).roleLevel },
+        });
     };
 };
 
@@ -113,7 +114,10 @@ export const accountsDelete = ({ ID }) => {
 //         });
 
 //         if (res.status === 200) {
-//             const accounts = await res.json();
+//             let accounts = await res.json();
+//             accounts = accounts.map((account) => {
+//                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+//             });
 //             dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
 //         }
 //     };
@@ -144,7 +148,8 @@ export const accountsDelete = ({ ID }) => {
 //         });
 
 //         if (res.status === 200) {
-//             const account = await res.json();
+//             let account = await res.json();
+//             account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_ADD, account: account });
 //         } else {
 //             //Swal.fire (SweetAlert2) Here
@@ -177,7 +182,8 @@ export const accountsDelete = ({ ID }) => {
 //         });
 
 //         if (res.status === 200) {
-//             const editedAccount = await res.json();
+//             let editedAccount = await res.json();
+//             editedAccount = { ...editedAccount, roleLevel: roles.find((element) => element.role.includes(editedAccount.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_UPDATE, account: { ...editedAccount } });
 //         } else {
 //             //Swal.fire (SweetAlert2) Here

@@ -4,7 +4,7 @@ import { pillsEditToggle, pillsDelete } from '../../../actions/pillsAction';
 
 const PillRowDisplay = ({ index, pill }) => {
     const dispatch = useDispatch();
-    console.log(pill.description.split('\n'));
+
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>

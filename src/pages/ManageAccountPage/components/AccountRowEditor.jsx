@@ -5,7 +5,7 @@ import { InputText, InputDropdown } from '../../../components';
 
 import { accountsEditToggle, accountUpdate } from '../../../actions/accountsAction.js';
 
-const AccountRowEditor = ({ index, account, accounts, roles }) => {
+const AccountRowEditor = ({ index, account, accounts, roleList }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState(account.name);
@@ -139,8 +139,8 @@ const AccountRowEditor = ({ index, account, accounts, roles }) => {
                     <InputDropdown
                         id={`InputDropdown-role-${index}`}
                         name="role"
-                        optionList={roles}
-                        selectedIndex={roles.indexOf(role)}
+                        optionList={roleList}
+                        selectedIndex={roleList.indexOf(role)}
                         onValueChange={(state) => {
                             setRole(state);
                         }}

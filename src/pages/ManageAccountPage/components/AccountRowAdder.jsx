@@ -5,7 +5,7 @@ import { InputText, InputDropdown } from '../../../components';
 
 import { accountAddToggle, accountsAdd } from '../../../actions/accountsAction';
 
-const AccountRowAdder = ({ accounts, roles }) => {
+const AccountRowAdder = ({ accounts, roleList }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
@@ -131,7 +131,7 @@ const AccountRowAdder = ({ accounts, roles }) => {
                     <InputDropdown
                         id={`InputDropdown-role-adder`}
                         name="role"
-                        optionList={roles}
+                        optionList={roleList}
                         onValueChange={(state) => {
                             setRole(state);
                         }}

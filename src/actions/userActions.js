@@ -1,21 +1,26 @@
 import { USER_LOGIN, USER_EDIT_PROFILE_TOGGLE, USER_UPDATE_PROFILE, USER_LOGOUT } from './types';
 
 import { menuListFetch } from './menuListActions';
+import { roleListFetch } from './roleListActions';
+
+import { roles } from './ultis';
 
 export const userLogin = ({ username, password, history }) => {
     return async (dispatch) => {
-        const user = {
+        let user = {
             ID: 62010609,
             name: 'พักตร์ภูมิ',
             surname: 'ตาแพร่',
             email: 'phoom0529@gmail.com',
             phone: '0931425177',
             role: 'Adminstrator',
-            role_level: 0,
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
+
+        user = { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel };
         dispatch({ type: USER_LOGIN, user: { ...user } });
         dispatch(menuListFetch());
+        dispatch(roleListFetch());
         history.push('/home');
     };
 };
@@ -56,8 +61,9 @@ export const userLogout = ({ history }) => {
 
 //         if (res.status == 200) {
 //             const user = await res.json();
-//             dispatch({ type: USER_LOGIN, user: { ...user } });
+//             dispatch({ type: USER_LOGIN, user: { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel } });
 //             dispatch(menuListFetch());
+//             dispatch(roleListFetch());
 //             history.push('/home');
 //         } else {
 //             //Swal.fire (SweetAlert2) Here

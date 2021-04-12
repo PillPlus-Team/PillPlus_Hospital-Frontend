@@ -10,14 +10,12 @@ import AccountRowAdder from './components/AccountRowAdder';
 
 import { accountsFetch, accountAddToggle } from '../../actions/accountsAction';
 
-/*MOCKDATA*/
-import { ROLES } from '../mock-data';
-
 const ManageAccountPage = () => {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
     const menuList = useSelector((state) => state.menuList);
+    const roleList = useSelector((state) => state.roleList);
     const accounts = useSelector((state) => state.accounts);
 
     const isEmpty = accounts.list.length === 0;
@@ -33,10 +31,10 @@ const ManageAccountPage = () => {
                 {isEmpty && !accounts.adding && <AccountRowEmpty />}
 
                 {accounts.list.map((account, index) => {
-                    return <AccountRow index={index + 1} account={account} accounts={accounts.list} roles={ROLES} />;
+                    return <AccountRow index={index + 1} account={account} accounts={accounts.list} userInfo={user} roleList={roleList} />;
                 })}
 
-                {accounts.adding && <AccountRowAdder accounts={accounts.list} roles={ROLES} />}
+                {accounts.adding && <AccountRowAdder accounts={accounts.list} roleList={roleList} />}
             </TableRowSlot>
 
             {!accounts.adding && (

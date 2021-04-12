@@ -1,59 +1,47 @@
 import { MENULIST_FETCH } from './types';
 
+import { menuList } from './ultis';
+
 export const menuListFetch = () => {
     return async (dispatch, getState) => {
-        const menuList = [
+        const menuAccessible = [
             {
-                title: 'หน้าหลัก',
-                url: '/home',
+                role: 'Super Adminstrator',
+                menuIndex: [0, 1, 2, 3, 4, 5, 6],
             },
             {
-                title: 'เลือกสถานที่รับยา',
-                url: '/',
+                role: 'Adminstrator',
+                menuIndex: [0, 1, 2, 3, 4, 5, 6],
             },
             {
-                title: 'ผู้ป่วยรอคิวชำระเงิน',
-                url: '/',
+                role: 'Staff',
+                menuIndex: [0, 1],
             },
             {
-                title: 'Dashboard ร้านขายยา',
-                url: '/',
-            },
-            {
-                title: 'จัดการบัญชีผู้ใช้',
-                url: '/manage-account',
-            },
-            {
-                title: 'จัดการบัญชีร้านขายยา',
-                url: '/manage-pillstore',
-            },
-            {
-                title: 'จัดการข้อมูลยา',
-                url: '/manage-pill',
+                role: 'Cashier',
+                menuIndex: [0, 2, 3],
             },
         ];
-        dispatch({ type: MENULIST_FETCH, menuList: menuList });
+
+        try {
+            const { user } = getState();
+
+            let userCanAccess = menuAccessible.find((element) => element.role === user.role).menuIndex;
+            userCanAccess = userCanAccess.map((index) => {
+                return menuList[index];
+            });
+
+            dispatch({ type: MENULIST_FETCH, menuList: userCanAccess });
+        } catch (error) {
+            dispatch({
+                type: MENULIST_FETCH,
+                menuList: [
+                    {
+                        title: 'หน้าหลัก',
+                        url: '/home',
+                    },
+                ],
+            });
+        }
     };
 };
-
-/* For Production */
-// export const menuListFetch = () => {
-//     return async (dispatch, getState) => {
-//         /*For Production
-//         const { user } = getState();
-
-//         const res = await fetch('/api/v1/getMyMenuList', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID: user.ID,
-//             }),
-//         });
-
-//         if(res.status === 200){
-//             const menuList = await res.json();
-//             dispatch({ type: MENULIST_FETCH, menuList: menuList });
-//         }*/
-// };
