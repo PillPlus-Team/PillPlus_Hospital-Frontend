@@ -11,12 +11,14 @@ const PillRowAdder = ({ pills }) => {
     const [sn, setSn] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [unit, setUnit] = useState('');
     const [price, setPrice] = useState();
     const [type, setType] = useState();
 
     const [isValidSn, setIsValidSn] = useState(false);
     const [isValidName, setIsValidName] = useState(false);
     const [isValidDescription, setIsValidDescription] = useState(false);
+    const [isValidUnit, setIsValidUnit] = useState(true);
     const [isValidPrice, setIsValidPrice] = useState(false);
 
     const [canSubmit, setCanSubmit] = useState(false);
@@ -27,12 +29,12 @@ const PillRowAdder = ({ pills }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidPrice);
-    }, [isValidSn && isValidName && isValidDescription && isValidPrice]);
+        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice);
+    }, [isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillsAdd({ sn, name, description, price, type }));
+            dispatch(pillsAdd({ sn, name, description, unit, price, type }));
         }
     };
 
@@ -40,7 +42,7 @@ const PillRowAdder = ({ pills }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-2 whitespace-nowrap text-gray-500"></td>
-                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500 ">
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id="InputText-sn-adder"
                         name="sn"
@@ -98,6 +100,26 @@ const PillRowAdder = ({ pills }) => {
                         }}
                         onValueChange={(state) => {
                             setDescription(state);
+                        }}
+                    />
+                </td>
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                    <InputText
+                        id={`InputText-unit-adder`}
+                        name="unit"
+                        type="text"
+                        placeholder="หน่วย"
+                        autoComplete="off"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
+                        required
+                        minLength={1}
+                        maxLength={30}
+                        onValidChange={(state) => {
+                            setIsValidUnit(state);
+                        }}
+                        onValueChange={(state) => {
+                            setUnit(state);
                         }}
                     />
                 </td>
