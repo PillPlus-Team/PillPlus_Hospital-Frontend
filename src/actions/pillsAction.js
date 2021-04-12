@@ -8,7 +8,8 @@ export const pillsFetch = () => {
                 sn: '10225463',
                 name: 'ยา A',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 150.00,
+                unit: 'เม็ด',
+                price: 150.0,
                 type: 'in',
             },
             {
@@ -16,7 +17,8 @@ export const pillsFetch = () => {
                 sn: '10225480',
                 name: 'ยา B',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 159.00,
+                unit: 'ขวด',
+                price: 159.0,
                 type: 'out',
             },
             {
@@ -24,7 +26,8 @@ export const pillsFetch = () => {
                 sn: '10225888',
                 name: 'ยา C',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
-                price: 12.00,
+                unit: 'เม็ด',
+                price: 12.0,
                 type: 'in',
             },
         ];
@@ -39,13 +42,14 @@ export const pillsAddToggle = () => {
     };
 };
 
-export const pillsAdd = ({ sn, name, description, price, type }) => {
+export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
     return async (dispatch) => {
         const pill = {
             ID: Math.floor(Math.random() * 100000000),
             sn,
             name,
             description,
+            unit,
             price,
             type,
         };
@@ -61,11 +65,11 @@ export const pillsEditToggle = ({ ID }) => {
     };
 };
 
-export const pillsUpdate = ({ ID, sn, name, description, price, type }) => {
+export const pillsUpdate = ({ ID, sn, name, description, unit, price, type }) => {
     return async (dispatch, getState) => {
         const { pills } = getState();
         const pill = pills.list.find((pill) => pill.ID === ID);
-        dispatch({ type: PILLS_UPDATE, pill: { ...pill, sn, name, description, price, type } });
+        dispatch({ type: PILLS_UPDATE, pill: { ...pill, sn, name, description, unit, price, type } });
     };
 };
 
@@ -98,14 +102,14 @@ export const pillsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillsAdd = ({ sn, name, description, price, type }) => {
+// export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/addPill', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
-//             body: JSON.stringify({ sn, name, description, price, type }),
+//             body: JSON.stringify({ sn, name, description, unit, price, type }),
 //         });
 
 //         if (res.status === 200) {
@@ -124,14 +128,14 @@ export const pillsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillsUpdate = ({ ID, sn, name, description, price, type }) => {
+// export const pillsUpdate = ({ ID, sn, name, description, unit, price, type }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/editPill', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
-//             body: JSON.stringify({ ID, sn, name, description, price, type }),
+//             body: JSON.stringify({ ID, sn, name, description, unit, price, type }),
 //         });
 
 //         if (res.status === 200) {

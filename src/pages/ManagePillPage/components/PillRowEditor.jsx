@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputNumber, InputDropdown } from '../../../components';
+import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../components';
 
 import { pillsEditToggle, pillsUpdate } from '../../../actions/pillsAction';
 
@@ -11,12 +11,14 @@ const PillRowEditor = ({ index, pill, pills }) => {
     const [sn, setSn] = useState(pill.sn);
     const [name, setName] = useState(pill.name);
     const [description, setDescription] = useState(pill.description);
+    const [unit, setUnit] = useState(pill.unit);
     const [price, setPrice] = useState(pill.price);
     const [type, setType] = useState(pill.type);
 
     const [isValidSn, setIsValidSn] = useState(true);
     const [isValidName, setIsValidName] = useState(true);
     const [isValidDescription, setIsValidDescription] = useState(true);
+    const [isValidUnit, setIsValidUnit] = useState(true);
     const [isValidPrice, setIsValidPrice] = useState(true);
 
     const [canSubmit, setCanSubmit] = useState(true);
@@ -29,12 +31,12 @@ const PillRowEditor = ({ index, pill, pills }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidPrice);
-    }, [isValidSn && isValidName && isValidDescription && isValidPrice]);
+        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice);
+    }, [isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillsUpdate({ ID: pill.ID, sn, name, description, price, type }));
+            dispatch(pillsUpdate({ ID: pill.ID, sn, name, description, unit, price, type }));
         }
     };
 
@@ -42,7 +44,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500 ">
+                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500 ">
                     <InputText
                         id={`InputText-sn-${index}`}
                         name="sn"
@@ -85,15 +87,12 @@ const PillRowEditor = ({ index, pill, pills }) => {
                     />
                 </td>
                 <td className="w-64 px-6 py-4 whitespace-nowrap text-gray-500">
-                    <InputText
+                    <InputTextarea
                         id={`InputText-description-${index}`}
                         name="description"
-                        type="text"
                         initValue={description}
                         placeholder="คำอธิบาย"
-                        autoComplete="off"
                         required
-                        minLength={1}
                         maxLength={100}
                         onValidChange={(state) => {
                             setIsValidDescription(state);
@@ -104,11 +103,31 @@ const PillRowEditor = ({ index, pill, pills }) => {
                     />
                 </td>
                 <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                    <InputText
+                        id={`InputText-unit-${index}`}
+                        name="unit"
+                        type="text"
+                        initValue={unit}
+                        placeholder="หน่วย"
+                        autoComplete="off"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
+                        required
+                        minLength={1}
+                        maxLength={30}
+                        onValidChange={(state) => {
+                            setIsValidUnit(state);
+                        }}
+                        onValueChange={(state) => {
+                            setUnit(state);
+                        }}
+                    />
+                </td>
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputNumber
                         id={`InputNumber-price-${index}`}
                         name="price"
                         initValue={price}
-                        step="0.01"
                         min="0"
                         placeholder="ราคาต่อหน่วย"
                         required

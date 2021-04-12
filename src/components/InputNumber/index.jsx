@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const InputNumber = ({ id, name, initValue = '', step, min, max, placeholder, required, onValidChange = () => {}, onValueChange = () => {} }) => {
+const InputNumber = ({ id, name, initValue = '', min, max, placeholder, required, onValidChange = () => {}, onValueChange = () => {} }) => {
     const [value, setValue] = useState(initValue);
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessege] = useState('');
@@ -60,7 +60,6 @@ const InputNumber = ({ id, name, initValue = '', step, min, max, placeholder, re
                 id={id}
                 name={name}
                 type="number"
-                step={step}
                 value={value}
                 placeholder={placeholder}
                 onChange={(event) => {
