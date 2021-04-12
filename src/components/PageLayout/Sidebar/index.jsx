@@ -21,8 +21,8 @@ const SideBar = ({ menuList }) => {
                             <NavLink
                                 exact
                                 to={value.url}
-                                className="flex justify-start items-center w-full h-16 hover:bg-blue-400 bg-blue-500"
-                                activeClassName="border-l-4 text-xl"
+                                className="flex justify-start items-center w-full h-16 hover:bg-blue-400"
+                                activeClassName="border-l-4 text-xl bg-blue-400 "
                             >
                                 <p className="pl-8">{value.title}</p>
                             </NavLink>
