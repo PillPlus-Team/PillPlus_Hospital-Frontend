@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputNumber, InputDropdown } from '../../../components';
+import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../components';
 
 import { pillsAddToggle, pillsAdd } from '../../../actions/pillsAction';
 
@@ -85,15 +85,11 @@ const PillRowAdder = ({ pills }) => {
                     />
                 </td>
                 <td className="w-64 px-6 py-2 whitespace-nowrap text-gray-500">
-                    <InputText
-                        id="InputText-description-adder"
+                    <InputTextarea
+                        id={`InputText-description-adder`}
                         name="description"
-                        type="text"
-                        initValue={description}
                         placeholder="คำอธิบาย"
-                        autoComplete="off"
                         required
-                        minLength={1}
                         maxLength={100}
                         onValidChange={(state) => {
                             setIsValidDescription(state);

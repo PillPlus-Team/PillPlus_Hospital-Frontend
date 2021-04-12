@@ -4,7 +4,7 @@ import { pillsEditToggle, pillsDelete } from '../../../actions/pillsAction';
 
 const PillRowDisplay = ({ index, pill }) => {
     const dispatch = useDispatch();
-
+    console.log(pill.description.split('\n'));
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
@@ -14,7 +14,16 @@ const PillRowDisplay = ({ index, pill }) => {
                     <p className="break-words">{pill.name}</p>
                 </td>
                 <td className="w-64 px-6 py-4 text-gray-500">
-                    <p className="break-words">{pill.description}</p>
+                    <p className="break-words">
+                        {pill.description.split('\n').map((subString) => {
+                            return (
+                                <>
+                                    {subString}
+                                    <br />
+                                </>
+                            );
+                        })}
+                    </p>
                 </td>
                 <td className="w-36 px-6 py-4 text-gray-500">{pill.unit}</td>
                 <td className="w-36 px-6 py-4 text-gray-500">
