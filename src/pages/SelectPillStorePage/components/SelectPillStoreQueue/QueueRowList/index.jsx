@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import QueueRowDisplay from './QueueRowDisplay';
 import QueueRowEmpty from './QueueRowEmpty';
 
-const QueueRowList = ({ patientQueueList }) => {
+const QueueRowList = ({ prescriptions }) => {
     const [nowTimeStamp, setNowTimeStamp] = useState(Date.now());
 
-    const isEmpty = patientQueueList.length === 0;
+    const isEmpty = prescriptions.length === 0;
 
     useEffect(() => {
         setTimeout(() => {
@@ -16,10 +16,11 @@ const QueueRowList = ({ patientQueueList }) => {
 
     return (
         <div className="flex flex-col">
-            {patientQueueList.map((patient, index) => {
-                return <QueueRowDisplay index={index + 1} patient={patient} nowTimeStamp={nowTimeStamp} />;
-            })}
             {isEmpty && <QueueRowEmpty />}
+            
+            {prescriptions.map((prescription, index) => {
+                return <QueueRowDisplay index={index + 1} prescription={prescription} nowTimeStamp={nowTimeStamp} />;
+            })}
         </div>
     );
 };

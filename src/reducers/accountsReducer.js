@@ -1,6 +1,6 @@
 import { ACCOUNTS_FETCH, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_UPDATE, ACCOUNTS_DELETE } from '../actions/types';
 
-const initState = { list: [] };
+const initState = { list: [], adding: false };
 
 const accountsReducer = (state = initState, action) => {
     switch (action.type) {

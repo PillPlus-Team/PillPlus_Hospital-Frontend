@@ -1,6 +1,6 @@
 import { PILLS_FETCH, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from '../actions/types';
 
-const initState = { list: [] };
+const initState = { list: [], adding: false };
 
 const pillsReducer = (state = initState, action) => {
     switch (action.type) {

@@ -1,14 +1,14 @@
 import QueueRowTitle from './QueueRowTitle';
 import QueueRowList from './QueueRowList';
 
-const SelectPillStoreQueue = ({ patientQueueList = [] }) => {
+const SelectPillStoreQueue = ({ prescriptions = [] }) => {
     return (
         <div className="flex flex-col h-5/6">
             <div className="bg-white shadow-md border-b-2 rounded-t-lg">
                 <QueueRowTitle />
             </div>
             <div className="bg-white shadow-md border-b rounded-b-lg overflow-y-auto ">
-                <QueueRowList patientQueueList={patientQueueList} />
+                <QueueRowList prescriptions={prescriptions} />
             </div>
         </div>
     );
