@@ -12,7 +12,7 @@ export const menuList = [
     },
     {
         title: 'เลือกสถานที่รับยา',
-        url: '/',
+        url: '/select-pillstore',
     },
     {
         title: 'ผู้ป่วยรอคิวชำระเงิน',
