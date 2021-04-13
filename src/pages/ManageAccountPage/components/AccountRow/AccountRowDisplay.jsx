@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { accountsEditToggle, accountsDelete } from '../../../actions/accountsAction.js';
+import { accountsEditToggle, accountsDelete } from '../../../../actions/accountsAction';
 
 const AccountRowDisplay = ({ index, account, userInfo }) => {
     const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../components';
+import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../../components';
 
-import { pillsEditToggle, pillsUpdate } from '../../../actions/pillsAction';
+import { pillsEditToggle, pillsUpdate } from '../../../../actions/pillsAction';
 
 const PillRowEditor = ({ index, pill, pills }) => {
     const dispatch = useDispatch();

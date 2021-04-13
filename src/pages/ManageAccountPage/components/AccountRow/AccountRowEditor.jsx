@@ -1,22 +1,21 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import { InputText } from '../../../components';
+import { InputText, InputDropdown } from '../../../../components';
 
-import { pillStoresEditToggle, pillStoresUpdate } from '../../../actions/pillStoresAction';
+import { accountsEditToggle, accountUpdate } from '../../../../actions/accountsAction';
 
-const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
+const AccountRowEditor = ({ index, account, accounts, roleList }) => {
     const dispatch = useDispatch();
 
-    const [name, setName] = useState(pillStore.name);
-    const [phamacy, setPhamacy] = useState(pillStore.phamacy);
-    const [location, setLocation] = useState(pillStore.location);
-    const [email, setEmail] = useState(pillStore.email);
-    const [phone, setPhone] = useState(pillStore.phone);
+    const [name, setName] = useState(account.name);
+    const [surname, setSurname] = useState(account.surname);
+    const [email, setEmail] = useState(account.email);
+    const [phone, setPhone] = useState(account.phone);
+    const [role, setRole] = useState(account.role);
 
     const [isValidName, setIsValidName] = useState(true);
-    const [isValidPhamacy, setIsValidPhamacy] = useState(true);
-    const [isValidLocation, setIsValidLocation] = useState(true);
+    const [isValidSurname, setIsValidSurname] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidPhone, setIsValidPhone] = useState(true);
 
@@ -24,22 +23,22 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
 
     let emailAlreadyUse = [];
     let phoneAlreadyUse = [];
-    pillStores.map((value) => {
-        if (value.email !== pillStore.email) {
+    accounts.map((value) => {
+        if (value.email !== account.email) {
             emailAlreadyUse.push(value.email);
         }
-        if (value.phone !== pillStore.phone) {
+        if (value.phone !== account.phone) {
             phoneAlreadyUse.push(value.phone);
         }
     });
 
     useEffect(() => {
-        setCanSubmit(isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone);
-    }, [isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone]);
+        setCanSubmit(isValidName && isValidSurname && isValidEmail && isValidPhone);
+    }, [isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillStoresUpdate({ ID: pillStore.ID, name, phamacy, location, email, phone }));
+            dispatch(accountUpdate({ ID: account.ID, name, surname, email, phone, role }));
         }
     };
 
@@ -47,14 +46,14 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500">{pillStore.ID}</td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 ">
+                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
+                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-name-${index}`}
                         name="name"
                         type="text"
                         initValue={name}
-                        placeholder="ชื่อ-นามสกุุล"
+                        placeholder="ชื่อ"
                         autoComplete="off"
                         required
                         minLength={1}
@@ -69,43 +68,24 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
-                        id={`InputText-phamacy-${index}`}
-                        name="phamacy"
+                        id={`InputText-surname-${index}`}
+                        name="surname"
                         type="text"
-                        initValue={phamacy}
-                        placeholder="ชื่อร้าน"
+                        initValue={surname}
+                        placeholder="นามสกุล"
                         autoComplete="off"
                         required
                         minLength={1}
                         maxLength={30}
-                        pattern="^[a-zA-Zก-๏0-9\s]+$"
-                        msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
+                        pattern="^[a-zA-Zก-๏\s]+$"
+                        msgPatternError="อังกฤษ/ไทย เท่านั้น"
                         onValidChange={(state) => {
-                            setIsValidPhamacy(state);
+                            setIsValidSurname(state);
                         }}
                         onValueChange={(state) => {
-                            setPhamacy(state);
-                        }}
-                    />
-                </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
-                    <InputText
-                        id={`InputText-location-${index}`}
-                        name="location"
-                        type="text"
-                        initValue={location}
-                        placeholder="ที่อยู่"
-                        autoComplete="off"
-                        required
-                        minLength={1}
-                        maxLength={100}
-                        onValidChange={(state) => {
-                            setIsValidLocation(state);
-                        }}
-                        onValueChange={(state) => {
-                            setLocation(state);
+                            setSurname(state);
                         }}
                     />
                 </td>
@@ -132,7 +112,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         }}
                     />
                 </td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-40 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-phone-${index}`}
                         name="phone"
@@ -155,6 +135,17 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         }}
                     />
                 </td>
+                <td className="w-40 px-6 py-4 whitespace-nowrap text-gray-500">
+                    <InputDropdown
+                        id={`InputDropdown-role-${index}`}
+                        name="role"
+                        optionList={roleList}
+                        selectedIndex={roleList.indexOf(role)}
+                        onValueChange={(state) => {
+                            setRole(state);
+                        }}
+                    />
+                </td>
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
                         className={`focus:outline-none ${
@@ -172,7 +163,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(pillStoresEditToggle({ ID: pillStore.ID }));
+                            dispatch(accountsEditToggle({ ID: account.ID }));
                         }}
                     >
                         ยกเลิก
@@ -183,4 +174,4 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
     );
 };
 
-export default PillStoreRowEditor;
+export default AccountRowEditor;

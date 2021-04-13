@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { pillStoresEditToggle, pillStoresDelete } from '../../../actions/pillStoresAction';
+import { pillStoresEditToggle, pillStoresDelete } from '../../../../actions/pillStoresAction';
 
 const PillStoreRowDisplay = ({ index, pillStore }) => {
     const dispatch = useDispatch();
