@@ -1,4 +1,4 @@
-import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_ADD_PILLSTORE } from './types';
+import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from './types';
 
 export const prescriptionsFetch = () => {
     return async (dispatch, getState) => {
@@ -18,7 +18,15 @@ export const prescriptionsFetch = () => {
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618338719728,
                 queueNo: 2,
-                pills: [],
+                pills: [
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา B', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'ขวด', amount: 2 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                ],
             },
             {
                 ID: 10000003,
@@ -26,7 +34,7 @@ export const prescriptionsFetch = () => {
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618338919728,
                 queueNo: 3,
-                pills: [],
+                pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 }],
             },
         ];
 
@@ -43,9 +51,18 @@ export const prescriptionsSelect = ({ ID, selectedPrescription }) => {
     };
 };
 
-export const prescriptionsAddPillStore = ({ ID }) => {
+export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStoreName }) => {
     return {
-        type: PRESCRIPTIONS_ADD_PILLSTORE,
+        type: PRESCRIPTIONS_SELECT_PILLSTORE,
+        ID: ID,
+        pillStoreID: pillStoreID,
+        pillStoreName: pillStoreName,
+    };
+};
+
+export const prescriptionsUpdatePillStore = ({ ID }) => {
+    return {
+        type: PRESCRIPTIONS_UPDATE_PILLSTORE,
         ID: ID,
     };
 };
@@ -75,8 +92,21 @@ export const prescriptionsAddPillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionsAddPillStore = ({ ID, pillStoreID }) => {
-//     return async (dispatch) => {
+// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStoreName }) => {
+//     return {
+//         type: PRESCRIPTIONS_SELECT_PILLSTORE,
+//         ID: ID,
+//         pillStoreID: pillStoreID,
+//         pillStoreName: pillStoreName,
+//     };
+// };
+
+// export const prescriptionsUpdatePillStore = ({ ID }) => {
+//     return async (dispatch, getState) => {
+//         const { prescriptions } = getState();
+
+//         const prescription = prescriptions.list.find((element) => element.ID === ID);
+
 //         const res = await fetch('/api/v1/prescriptionAddLocation', {
 //             method: 'POST',
 //             headers: {
@@ -84,12 +114,14 @@ export const prescriptionsAddPillStore = ({ ID }) => {
 //             },
 //             body: JSON.stringify({
 //                 ID,
-//                 pillStoreID,
+//                 pillStoreID: prescription.pillStoreID,
 //             }),
 //         });
 
 //         if (res.status === 200) {
-//             dispatch({ type: PRESCRIPTIONS_ADD_PILLSTORE, ID: ID });
+//             dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, ID: ID });
+//         }else {
+//             //Swal.fire (SweetAlert2) Here
 //         }
 //     };
 // };

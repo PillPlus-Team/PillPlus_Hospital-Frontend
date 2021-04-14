@@ -44,7 +44,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500 ">
+                <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id={`InputText-sn-${index}`}
                         name="sn"
@@ -67,7 +67,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-52 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-52 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id={`InputText-name-${index}`}
                         name="name"
@@ -86,7 +86,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-64 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-64 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputTextarea
                         id={`InputText-description-${index}`}
                         name="description"
@@ -102,7 +102,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id={`InputText-unit-${index}`}
                         name="unit"
@@ -123,7 +123,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputNumber
                         id={`InputNumber-price-${index}`}
                         name="price"
@@ -139,7 +139,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputDropdown
                         id={`InputDropdown-type-${index}`}
                         name="type"
@@ -150,7 +150,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium align-top">
                     <button
                         className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
@@ -162,7 +162,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         บันทึก
                     </button>
                 </td>
-                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium align-top">
                     <button
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"

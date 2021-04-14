@@ -6,7 +6,7 @@ import { PageLayout, PatientInfoMonitor } from '../../components';
 import PrescriptionQueue from './components/PrescriptionQueue';
 import PillStoreSelector from './components/PillStoreSelector';
 
-import { prescriptionsFetch } from '../../actions/prescriptionsAction';
+import { prescriptionsFetch, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
 
 const SelectPillStorePage = () => {
     const dispatch = useDispatch();
@@ -14,6 +14,8 @@ const SelectPillStorePage = () => {
     const user = useSelector((state) => state.user);
     const menuList = useSelector((state) => state.menuList);
     const prescriptions = useSelector((state) => state.prescriptions);
+
+    const selected = prescriptions.selectedPrescription != null;
 
     useEffect(() => {
         dispatch(prescriptionsFetch());
@@ -35,6 +37,18 @@ const SelectPillStorePage = () => {
                         <p className="text-3xl border-l-4 pl-4 mb-4">ข้อมูลผู้ป่วย</p>
                         <PatientInfoMonitor patient={prescriptions.selectedPrescription} />
                     </div>
+                    <button
+                        className={`w-52 p-2 mt-5 ml-auto  text-white rounded-lg focus:outline-none ${
+                            selected ? 'bg-blue-500 hover:bg-blue-800' : 'bg-gray-400 cursor-not-allowed '
+                        }`}
+                        type="button"
+                        disabled={!selected}
+                        onClick={() => {
+                            dispatch(prescriptionsUpdatePillStore({ ID: prescriptions.selectedPrescription.ID }));
+                        }}
+                    >
+                        ยันยันสถานที่รับยา
+                    </button>
                 </div>
             </div>
         </PageLayout>

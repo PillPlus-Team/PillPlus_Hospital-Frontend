@@ -1,4 +1,4 @@
-import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_ADD_PILLSTORE } from '../actions/types';
+import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from '../actions/types';
 
 const initState = { list: [], selectedPrescription: null };
 
@@ -19,11 +19,24 @@ const prescriptionsReducer = (state = initState, action) => {
 
             return { ...state, list, selectedPrescription: action.selectedPrescription };
 
-        case PRESCRIPTIONS_ADD_PILLSTORE: {
+        case PRESCRIPTIONS_SELECT_PILLSTORE: {
+            let list = state.list;
+            list = list.map((prescription) => {
+                if (prescription.ID === action.ID) {
+                    return { ...prescription, pillStoreName: action.pillStoreName };
+                } else {
+                    return prescription;
+                }
+            });
+
+            return { ...state, list };
+        }
+
+        case PRESCRIPTIONS_UPDATE_PILLSTORE: {
             let list = state.list;
             list = list.filter((prescription) => prescription.ID !== action.ID);
 
-            return { ...state, list };
+            return { ...state, list, selectedPrescription: null };
         }
 
         default:

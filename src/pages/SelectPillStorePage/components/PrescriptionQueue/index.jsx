@@ -7,7 +7,7 @@ const PrescriptionQueue = ({ prescriptions = [] }) => {
             <div className="bg-white shadow-md border-b-2 rounded-t-lg">
                 <PrescriptionQueueTitle />
             </div>
-            <div className="bg-white shadow-md border-b rounded-b-lg overflow-y-auto ">
+            <div className="h-full bg-white shadow-md border-b rounded-b-lg overflow-y-auto">
                 <PrescriptionQueueList prescriptions={prescriptions} />
             </div>
         </div>
