@@ -1,13 +1,13 @@
 import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from './types';
 
 export const prescriptionsFetch = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         let prescriptions = [
             {
                 ID: 10000001,
                 HN: '10225463',
                 name: 'พักตร์ภูมิ ตาแพร่',
-                startTime: 1618338519728,
+                startTime: 1618415601123,
 
                 queueNo: 1,
                 pills: [],
@@ -16,7 +16,7 @@ export const prescriptionsFetch = () => {
                 ID: 10000002,
                 HN: '10225464',
                 name: 'พักตร์ภูมิ ตาแพร่',
-                startTime: 1618338719728,
+                startTime: 1618415651123,
                 queueNo: 2,
                 pills: [
                     { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
@@ -32,7 +32,7 @@ export const prescriptionsFetch = () => {
                 ID: 10000003,
                 HN: '10225465',
                 name: 'พักตร์ภูมิ ตาแพร่',
-                startTime: 1618338919728,
+                startTime: 1618415661123,
                 queueNo: 3,
                 pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 }],
             },
@@ -51,12 +51,12 @@ export const prescriptionsSelect = ({ ID }) => {
     };
 };
 
-export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStoreName }) => {
+export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy }) => {
     return {
         type: PRESCRIPTIONS_SELECT_PILLSTORE,
         ID: ID,
         pillStoreID: pillStoreID,
-        pillStoreName: pillStoreName,
+        pillStorePhamacy: pillStorePhamacy,
     };
 };
 
@@ -93,12 +93,12 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStoreName }) => {
+// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy }) => {
 //     return {
 //         type: PRESCRIPTIONS_SELECT_PILLSTORE,
 //         ID: ID,
 //         pillStoreID: pillStoreID,
-//         pillStoreName: pillStoreName,
+//         pillStorePhamacy: pillStorePhamacy,
 //     };
 // };
 

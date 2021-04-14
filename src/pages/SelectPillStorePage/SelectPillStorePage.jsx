@@ -31,11 +31,32 @@ const SelectPillStorePage = () => {
                 <div className="flex flex-col ml-14 ">
                     <div className="min-w-min">
                         <p className="text-3xl border-l-4 pl-4 mb-4">เลือกสถานที่รับยา</p>
-                        <PillStoreSelector />
+                        {!selectedPrescription && (
+                            <div className="flex justify-center items-center w-160 h-20 bg-white shadow-md rounded-lg">
+                                <p className="font-medium text-gray-400 tracking-wider">โปรดเลือกผู้ป่วย</p>
+                            </div>
+                        )}
+                        {selectedPrescription && (
+                            <div className="flex items-center w-160 h-20 p-2 bg-white shadow-md rounded-lg">
+                                {/*Hack react-life-cycle */}
+                                {prescriptions.list.map((prescription) => {
+                                    return prescription.selected && <PillStoreSelector selectedPrescriptionID={selectedPrescription.ID} />;
+                                })}
+                            </div>
+                        )}
                     </div>
                     <div className="min-w-min mt-10">
                         <p className="text-3xl border-l-4 pl-4 mb-4">ข้อมูลผู้ป่วย</p>
-                        <PatientInfoMonitor patient={selectedPrescription} />
+                        {!selectedPrescription && (
+                            <div className="flex justify-center items-center w-160 h-112 bg-white shadow-md rounded-lg">
+                                <p className="font-medium text-gray-400 tracking-wider">โปรดเลือกผู้ป่วย</p>
+                            </div>
+                        )}
+                        {selectedPrescription && (
+                            <div className="flex w-160 h-112">
+                                <PatientInfoMonitor patient={selectedPrescription} />
+                            </div>
+                        )}
                     </div>
                     <button
                         className={`w-52 p-2 mt-5 ml-auto  text-white rounded-lg focus:outline-none ${
