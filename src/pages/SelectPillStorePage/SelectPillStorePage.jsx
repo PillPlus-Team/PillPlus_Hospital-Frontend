@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { PageLayout, PatientInfoMonitor } from '../../components';
 
-import SelectPillStoreQueue from './components/SelectPillStoreQueue';
+import PrescriptionQueue from './components/PrescriptionQueue';
 import PillStoreSelector from './components/PillStoreSelector';
 
 import { prescriptionsFetch } from '../../actions/prescriptionsAction';
@@ -24,7 +24,7 @@ const SelectPillStorePage = () => {
             <div className="flex flex-row justify-between w-full h-full">
                 <div className="min-w-min">
                     <p className="text-3xl border-l-4 pl-4 mb-4">ลำดับ</p>
-                    <SelectPillStoreQueue prescriptions={prescriptions.list} />
+                    <PrescriptionQueue prescriptions={prescriptions.list} />
                 </div>
                 <div className="flex flex-col ml-14 ">
                     <div className="min-w-min">

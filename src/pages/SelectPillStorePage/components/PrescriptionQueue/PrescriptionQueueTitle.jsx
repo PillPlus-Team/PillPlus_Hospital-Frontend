@@ -1,4 +1,4 @@
-const QueueRowTitle = () => {
+const PrescriptionQueueTitle = () => {
     return (
         <div className="flex flex-row min-w-min">
             <p className="w-20 px-6 py-3 text-center font-medium text-gray-700 tracking-wider">ลำดับ</p>
@@ -10,4 +10,4 @@ const QueueRowTitle = () => {
     );
 };
 
-export default QueueRowTitle;
+export default PrescriptionQueueTitle;

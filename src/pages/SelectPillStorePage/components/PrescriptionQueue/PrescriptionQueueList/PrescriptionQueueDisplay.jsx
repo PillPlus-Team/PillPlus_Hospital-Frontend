@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import { prescriptionsSelect } from '../../../../../actions/prescriptionsAction';
 
-const QueueRowDisplay = ({ index, prescription, nowTimeStamp }) => {
+const PrescriptionQueueDisplay = ({ index, prescription, nowTimeStamp }) => {
     const dispatch = useDispatch();
 
     const elapsedTime = nowTimeStamp - prescription.startTime;
@@ -28,4 +28,4 @@ const QueueRowDisplay = ({ index, prescription, nowTimeStamp }) => {
     );
 };
 
-export default QueueRowDisplay;
+export default PrescriptionQueueDisplay;

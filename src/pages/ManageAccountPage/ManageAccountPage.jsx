@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { PageLayout, TableRowSlot } from '../../components';
+import { PageLayout, TableRowSlot, RowEmpty } from '../../components';
 
 import AccountRowTitle from './components/AccountRowTitle';
-import AccountRowEmpty from './components/AccountRowEmpty';
 import AccountRow from './components/AccountRow';
 import AccountRowAdder from './components/AccountRowAdder';
 
@@ -28,7 +27,7 @@ const ManageAccountPage = () => {
         <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={menuList}>
             <TableRowSlot>
                 <AccountRowTitle />
-                {isEmpty && !accounts.adding && <AccountRowEmpty />}
+                {isEmpty && !accounts.adding && <RowEmpty colSpan="9" text="ไม่มีข้อมูล" />}
 
                 {accounts.list.map((account, index) => {
                     return <AccountRow index={index + 1} account={account} accounts={accounts.list} userInfo={user} roleList={roleList} />;

@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { PageLayout, TableRowSlot } from '../../components';
+import { PageLayout, TableRowSlot, RowEmpty } from '../../components';
 
 import PillStoreRowTitle from './components/PillStoreRowTitle';
-import PillStoreRowEmpty from './components/PillStoreRowEmpty';
 import PillStoreRow from './components/PillStoreRow';
 import PillStoreRowAdder from './components/PillStoreRowAdder';
 
@@ -27,7 +26,7 @@ const ManagePillStorePage = () => {
         <PageLayout pageTitle="จัดการบัญชีร้านขายยา" userInfo={user} menuList={menuList}>
             <TableRowSlot>
                 <PillStoreRowTitle />
-                {isEmpty && !pillStores.adding && <PillStoreRowEmpty />}
+                {isEmpty && !pillStores.adding && <RowEmpty colSpan="9" text="ไม่มีข้อมูล" />}
 
                 {pillStores.list.map((pillStore, index) => {
                     return <PillStoreRow index={index + 1} pillStore={pillStore} pillStores={pillStores.list} />;

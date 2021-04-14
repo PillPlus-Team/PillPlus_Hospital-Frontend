@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import QueueRowDisplay from './QueueRowDisplay';
-import QueueRowEmpty from './QueueRowEmpty';
+import PrescriptionQueueDisplay from './PrescriptionQueueDisplay';
+import PrescriptionQueueEmpty from './PrescriptionQueueEmpty';
 
-const QueueRowList = ({ prescriptions }) => {
+const PrescriptionQueueList = ({ prescriptions }) => {
     const [nowTimeStamp, setNowTimeStamp] = useState(Date.now());
 
     const isEmpty = prescriptions.length === 0;
@@ -16,13 +16,13 @@ const QueueRowList = ({ prescriptions }) => {
 
     return (
         <div className="flex flex-col">
-            {isEmpty && <QueueRowEmpty />}
+            {isEmpty && <PrescriptionQueueEmpty />}
             
             {prescriptions.map((prescription, index) => {
-                return <QueueRowDisplay index={index + 1} prescription={prescription} nowTimeStamp={nowTimeStamp} />;
+                return <PrescriptionQueueDisplay index={index + 1} prescription={prescription} nowTimeStamp={nowTimeStamp} />;
             })}
         </div>
     );
 };
 
-export default QueueRowList;
+export default PrescriptionQueueList;
