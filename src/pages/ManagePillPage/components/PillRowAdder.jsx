@@ -41,8 +41,8 @@ const PillRowAdder = ({ pills }) => {
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-10 px-6 py-2 whitespace-nowrap text-gray-500"></td>
-                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500 ">
+                <td className="w-10 px-6 py-2 whitespace-nowrap text-gray-500 align-top"></td>
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id="InputText-sn-adder"
                         name="sn"
@@ -65,7 +65,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-52 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-52 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id="InputText-name-adder"
                         name="name"
@@ -84,7 +84,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-64 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-64 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputTextarea
                         id={`InputText-description-adder`}
                         name="description"
@@ -99,7 +99,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id={`InputText-unit-adder`}
                         name="unit"
@@ -119,7 +119,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputNumber
                         id="InputNumber-price-adder"
                         name="price"
@@ -135,7 +135,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500">
+                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputDropdown
                         id="InputDropdown-type-adder"
                         name="type"
@@ -146,7 +146,7 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium align-top">
                     <button
                         className={`focus:outline-none ${
                             canSubmit ? 'text-green-600 hover:text-green-900 hover:underline' : 'text-gray-400 cursor-not-allowed'
@@ -158,7 +158,7 @@ const PillRowAdder = ({ pills }) => {
                         เพิ่ม
                     </button>
                 </td>
-                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
+                <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium align-top">
                     <button
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"

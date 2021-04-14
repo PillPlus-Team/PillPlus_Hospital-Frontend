@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { LoginPage, HomePage, ProfilePage, ManageAccountPage, ManagePillStorePage, ManagePillPage } from './pages';
+import { LoginPage, HomePage, ProfilePage, SelectPillStorePage, ManageAccountPage, ManagePillStorePage, ManagePillPage } from './pages';
 
 const App = () => {
     const user = useSelector((state) => state.user);
@@ -12,6 +12,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/home" component={HomePage} />
                     <Route exact path="/profile" component={ProfilePage} />
+                    <Route exact path="/select-pillstore" component={SelectPillStorePage} />
                     <Route exact path="/manage-account" component={ManageAccountPage} />
                     <Route exact path="/manage-pillstore" component={ManagePillStorePage} />
                     <Route exact path="/manage-pill" component={ManagePillPage} />

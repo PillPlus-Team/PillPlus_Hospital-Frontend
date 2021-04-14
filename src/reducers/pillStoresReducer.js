@@ -7,7 +7,7 @@ import {
     PILLSTORES_DELETE,
 } from '../actions/types';
 
-const initState = { list: [] };
+const initState = { list: [], adding: false };
 
 const pillStoresReducer = (state = initState, action) => {
     switch (action.type) {
