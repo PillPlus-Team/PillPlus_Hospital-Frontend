@@ -1,6 +1,6 @@
 const PatientInfoMonitor = ({ patient }) => {
     return (
-        <div className="flex min-w-full h-96 p-4 bg-white rounded-lg overflow-y-auto">
+        <div className="flex min-w-full h-112 p-4 bg-white shadow-md rounded-lg overflow-y-auto">
             {patient && (
                 <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
                     <tr>
