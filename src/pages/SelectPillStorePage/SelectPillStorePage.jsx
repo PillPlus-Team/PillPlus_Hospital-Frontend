@@ -15,7 +15,7 @@ const SelectPillStorePage = () => {
     const menuList = useSelector((state) => state.menuList);
     const prescriptions = useSelector((state) => state.prescriptions);
 
-    const selected = prescriptions.selectedPrescription != null;
+    const selectedPrescription = prescriptions.list.find((element) => element.ID === prescriptions.selectedPrescriptionID);
 
     useEffect(() => {
         dispatch(prescriptionsFetch());
@@ -35,16 +35,16 @@ const SelectPillStorePage = () => {
                     </div>
                     <div className="min-w-min mt-10">
                         <p className="text-3xl border-l-4 pl-4 mb-4">ข้อมูลผู้ป่วย</p>
-                        <PatientInfoMonitor patient={prescriptions.selectedPrescription} />
+                        <PatientInfoMonitor patient={selectedPrescription} />
                     </div>
                     <button
                         className={`w-52 p-2 mt-5 ml-auto  text-white rounded-lg focus:outline-none ${
-                            selected ? 'bg-blue-500 hover:bg-blue-800' : 'bg-gray-400 cursor-not-allowed '
+                            selectedPrescription ? 'bg-blue-500 hover:bg-blue-800' : 'bg-gray-400 cursor-not-allowed '
                         }`}
                         type="button"
-                        disabled={!selected}
+                        disabled={!selectedPrescription}
                         onClick={() => {
-                            dispatch(prescriptionsUpdatePillStore({ ID: prescriptions.selectedPrescription.ID }));
+                            dispatch(prescriptionsUpdatePillStore({ ID: prescriptions.selectedPrescriptionID }));
                         }}
                     >
                         ยันยันสถานที่รับยา

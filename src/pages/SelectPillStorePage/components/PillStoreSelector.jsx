@@ -1,5 +1,5 @@
 const PillStoreSelector = () => {
-    return <div className="flex w-96 h-28 bg-red-100 rounded-lg"></div>;
+    return <div className="flex w-160 h-28 bg-red-100 shadow-md rounded-lg"></div>;
 };
 
 export default PillStoreSelector;

@@ -14,7 +14,7 @@ const PrescriptionQueueDisplay = ({ index, prescription, nowTimeStamp }) => {
         <div
             className={`flex flex-row min-w-min border-b cursor-pointer hover:bg-gray-200 ${prescription.selected ? 'bg-gray-200' : ''}`}
             onClick={() => {
-                dispatch(prescriptionsSelect({ ID: prescription.ID, selectedPrescription: prescription }));
+                dispatch(prescriptionsSelect({ ID: prescription.ID }));
             }}
         >
             <p className="w-20 px-6 py-3 text-center font-medium text-gray-500 ">{index}</p>

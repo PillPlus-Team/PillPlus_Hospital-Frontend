@@ -1,6 +1,6 @@
 const PatientInfoMonitor = ({ patient }) => {
     return (
-        <div className="flex min-w-full h-112 p-4 bg-white shadow-md rounded-lg overflow-y-auto">
+        <div className="flex w-160 h-112 p-4 bg-white shadow-md rounded-lg overflow-y-auto">
             {patient && (
                 <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
                     <tr>
@@ -46,26 +46,7 @@ const PatientInfoMonitor = ({ patient }) => {
                     </tr>
                 </table>
             )}
-            {!patient && (
-                <table className="table-fixed w-full min-w-full">
-                    <tr>
-                        <td className="w-36"></td>
-                        <td className="w-96"></td>
-                    </tr>
-                    <tr>
-                        <td className="w-36"></td>
-                        <td className="w-96"></td>
-                    </tr>
-                    <tr>
-                        <td className="w-36"></td>
-                        <td className="w-96"></td>
-                    </tr>
-                    <tr>
-                        <td className="w-36"></td>
-                        <td className="w-96"></td>
-                    </tr>
-                </table>
-            )}
+            {!patient && <p className='flex w-full h-full justify-center items-center font-medium text-gray-400 tracking-wider'>โปรดเลือกผู้ป่วย</p>}
         </div>
     );
 };
