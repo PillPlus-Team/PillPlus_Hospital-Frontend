@@ -27,7 +27,7 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
         }
     });
 
-    useEffect(async () => {
+    useEffect(() => {
         console.log('Hack Re-Rendered!');
 
         /*Mock-availablePillStores*/
@@ -46,17 +46,21 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
         setAvailablePillStoreList([...initList, ...mock]);
 
         /* For Production */
-        // const res = await fetch('/api/v1/getAvailablePillStore', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         PrescriptionID: selectedPrescriptionID,
-        //     }),
-        // });
-        // const availablePillStores = await res.json()
-        // setAvailablePillStoreList([...initList, ...availablePillStores]);
+        // const fetchData = async () => {
+        //     const res = await fetch('/api/v1/getAvailablePillStore', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             PrescriptionID: selectedPrescriptionID,
+        //         }),
+        //     });
+        //     const availablePillStores = await res.json();
+        //     setAvailablePillStoreList([...initList, ...availablePillStores]);
+        // };
+
+        // fetchData();
     }, []);
 
     useEffect(() => {
@@ -65,6 +69,7 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
                 ID: selectedPrescriptionID,
                 pillStoreID: selectedPillStore.ID,
                 pillStorePhamacy: selectedPillStore.phamacy,
+                pillStoreLocation: selectedPillStore.location,
             })
         );
     }, [selectedPillStore]);

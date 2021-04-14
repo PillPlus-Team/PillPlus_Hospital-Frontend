@@ -23,7 +23,12 @@ const prescriptionsReducer = (state = initState, action) => {
             let list = state.list;
             list = list.map((prescription) => {
                 if (prescription.ID === action.ID) {
-                    return { ...prescription, pillStoreID: action.pillStoreID, pillStorePhamacy: action.pillStorePhamacy };
+                    return {
+                        ...prescription,
+                        pillStoreID: action.pillStoreID,
+                        pillStorePhamacy: action.pillStorePhamacy,
+                        pillStoreLocation: action.pillStoreLocation,
+                    };
                 } else {
                     return prescription;
                 }

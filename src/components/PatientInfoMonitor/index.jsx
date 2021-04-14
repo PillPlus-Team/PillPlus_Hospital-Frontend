@@ -4,7 +4,7 @@ const PatientInfoMonitor = ({ patient }) => {
             <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
                 <tr>
                     <td className="font-bold w-36 py-2">รหัส HN</td>
-                    <td className="w-96 py-2">{patient.HN}</td>
+                    <td className="w-96 py-2">{patient.hn}</td>
                 </tr>
                 <tr>
                     <td className="font-bold w-36 py-2">ชื่อ</td>
@@ -12,7 +12,12 @@ const PatientInfoMonitor = ({ patient }) => {
                 </tr>
                 <tr>
                     <td className="font-bold w-36 py-2">สถานที่รับยา</td>
-                    <td className="w-96 py-2">{patient.pillStorePhamacy}</td>
+                    <td className="w-96 py-2">
+                        <div className="flex flex-col">
+                            <p>{patient.pillStorePhamacy}</p>
+                            <p className="text-sm text-gray-400 break-words">{patient.pillStoreLocation}</p>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td className="font-bold w-36 py-2 align-top">รายการยาที่ได้รับ</td>

@@ -5,7 +5,7 @@ export const prescriptionsFetch = () => {
         let prescriptions = [
             {
                 ID: 10000001,
-                HN: '10225463',
+                hn: '10225463',
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415601123,
 
@@ -14,7 +14,7 @@ export const prescriptionsFetch = () => {
             },
             {
                 ID: 10000002,
-                HN: '10225464',
+                hn: '10225464',
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415651123,
                 queueNo: 2,
@@ -30,7 +30,7 @@ export const prescriptionsFetch = () => {
             },
             {
                 ID: 10000003,
-                HN: '10225465',
+                hn: '10225465',
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415661123,
                 queueNo: 3,
@@ -51,12 +51,13 @@ export const prescriptionsSelect = ({ ID }) => {
     };
 };
 
-export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy }) => {
+export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy, pillStoreLocation }) => {
     return {
         type: PRESCRIPTIONS_SELECT_PILLSTORE,
         ID: ID,
         pillStoreID: pillStoreID,
         pillStorePhamacy: pillStorePhamacy,
+        pillStoreLocation: pillStoreLocation,
     };
 };
 
@@ -93,12 +94,13 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy }) => {
+// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy, pillStoreLocation }) => {
 //     return {
 //         type: PRESCRIPTIONS_SELECT_PILLSTORE,
 //         ID: ID,
 //         pillStoreID: pillStoreID,
 //         pillStorePhamacy: pillStorePhamacy,
+//         pillStoreLocation: pillStoreLocation
 //     };
 // };
 
