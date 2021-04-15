@@ -47,7 +47,6 @@ export const prescriptionsSelect = ({ ID }) => {
     return {
         type: PRESCRIPTIONS_SELECT,
         ID: ID,
-        selectedPrescriptionID: ID,
     };
 };
 
@@ -86,11 +85,10 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionsSelect = ({ ID, selectedPrescriptionID }) => {
+// export const prescriptionsSelect = ({ ID }) => {
 //     return {
 //         type: PRESCRIPTIONS_SELECT,
 //         ID: ID,
-//         selectedPrescriptionID: selectedPrescriptionID,
 //     };
 // };
 
