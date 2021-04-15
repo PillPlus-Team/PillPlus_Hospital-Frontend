@@ -16,7 +16,7 @@ export const menuList = [
     },
     {
         title: 'ผู้ป่วยรอคิวชำระเงิน',
-        url: '/',
+        url: '/payment',
     },
     {
         title: 'Dashboard ร้านขายยา',

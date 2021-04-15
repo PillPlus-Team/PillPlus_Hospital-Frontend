@@ -17,7 +17,7 @@ const prescriptionsReducer = (state = initState, action) => {
                 }
             });
 
-            return { ...state, list, selectedPrescriptionID: action.selectedPrescriptionID };
+            return { ...state, list, selectedPrescriptionID: action.ID };
 
         case PRESCRIPTIONS_SELECT_PILLSTORE: {
             let list = state.list;

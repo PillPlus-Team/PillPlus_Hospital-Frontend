@@ -8,8 +8,8 @@ export const prescriptionsFetch = () => {
                 hn: '10225463',
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415601123,
-
                 queueNo: 1,
+                doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
                 pills: [],
             },
             {
@@ -18,14 +18,17 @@ export const prescriptionsFetch = () => {
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415651123,
                 queueNo: 2,
+                doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
                 pills: [
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
-                    { name: 'ยา B', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'ขวด', amount: 2 },
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
-                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 100, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' },
+                    { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 50, unit: 'เม็ด' },
                 ],
             },
             {
@@ -34,7 +37,8 @@ export const prescriptionsFetch = () => {
                 name: 'พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415661123,
                 queueNo: 3,
-                pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', unit: 'เม็ด', amount: 10 }],
+                doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
+                pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด' }],
             },
         ];
 
@@ -47,7 +51,6 @@ export const prescriptionsSelect = ({ ID }) => {
     return {
         type: PRESCRIPTIONS_SELECT,
         ID: ID,
-        selectedPrescriptionID: ID,
     };
 };
 
@@ -86,11 +89,10 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionsSelect = ({ ID, selectedPrescriptionID }) => {
+// export const prescriptionsSelect = ({ ID }) => {
 //     return {
 //         type: PRESCRIPTIONS_SELECT,
 //         ID: ID,
-//         selectedPrescriptionID: selectedPrescriptionID,
 //     };
 // };
 

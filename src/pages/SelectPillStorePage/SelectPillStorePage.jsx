@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { PageLayout, PatientInfoMonitor } from '../../components';
+import { PageLayout, PatientQueue } from '../../components';
 
-import PrescriptionQueue from './components/PrescriptionQueue';
 import PillStoreSelector from './components/PillStoreSelector';
+import PrescriptionInfoMonitor from './components/PrescriptionInfoMonitor';
 
-import { prescriptionsFetch, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
+import { prescriptionsFetch, prescriptionsSelect, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
 
 const SelectPillStorePage = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,14 @@ const SelectPillStorePage = () => {
             <div className="flex flex-row justify-between w-full h-full">
                 <div className="min-w-min">
                     <p className="text-3xl border-l-4 pl-4 mb-4">ลำดับ</p>
-                    <PrescriptionQueue prescriptions={prescriptions.list} />
+                    <div className="h-176">
+                        <PatientQueue
+                            patientQueueList={prescriptions.list}
+                            onSelected={(selectedIndex) => {
+                                dispatch(prescriptionsSelect({ ID: prescriptions.list[selectedIndex].ID }));
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="flex flex-col ml-14 ">
                     <div className="min-w-min">
@@ -54,7 +61,7 @@ const SelectPillStorePage = () => {
                         )}
                         {selectedPrescription && (
                             <div className="flex w-160 h-112">
-                                <PatientInfoMonitor patient={selectedPrescription} />
+                                <PrescriptionInfoMonitor prescription={selectedPrescription} />
                             </div>
                         )}
                     </div>
