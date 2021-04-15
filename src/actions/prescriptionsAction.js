@@ -6,7 +6,7 @@ export const prescriptionsFetch = () => {
             {
                 ID: 10000001,
                 hn: '10225463',
-                name: 'พักตร์ภูมิ ตาแพร่',
+                name: 'นาย พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415601123,
                 queueNo: 1,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
@@ -15,7 +15,7 @@ export const prescriptionsFetch = () => {
             {
                 ID: 10000002,
                 hn: '10225464',
-                name: 'พักตร์ภูมิ ตาแพร่',
+                name: 'นาย พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415651123,
                 queueNo: 2,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
@@ -34,7 +34,7 @@ export const prescriptionsFetch = () => {
             {
                 ID: 10000003,
                 hn: '10225465',
-                name: 'พักตร์ภูมิ ตาแพร่',
+                name: 'นาย พักตร์ภูมิ ตาแพร่',
                 startTime: 1618415661123,
                 queueNo: 3,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',

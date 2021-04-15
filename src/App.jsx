@@ -11,9 +11,12 @@ const App = () => {
             {user && (
                 <Switch>
                     <Route exact path="/home" component={HomePage} />
+
                     <Route exact path="/profile" component={ProfilePage} />
+
                     <Route exact path="/select-pillstore" component={SelectPillStorePage} />
                     <Route exact path="/payment" component={PaymentPage} />
+                    
                     <Route exact path="/manage-account" component={ManageAccountPage} />
                     <Route exact path="/manage-pillstore" component={ManagePillStorePage} />
                     <Route exact path="/manage-pill" component={ManagePillPage} />
