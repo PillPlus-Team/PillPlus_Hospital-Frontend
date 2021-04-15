@@ -11,9 +11,9 @@ const invoicesReducer = (state = initState, action) => {
             let list = state.list;
             list = list.map((invoice) => {
                 if (invoice.ID === action.ID) {
-                    return { ...prescription, selected: true };
+                    return { ...invoice, selected: true };
                 } else {
-                    return { ...prescription, selected: false };
+                    return { ...invoice, selected: false };
                 }
             });
 
