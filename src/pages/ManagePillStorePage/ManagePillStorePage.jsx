@@ -37,7 +37,7 @@ const ManagePillStorePage = () => {
 
     useEffect(() => {
         if (pillStoresFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage(Math.floor(pillStoresFilteredID.length / (itemPerPage + 1)));
         }
     }, [pillStoresFilteredID]);
 

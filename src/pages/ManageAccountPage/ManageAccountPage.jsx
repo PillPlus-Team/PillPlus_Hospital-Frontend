@@ -38,7 +38,7 @@ const ManageAccountPage = () => {
 
     useEffect(() => {
         if (accountsFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(accountsFilteredID.length / itemPerPage);
+            setCurrentPage(Math.floor(accountsFilteredID.length / (itemPerPage + 1)));
         }
     }, [accountsFilteredID]);
 
