@@ -93,6 +93,7 @@ const ManagePillStorePage = () => {
                     <ReactPaginate
                         pageCount={pillStoresFilteredID.length / itemPerPage}
                         initialPage={currentPage}
+                        forcePage={currentPage}
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         containerClassName="flex flex-row max-w-min text-gray-500 rounded-lg shadow-md ml-auto"
