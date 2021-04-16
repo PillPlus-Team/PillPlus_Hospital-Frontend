@@ -8,12 +8,12 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        dispatch(userLogin({ username, password, history }));
+        dispatch(userLogin({ email, password, history }));
     };
 
     return (
@@ -25,14 +25,14 @@ const LoginPage = () => {
                     <form className="mt-8 w-80" onSubmit={submitHandler} autoComplete="off">
                         <input
                             className="w-full p-2 pl-4 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:outline-none"
-                            id="input-username"
-                            name="username"
+                            id="input-email"
+                            name="email"
                             type="text"
-                            value={username}
+                            value={email}
                             onChange={(event) => {
-                                setUsername(event.target.value);
+                                setEmail(event.target.value);
                             }}
-                            placeholder="ชื่อผู้ใช้"
+                            placeholder="goodboy@mail.com"
                             required
                         />
                         <input

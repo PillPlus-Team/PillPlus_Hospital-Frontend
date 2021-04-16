@@ -5,7 +5,7 @@ import { roleListFetch } from './roleListActions';
 
 import { roles } from './ultis';
 
-export const userLogin = ({ username, password, history }) => {
+export const userLogin = ({ email, password, history }) => {
     return async (dispatch) => {
         let user = {
             ID: 62010609,
@@ -46,7 +46,7 @@ export const userLogout = ({ history }) => {
 };
 
 /* For Production */
-// export const userLogin = ({ username, password, history }) => {
+// export const userLogin = ({ email, password, history }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/login', {
 //             method: 'POST',
@@ -54,7 +54,7 @@ export const userLogout = ({ history }) => {
 //                 'Content-Type': 'application/json',
 //             },
 //             body: JSON.stringify({
-//                 username,
+//                 email,
 //                 password,
 //             }),
 //         });
