@@ -1,4 +1,12 @@
-import { ACCOUNTS_FETCH, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_UPDATE, ACCOUNTS_DELETE } from '../actions/types';
+import {
+    ACCOUNTS_FETCH,
+    ACCOUNTS_SHOW,
+    ACCOUNTS_ADD_TOGGLE,
+    ACCOUNTS_ADD,
+    ACCOUNTS_EDIT_TOGGLE,
+    ACCOUNTS_UPDATE,
+    ACCOUNTS_DELETE,
+} from '../actions/types';
 
 const initState = { list: [], adding: false };
 
@@ -6,6 +14,18 @@ const accountsReducer = (state = initState, action) => {
     switch (action.type) {
         case ACCOUNTS_FETCH:
             return { list: action.accounts };
+
+        case ACCOUNTS_SHOW:
+            let list = state.list;
+            list = list.map((account) => {
+                if (action.IDList.includes(account.ID)) {
+                    return { ...account, show: true };
+                } else {
+                    return { ...account, show: false };
+                }
+            });
+
+            return { ...state, list };
 
         case ACCOUNTS_ADD_TOGGLE:
             return { ...state, adding: !state.adding };

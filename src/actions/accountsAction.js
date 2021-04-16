@@ -1,4 +1,4 @@
-import { ACCOUNTS_FETCH, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_DELETE, ACCOUNTS_UPDATE } from './types';
+import { ACCOUNTS_FETCH, ACCOUNTS_SHOW, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_DELETE, ACCOUNTS_UPDATE } from './types';
 
 import { roles } from './ultis';
 
@@ -48,10 +48,28 @@ export const accountsFetch = () => {
         ];
 
         accounts = accounts.map((account) => {
-            return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+            return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel, show: true };
         });
 
         dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
+    };
+};
+
+export const accountsFilter = ({ keyword }) => {
+    return async (dispatch, getState) => {
+        const { accounts } = getState();
+
+        let IDList = [];
+        accounts.list.map((account) => {
+            const keys = Object.keys(account);
+            for (let i = 0; i < keys.length; i++) {
+                if (String(account[keys[i]]).includes(keyword)) {
+                    return IDList.push(account.ID);
+                }
+            }
+        });
+
+        dispatch({ type: ACCOUNTS_SHOW, IDList: IDList });
     };
 };
 
@@ -75,6 +93,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
         };
 
         dispatch({ type: ACCOUNTS_ADD, account: account });
+        dispatch(accountsFilter({ keyword: '' }));
     };
 };
 
@@ -116,10 +135,28 @@ export const accountsDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             let accounts = await res.json();
 //             accounts = accounts.map((account) => {
-//                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+//                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel, show:true };
 //             });
 //             dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
 //         }
+//     };
+// };
+
+// export const accountsFilter = ({ keyword }) => {
+//     return async (dispatch, getState) => {
+//         const { accounts } = getState();
+
+//         let IDList = [];
+//         accounts.list.map((account) => {
+//             const keys = Object.keys(account);
+//             for (let i = 0; i < keys.length; i++) {
+//                 if (String(account[keys[i]]).includes(keyword)) {
+//                     return IDList.push(account.ID);
+//                 }
+//             }
+//         });
+
+//         dispatch({ type: ACCOUNTS_SHOW, IDList: IDList });
 //     };
 // };
 
@@ -151,6 +188,7 @@ export const accountsDelete = ({ ID }) => {
 //             let account = await res.json();
 //             account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_ADD, account: account });
+//             dispatch(accountsFilter({ keyword:'' }))
 //         } else {
 //             //Swal.fire (SweetAlert2) Here
 //         }

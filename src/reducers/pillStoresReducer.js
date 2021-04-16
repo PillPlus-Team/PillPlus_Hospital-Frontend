@@ -1,5 +1,6 @@
 import {
     PILLSTORES_FETCH,
+    PILLSTORES_SHOW,
     PILLSTORES_ADD_TOGGLE,
     PILLSTORES_ADD,
     PILLSTORES_EDIT_TOGGLE,
@@ -13,6 +14,18 @@ const pillStoresReducer = (state = initState, action) => {
     switch (action.type) {
         case PILLSTORES_FETCH:
             return { list: action.pillStores };
+
+        case PILLSTORES_SHOW:
+            let list = state.list;
+            list = list.map((pillStore) => {
+                if (action.IDList.includes(pillStore.ID)) {
+                    return { ...pillStore, show: true };
+                } else {
+                    return { ...pillStore, show: false };
+                }
+            });
+
+            return { ...state, list };
 
         case PILLSTORES_ADD_TOGGLE:
             return { ...state, adding: !state.adding };

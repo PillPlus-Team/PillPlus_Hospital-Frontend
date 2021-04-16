@@ -1,8 +1,8 @@
-import { PILLS_FETCH, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from './types';
+import { PILLS_FETCH, PILLS_SHOW, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from './types';
 
 export const pillsFetch = () => {
     return async (dispatch) => {
-        const pills = [
+        let pills = [
             {
                 ID: 10000001,
                 sn: '10225463',
@@ -32,7 +32,29 @@ export const pillsFetch = () => {
             },
         ];
 
+        pills = pills.map((pill) => {
+            return { ...pill, show: true };
+        });
+
         dispatch({ type: PILLS_FETCH, pills: pills });
+    };
+};
+
+export const pillsFilter = ({ keyword }) => {
+    return async (dispatch, getState) => {
+        const { pills } = getState();
+
+        let IDList = [];
+        pills.list.map((pill) => {
+            const keys = Object.keys(pill);
+            for (let i = 0; i < keys.length; i++) {
+                if (String(pill[keys[i]]).includes(keyword)) {
+                    return IDList.push(pill.ID);
+                }
+            }
+        });
+
+        dispatch({ type: PILLS_SHOW, IDList: IDList });
     };
 };
 
@@ -55,6 +77,7 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
         };
 
         dispatch({ type: PILLS_ADD, pill: pill });
+        dispatch(pillsFilter({ keyword: '' }));
     };
 };
 
@@ -90,7 +113,10 @@ export const pillsDelete = ({ ID }) => {
 //         });
 
 //         if (res.status === 200) {
-//             const pills = await res.json();
+//             let pills = await res.json();
+//             pills = pills.map((pill) => {
+//                 return { ...pill, show: true };
+//             });
 //             dispatch({ type: PILLS_FETCH, pills: pills });
 //         }
 //     };
@@ -115,6 +141,7 @@ export const pillsDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             const pill = await res.json();
 //             dispatch({ type: PILLS_ADD, pill: pill });
+//             dispatch(pillsFilter({ keyword: '' }));  
 //         } else {
 //             //Swal.fire (SweetAlert2) Here
 //         }

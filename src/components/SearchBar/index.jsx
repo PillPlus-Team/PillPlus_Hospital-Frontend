@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react';
-
-import InputText from '../InputText';
+import { useState } from 'react';
 
 const SearchBar = ({ onSearchClick = () => {} }) => {
     const [keyword, setKeyword] = useState('');
 
     const searchHandler = () => {
         onSearchClick(keyword);
+        setKeyword('');
     };
 
     return (
         <div className="flex flex-row justify-center items-center h-12">
             <div className="mr-2">
-                <InputText
-                    id="InputText-search"
+                <input
+                    className="w-full p-2 pl-4 rounded-lg border-2 focus:outline-none border-gray-200  focus:border-blue-500"
+                    id="input-search"
                     name="search"
                     type="text"
                     placeholder="ค้นหา"
+                    value={keyword}
                     autoComplete="off"
-                    onValueChange={(state) => {
-                        setKeyword(state);
+                    onChange={(event) => {
+                        setKeyword(event.target.value);
                     }}
                 />
             </div>

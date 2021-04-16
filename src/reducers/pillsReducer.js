@@ -1,4 +1,4 @@
-import { PILLS_FETCH, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from '../actions/types';
+import { PILLS_FETCH, PILLS_SHOW, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from '../actions/types';
 
 const initState = { list: [], adding: false };
 
@@ -6,6 +6,18 @@ const pillsReducer = (state = initState, action) => {
     switch (action.type) {
         case PILLS_FETCH:
             return { list: action.pills };
+
+        case PILLS_SHOW:
+            let list = state.list;
+            list = list.map((pill) => {
+                if (action.IDList.includes(pill.ID)) {
+                    return { ...pill, show: true };
+                } else {
+                    return { ...pill, show: false };
+                }
+            });
+
+            return { ...state, list };
 
         case PILLS_ADD_TOGGLE:
             return { ...state, adding: !state.adding };

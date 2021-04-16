@@ -1,8 +1,16 @@
-import { PILLSTORES_FETCH, PILLSTORES_ADD_TOGGLE, PILLSTORES_ADD, PILLSTORES_EDIT_TOGGLE, PILLSTORES_UPDATE, PILLSTORES_DELETE } from './types';
+import {
+    PILLSTORES_FETCH,
+    PILLSTORES_SHOW,
+    PILLSTORES_ADD_TOGGLE,
+    PILLSTORES_ADD,
+    PILLSTORES_EDIT_TOGGLE,
+    PILLSTORES_UPDATE,
+    PILLSTORES_DELETE,
+} from './types';
 
 export const pillStoresFetch = () => {
     return async (dispatch) => {
-        const pillStores = [
+        let pillStores = [
             {
                 ID: 10000001,
                 name: 'พักตร์ภูมิ ตาแพร่',
@@ -32,7 +40,29 @@ export const pillStoresFetch = () => {
             },
         ];
 
+        pillStores = pillStores.map((pillStore) => {
+            return { ...pillStore, show: true };
+        });
+
         dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
+    };
+};
+
+export const pillStoresFilter = ({ keyword }) => {
+    return async (dispatch, getState) => {
+        const { pillStores } = getState();
+
+        let IDList = [];
+        pillStores.list.map((pillStore) => {
+            const keys = Object.keys(pillStore);
+            for (let i = 0; i < keys.length; i++) {
+                if (String(pillStore[keys[i]]).includes(keyword)) {
+                    return IDList.push(pillStore.ID);
+                }
+            }
+        });
+
+        dispatch({ type: PILLSTORES_SHOW, IDList: IDList });
     };
 };
 
@@ -54,6 +84,7 @@ export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
         };
 
         dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
+        dispatch(pillStoresFilter({ keyword: '' }));
     };
 };
 
@@ -89,7 +120,10 @@ export const pillStoresDelete = ({ ID }) => {
 //         });
 
 //         if (res.status === 200) {
-//             const pillStores = await res.json();
+//             let pillStores = await res.json();
+//             pillStores = pillStores.map((pillStore) => {
+//                 return { ...pillStore, show: true };
+//             });
 //             dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
 //         }
 //     };
@@ -114,6 +148,7 @@ export const pillStoresDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             const pillStore = await res.json();
 //             dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
+//             dispatch(pillStoresFilter({ keyword: '' }));
 //         } else {
 //             //Swal.fire (SweetAlert2) Here
 //         }

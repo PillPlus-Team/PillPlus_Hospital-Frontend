@@ -7,7 +7,7 @@ import PillRowTitle from './components/PillRowTitle';
 import PillRow from './components/PillRow';
 import PillRowAdder from './components/PillRowAdder';
 
-import { pillsFetch, pillsAddToggle } from '../../actions/pillsAction';
+import { pillsFetch, pillsFilter, pillsAddToggle } from '../../actions/pillsAction';
 
 const ManagePillPage = () => {
     const dispatch = useDispatch();
@@ -16,9 +16,14 @@ const ManagePillPage = () => {
     const menuList = useSelector((state) => state.menuList);
     const pills = useSelector((state) => state.pills);
 
-    const [pillsFiltered, setPillsFiltered] = useState(pills.list);
+    let pillsFilteredID = pills.list.map((pill) => {
+        if (pill.show) {
+            return pill.ID;
+        }
+    });
+    pillsFilteredID = pillsFilteredID.filter((ID) => ID != null);
 
-    const isEmpty = pillsFiltered.length === 0;
+    const isEmpty = pillsFilteredID.length === 0;
 
     useEffect(() => {
         dispatch(pillsFetch());
@@ -30,21 +35,7 @@ const ManagePillPage = () => {
                 <div className="flex w-full justify-end absolute -top-14">
                     <SearchBar
                         onSearchClick={(keyword) => {
-                            if (keyword) {
-                                setPillsFiltered(
-                                    pills.list.filter((element) => {
-                                        const keys = Object.keys(element);
-                                        for (let i = 0; i < keys.length; i++) {
-                                            if (String(element[keys[i]]).includes(keyword)) {
-                                                return true;
-                                            }
-                                        }
-                                        return false;
-                                    })
-                                );
-                            } else {
-                                setPillsFiltered(pills.list);
-                            }
+                            dispatch(pillsFilter({ keyword: keyword }));
                         }}
                     />
                 </div>
@@ -52,8 +43,8 @@ const ManagePillPage = () => {
                     <PillRowTitle />
                     {isEmpty && !pills.adding && <RowEmpty colSpan="9" text="ไม่มีข้อมูล" />}
 
-                    {pillsFiltered.map((pill, index) => {
-                        return <PillRow index={index + 1} pill={pill} pills={pills.list} />;
+                    {pills.list.map((pill) => {
+                        return <>{pill.show && <PillRow index={pillsFilteredID.indexOf(pill.ID) + 1} pill={pill} pills={pills.list} />}</>;
                     })}
 
                     {pills.adding && <PillRowAdder pills={pills.list} />}

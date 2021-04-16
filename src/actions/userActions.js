@@ -13,7 +13,7 @@ export const userLogin = ({ username, password, history }) => {
             surname: 'ตาแพร่',
             email: 'phoom0529@gmail.com',
             phone: '0931425177',
-            role: 'Adminstrator',
+            role: 'Super Adminstrator',
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
 
