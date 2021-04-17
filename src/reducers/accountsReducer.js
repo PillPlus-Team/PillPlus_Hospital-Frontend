@@ -15,7 +15,7 @@ const accountsReducer = (state = initState, action) => {
         case ACCOUNTS_FETCH:
             return { list: action.accounts };
 
-        case ACCOUNTS_SHOW:
+        case ACCOUNTS_SHOW: {
             let list = state.list;
             list = list.map((account) => {
                 if (action.IDList.includes(account.ID)) {
@@ -26,6 +26,7 @@ const accountsReducer = (state = initState, action) => {
             });
 
             return { ...state, list };
+        }
 
         case ACCOUNTS_ADD_TOGGLE:
             return { ...state, adding: !state.adding };

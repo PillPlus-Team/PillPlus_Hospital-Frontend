@@ -7,7 +7,7 @@ const prescriptionsReducer = (state = initState, action) => {
         case PRESCRIPTIONS_FETCH:
             return { list: action.prescriptions };
 
-        case PRESCRIPTIONS_SELECT:
+        case PRESCRIPTIONS_SELECT: {
             let list = state.list;
             list = list.map((prescription) => {
                 if (prescription.ID === action.ID) {
@@ -18,7 +18,8 @@ const prescriptionsReducer = (state = initState, action) => {
             });
 
             return { ...state, list, selectedPrescriptionID: action.ID };
-
+        }
+        
         case PRESCRIPTIONS_SELECT_PILLSTORE: {
             let list = state.list;
             list = list.map((prescription) => {

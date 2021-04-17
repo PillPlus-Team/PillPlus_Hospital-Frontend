@@ -19,8 +19,8 @@ export const menuList = [
         url: '/payment',
     },
     {
-        title: 'Dashboard ร้านขายยา',
-        url: '/',
+        title: 'เช็คยอดร้านขายยา',
+        url: '/statement',
     },
     {
         title: 'จัดการบัญชีผู้ใช้',

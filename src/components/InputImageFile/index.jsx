@@ -36,7 +36,7 @@ const InputImageFile = ({ className, id, name, accept, limitSizeMB, initImageUrl
             <img
                 className={`w-80 h-80 shadow-md opacity-70 cursor-pointer object-cover hover:bg-gray-200 ${className}`}
                 id="img-preview"
-                alt="preview-image"
+                alt="preview"
                 src={previewImageUrl}
                 onMouseEnter={() => {
                     document.getElementById('img-preview').src = 'https://static.thenounproject.com/png/1156518-200.png';

@@ -5,6 +5,7 @@ export { default as ProfilePage } from './ProfilePage/ProfilePage';
 
 export { default as SelectPillStorePage } from './SelectPillStorePage/SelectPillStorePage';
 export { default as PaymentPage } from './PaymentPage/PaymentPage';
+export { default as StatementPage } from './StatementPage/StatementPage';
 
 export { default as ManageAccountPage } from './ManageAccountPage/ManageAccountPage';
 export { default as ManagePillStorePage } from './ManagePillStorePage/ManagePillStorePage';

@@ -4,6 +4,7 @@ import userReducer from './userReducer';
 import menuListReducer from './menuListReducer';
 import prescriptionsReducer from './prescriptionsReducer';
 import invoicesReducer from './invoicesReducer';
+import statementsReducer from './statementsReducer';
 import accountsReducer from './accountsReducer';
 import pillStoresReducer from './pillStoresReducer';
 import pillsReducer from './pillsReducer';
@@ -15,6 +16,7 @@ export default combineReducers({
     roleList: roleListReducer,
     prescriptions: prescriptionsReducer,
     invoices: invoicesReducer,
+    statements: statementsReducer,
     accounts: accountsReducer,
     pillStores: pillStoresReducer,
     pills: pillsReducer,

@@ -15,7 +15,7 @@ const pillStoresReducer = (state = initState, action) => {
         case PILLSTORES_FETCH:
             return { list: action.pillStores };
 
-        case PILLSTORES_SHOW:
+        case PILLSTORES_SHOW: {
             let list = state.list;
             list = list.map((pillStore) => {
                 if (action.IDList.includes(pillStore.ID)) {
@@ -26,6 +26,7 @@ const pillStoresReducer = (state = initState, action) => {
             });
 
             return { ...state, list };
+        }
 
         case PILLSTORES_ADD_TOGGLE:
             return { ...state, adding: !state.adding };
