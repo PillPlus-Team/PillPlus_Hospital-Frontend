@@ -23,9 +23,11 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
 
     return (
         <div className="w-full">
-            <label className="block mb-1 text-sm font-medium text-gray-700" id="listbox-label">
-                {label}
-            </label>
+            {label && (
+                <label className="block mb-1 text-sm font-medium text-gray-700" id="listbox-label">
+                    {label}
+                </label>
+            )}
             <div className="relative" id={id} name={name}>
                 <button
                     class="relative w-full bg-white border-2 border-gray-300 rounded-md shadow-sm pl-2 pr-10 py-2 text-left focus:outline-none focus:border-blue-500 "
@@ -55,7 +57,7 @@ const InputDropdown = ({ id, name, label, optionList = [''], selectedIndex = 0, 
                 </button>
                 {showOption && (
                     <ul
-                        class="z-50 absolute mt-1 w-full bg-white shadow-lg max-h-28 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                        class="z-50 absolute mt-1 w-full bg-white shadow-lg max-h-64 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
                         role="listbox"
                     >
                         {optionList.map((option, index) => {

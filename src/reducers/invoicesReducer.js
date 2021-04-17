@@ -7,7 +7,7 @@ const invoicesReducer = (state = initState, action) => {
         case INVOICES_FETCH:
             return { list: action.invoices };
 
-        case INVOICES_SELECT:
+        case INVOICES_SELECT: {
             let list = state.list;
             list = list.map((invoice) => {
                 if (invoice.ID === action.ID) {
@@ -18,6 +18,7 @@ const invoicesReducer = (state = initState, action) => {
             });
 
             return { ...state, list, selectedInvoiceID: action.ID };
+        }
 
         case INVOICES_PAY: {
             let list = state.list;
