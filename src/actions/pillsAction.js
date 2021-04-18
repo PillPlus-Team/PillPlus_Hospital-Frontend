@@ -1,5 +1,7 @@
 import { PILLS_FETCH, PILLS_SHOW, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from './types';
 
+import { DeleteAlertDialog, Toast } from './swals';
+
 export const pillsFetch = () => {
     return async (dispatch) => {
         let pills = [
@@ -132,6 +134,7 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
 
         dispatch({ type: PILLS_ADD, pill: pill });
         dispatch(pillsFilter({ keyword: '' }));
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
@@ -146,13 +149,28 @@ export const pillsUpdate = ({ ID, sn, name, description, unit, price, type }) =>
     return async (dispatch, getState) => {
         const { pills } = getState();
         const pill = pills.list.find((pill) => pill.ID === ID);
+
         dispatch({ type: PILLS_UPDATE, pill: { ...pill, sn, name, description, unit, price, type } });
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
 export const pillsDelete = ({ ID }) => {
-    return async (dispatch) => {
-        dispatch({ type: PILLS_DELETE, ID: ID });
+    return async (dispatch, getState) => {
+        const { pills } = getState();
+
+        const pill = pills.list.find((pill) => pill.ID === ID);
+
+        DeleteAlertDialog.fire({
+            title: 'ยืนยันที่จะลบข้อมูลยา',
+            html: `<br> SN ${pill.sn} <br><br>` + `ชื่อยา : <b>${pill.name}</b> <br>`,
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: PILLS_DELETE, ID: ID });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            }
+        });
     };
 };
 
@@ -195,9 +213,10 @@ export const pillsDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             const pill = await res.json();
 //             dispatch({ type: PILLS_ADD, pill: pill });
-//             dispatch(pillsFilter({ keyword: '' }));  
+//             dispatch(pillsFilter({ keyword: '' }));
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
@@ -222,28 +241,42 @@ export const pillsDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             const editedPill = await res.json();
 //             dispatch({ type: PILLS_UPDATE, pill: { ...editedPill } });
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
 
 // export const pillsDelete = ({ ID }) => {
 //     return async (dispatch) => {
-//         const res = await fetch('/api/v1/deletePill', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID,
-//             }),
-//         });
+//         const { pills } = getState();
 
-//         if (res.status === 200) {
-//             dispatch({ type: PILLS_DELETE, ID: ID });
-//         } else {
-//             //Swal.fire (SweetAlert2) Here
-//         }
+//         const pill = pills.list.find((pill) => pill.ID === ID);
+
+//         DeleteAlertDialog.fire({
+//             title: 'ยืนยันที่จะลบข้อมูลยา',
+//             html: `<br> SN ${pill.sn} <br><br>` + `ชื่อยา : <b>${pill.name}</b> <br>`,
+//             icon: 'warning',
+//         }).then(async (result) => {
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/deletePill', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         ID,
+//                     }),
+//                 });
+
+//                 if (res.status === 200) {
+//                     dispatch({ type: PILLS_DELETE, ID: ID });
+//                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//                 } else {
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
+//         });
 //     };
 // };

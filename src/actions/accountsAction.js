@@ -2,6 +2,8 @@ import { ACCOUNTS_FETCH, ACCOUNTS_SHOW, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOU
 
 import { roles } from './ultis';
 
+import { DeleteAlertDialog, Toast } from './swals';
+
 export const accountsFetch = () => {
     return async (dispatch) => {
         let accounts = [
@@ -144,6 +146,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
 
         dispatch({ type: ACCOUNTS_ADD, account: account });
         dispatch(accountsFilter({ keyword: '' }));
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
@@ -163,12 +166,26 @@ export const accountUpdate = ({ ID, name, surname, email, phone, role }) => {
             type: ACCOUNTS_UPDATE,
             account: { ...account, name, surname, email, phone, role, roleLevel: roles.find((element) => element.role.includes(role)).roleLevel },
         });
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
 export const accountsDelete = ({ ID }) => {
-    return async (dispatch) => {
-        dispatch({ type: ACCOUNTS_DELETE, ID: ID });
+    return async (dispatch, getState) => {
+        const { accounts } = getState();
+
+        const account = accounts.list.find((account) => account.ID === ID);
+
+        DeleteAlertDialog.fire({
+            title: 'ยืนยันที่จะลบบัญชีผู้ใช้',
+            html: `<br> ID ${account.ID} : ${account.name} ${account.surname} <br><br>` + `สิทธิ์ผู้ใช้ <b>${account.role}</b> <br>`,
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: ACCOUNTS_DELETE, ID: ID });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            }
+        });
     };
 };
 
@@ -239,8 +256,9 @@ export const accountsDelete = ({ ID }) => {
 //             account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_ADD, account: account });
 //             dispatch(accountsFilter({ keyword:'' }))
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
@@ -273,28 +291,41 @@ export const accountsDelete = ({ ID }) => {
 //             let editedAccount = await res.json();
 //             editedAccount = { ...editedAccount, roleLevel: roles.find((element) => element.role.includes(editedAccount.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_UPDATE, account: { ...editedAccount } });
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
 
 // export const accountsDelete = ({ ID }) => {
-//     return async (dispatch) => {
-//         const res = await fetch('/api/v1/deleteAccount', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID,
-//             }),
-//         });
+//     return async (dispatch, getState) => {
+//         const { accounts } = getState();
 
-//         if (res.status === 200) {
-//             dispatch({ type: ACCOUNTS_DELETE, ID: ID });
-//         } else {
-//             //Swal.fire (SweetAlert2) Here
-//         }
+//         const account = accounts.list.find((account) => account.ID === ID);
+
+//         DeleteAlertDialog.fire({
+//             title: 'ยืนยันที่จะลบบัญชีผู้ใช้',
+//             html: `<br> ID ${account.ID} : ${account.name} ${account.surname} <br><br>` + `สิทธิ์ผู้ใช้ <b>${account.role}</b> <br>`,
+//             icon: 'warning',
+//         }).then(async (result) => {
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/deleteAccount', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         ID,
+//                     }),
+//                 });
+//                 if (res.status === 200) {
+//                     dispatch({ type: ACCOUNTS_DELETE, ID: ID });
+//                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//                 } else {
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
+//         });
 //     };
 // };

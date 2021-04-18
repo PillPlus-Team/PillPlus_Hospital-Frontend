@@ -8,6 +8,8 @@ import {
     PILLSTORES_DELETE,
 } from './types';
 
+import { DeleteAlertDialog, Toast } from './swals';
+
 export const pillStoresFetch = () => {
     return async (dispatch) => {
         let pillStores = [
@@ -139,6 +141,7 @@ export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
 
         dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
         dispatch(pillStoresFilter({ keyword: '' }));
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
@@ -153,13 +156,31 @@ export const pillStoresUpdate = ({ ID, name, phamacy, location, email, phone }) 
     return async (dispatch, getState) => {
         const { pillStores } = getState();
         const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+
         dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...pillStore, name, phamacy, location, email, phone } });
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
 export const pillStoresDelete = ({ ID }) => {
-    return async (dispatch) => {
-        dispatch({ type: PILLSTORES_DELETE, ID: ID });
+    return async (dispatch, getState) => {
+        const { pillStores } = getState();
+
+        const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+
+        DeleteAlertDialog.fire({
+            title: 'ยืนยันที่จะลบบัญชีร้านขายยา',
+            html:
+                `<br> ID ${pillStore.ID} : ${pillStore.name} <br><br>` +
+                `ชื่อร้าน <b>${pillStore.phamacy}</b> <br>` +
+                `ที่อยู่ <b>${pillStore.location}</b> <br>`,
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: PILLSTORES_DELETE, ID: ID });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            }
+        });
     };
 };
 
@@ -203,8 +224,9 @@ export const pillStoresDelete = ({ ID }) => {
 //             const pillStore = await res.json();
 //             dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
 //             dispatch(pillStoresFilter({ keyword: '' }));
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
@@ -229,28 +251,44 @@ export const pillStoresDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             const editedPillStore = await res.json();
 //             dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...editedPillStore } });
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
 
 // export const pillStoresDelete = ({ ID }) => {
-//     return async (dispatch) => {
-//         const res = await fetch('/api/v1/deletePillStore', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID,
-//             }),
-//         });
+//     return async (dispatch, getState) => {
+//         const { pillStores } = getState();
 
-//         if (res.status === 200) {
-//             dispatch({ type: PILLSTORES_DELETE, ID: ID });
-//         } else {
-//             //Swal.fire (SweetAlert2) Here
-//         }
+//         const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+
+//         DeleteAlertDialog.fire({
+//             title: 'ยืนยันที่จะลบบัญชีร้านขายยา',
+//             html:
+//                 `<br> ID ${pillStore.ID} : ${pillStore.name} <br><br>` +
+//                 `ชื่อร้าน <b>${pillStore.phamacy}</b> <br>` +
+//                 `ที่อยู่ <b>${pillStore.location}</b> <br>`,
+//             icon: 'warning',
+//         }).then(async (result) => {
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/deletePillStore', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         ID,
+//                     }),
+//                 });
+//                 if (res.status === 200) {
+//                     dispatch({ type: PILLSTORES_DELETE, ID: ID });
+//                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//                 } else {
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
+//         });
 //     };
 // };

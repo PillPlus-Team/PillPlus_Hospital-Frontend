@@ -1,5 +1,7 @@
 import { INVOICES_FETCH, INVOICES_SELECT, INVOICES_PAY } from './types';
 
+import { ConfirmDialog, Toast } from './swals';
+
 export const invoicesFetch = () => {
     return async (dispatch) => {
         let invoices = [
@@ -65,9 +67,30 @@ export const invoicesSelect = ({ ID }) => {
 };
 
 export const invoicesPay = ({ ID }) => {
-    return {
-        type: INVOICES_PAY,
-        ID: ID,
+    return async (dispatch, getState) => {
+        const { invoices } = getState();
+
+        const invoice = invoices.list.find((invoice) => invoice.ID === ID);
+
+        ConfirmDialog.fire({
+            title: 'ยืนยันการชำระเงิน',
+            html:
+                `<br> HN ${invoice.hn} : ${invoice.name} <br><br>` +
+                `รับยาที่ ${invoice.pillStorePhamacy} <br>` +
+                `ที่อยู่ ${invoice.pillStoreLocation} <br><br>` +
+                `ยอดชำระทั้งสิ้น <b>${Number(invoice.totalPay).toLocaleString('th-TH', {
+                    style: 'currency',
+                    currency: 'THB',
+                    minimumFractionDigits: 2,
+                })}</b> <br>`,
+
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: INVOICES_PAY, ID: ID });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
+            }
+        });
     };
 };
 
@@ -100,22 +123,40 @@ export const invoicesPay = ({ ID }) => {
 //     return async (dispatch, getState) => {
 //         const { invoices } = getState();
 
-//         const invoice = invoices.list.find((element) => element.ID === ID);
+//         const invoice = invoices.list.find((invoice) => invoice.ID === ID);
 
-//         const res = await fetch('/api/v1/invoicePay', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID,
-//             }),
+//         ConfirmDialog.fire({
+//             title: 'ยืนยันการชำระเงิน',
+//             html:
+//                 `<br> HN ${invoice.hn} : ${invoice.name} <br><br>` +
+//                 `รับยาที่ ${invoice.pillStorePhamacy} <br>` +
+//                 `ที่อยู่ ${invoice.pillStoreLocation} <br><br>` +
+//                 `ยอดชำระทั้งสิ้น <b>${Number(invoice.totalPay).toLocaleString('th-TH', {
+//                     style: 'currency',
+//                     currency: 'THB',
+//                     minimumFractionDigits: 2,
+//                 })}</b> <br>`,
+
+//             icon: 'warning',
+//         }).then(async (result) => {
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/invoicePay', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         ID,
+//                     }),
+//                 });
+
+//                 if (res.status === 200) {
+//                     dispatch({ type: INVOICES_PAY, ID: ID });
+//                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
+//                 } else {
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
 //         });
-
-//         if (res.status === 200) {
-//             dispatch({ type: INVOICES_PAY, ID: ID });
-//         } else {
-//             //Swal.fire (SweetAlert2) Here
-//         }
 //     };
 // };

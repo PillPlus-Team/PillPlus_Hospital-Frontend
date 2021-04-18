@@ -5,6 +5,8 @@ import { roleListFetch } from './roleListActions';
 
 import { roles } from './ultis';
 
+import { ConfirmDialog, Toast } from './swals';
+
 export const userLogin = ({ email, password, history }) => {
     return async (dispatch) => {
         let user = {
@@ -35,13 +37,22 @@ export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) =>
     return async (dispatch, getState) => {
         const { user } = getState();
         dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUrl, name, surname, email, phone } });
+        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
 export const userLogout = ({ history }) => {
     return async (dispatch) => {
-        dispatch({ type: USER_LOGOUT });
-        history.push('/login');
+        ConfirmDialog.fire({
+            title: 'ออกจากระบบ ?',
+            text: 'ท่านกำลังออกจากระบบ',
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: USER_LOGOUT });
+                history.push('/login');
+            }
+        });
     };
 };
 
@@ -65,8 +76,17 @@ export const userLogout = ({ history }) => {
 //             dispatch(menuListFetch());
 //             dispatch(roleListFetch());
 //             history.push('/home');
+//         } else if (res.status == 403) {
+//             Toast.fire({
+//                 title: 'อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง',
+//                 icon: 'error',
+//             });
 //         } else {
-//             //Swal.fire (SweetAlert2) Here
+//             Toast.fire({
+//                 title: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
+//                 text: 'กรุณาติดต่อผู้ดูแลระบบ',
+//                 icon: 'error',
+//             });
 //         }
 //     };
 // };
@@ -105,24 +125,36 @@ export const userLogout = ({ history }) => {
 //         if (res.status == 200) {
 //             const editedUser = await res.json();
 //             dispatch({ type: USER_UPDATE_PROFILE, user: { ...editedUser } });
+//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
-//             // Swal.fire (SweetAlert2) Here
+//             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //         }
 //     };
 // };
 
 // export const userLogout = ({ history }) => {
 //     return async (dispatch) => {
-//         const res = await fetch('/api/v1/logout', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//         });
+//         ConfirmDialog.fire({
+//             title: 'ออกจากระบบ ?',
+//             text: 'ท่านกำลังออกจากระบบ',
+//             icon: 'warning',
+//         }).then(async (result) => { 
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/logout', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                 });
 
-//         if (res.status == 200) {
-//             dispatch({ type: USER_LOGOUT });
-//             history.push('/login');
-//         }
+//                 if (res.status == 200) {
+//                     dispatch({ type: USER_LOGOUT });
+//                     history.push('/login');
+//                 }
+//                 else{
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
+//         });
 //     };
 // };

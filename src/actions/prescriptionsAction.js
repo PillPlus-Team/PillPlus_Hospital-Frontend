@@ -1,5 +1,7 @@
 import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from './types';
 
+import { ConfirmDialog, Toast } from './swals';
+
 export const prescriptionsFetch = () => {
     return async (dispatch) => {
         let prescriptions = [
@@ -65,9 +67,24 @@ export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy,
 };
 
 export const prescriptionsUpdatePillStore = ({ ID }) => {
-    return {
-        type: PRESCRIPTIONS_UPDATE_PILLSTORE,
-        ID: ID,
+    return async (dispatch, getState) => {
+        const { prescriptions } = getState();
+
+        const prescription = prescriptions.list.find((prescription) => prescription.ID === ID);
+
+        ConfirmDialog.fire({
+            title: 'ยืนยันสถานที่รับยา',
+            html:
+                `<br> HN ${prescription.hn} : ${prescription.name} <br><br>` +
+                `รับยาที่ <b>${prescription.pillStorePhamacy}</b> <br>` +
+                `ที่อยู่ <b>${prescription.pillStoreLocation}</b> <br>`,
+            icon: 'warning',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, ID: ID });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
+            }
+        });
     };
 };
 
@@ -110,23 +127,35 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     return async (dispatch, getState) => {
 //         const { prescriptions } = getState();
 
-//         const prescription = prescriptions.list.find((element) => element.ID === ID);
+//         const prescription = prescriptions.list.find((prescription) => prescription.ID === ID);
 
-//         const res = await fetch('/api/v1/prescriptionAddLocation', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 ID,
-//                 pillStoreID: prescription.pillStoreID,
-//             }),
+//         ConfirmDialog.fire({
+//             title: 'ยืนยันสถานที่รับยา',
+//             html:
+//                 `<br> HN ${prescription.hn} : ${prescription.name} <br><br>` +
+//                 `รับยาที่ <b>${prescription.pillStorePhamacy}</b> <br>` +
+//                 `ที่อยู่ <b>${prescription.pillStoreLocation}</b> <br>`,
+//             icon: 'warning',
+//         }).then(async (result) => {
+//             if (result.isConfirmed) {
+//                 const res = await fetch('/api/v1/prescriptionAddLocation', {
+//                     method: 'POST',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify({
+//                         ID,
+//                         pillStoreID: prescription.pillStoreID,
+//                     }),
+//                 });
+
+//                 if (res.status === 200) {
+//                     dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, ID: ID });
+//                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
+//                 } else {
+//                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                 }
+//             }
 //         });
-
-//         if (res.status === 200) {
-//             dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, ID: ID });
-//         }else {
-//             //Swal.fire (SweetAlert2) Here
-//         }
 //     };
 // };
