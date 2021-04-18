@@ -51,7 +51,6 @@ const StatementPage = () => {
 
     useEffect(() => {
         dispatch(statementsFetchByMonth({ month: month, year: year }));
-        dispatch(statementsFilter({ keyword: '', month: month, year: year }));
     }, [month, year]);
 
     useEffect(() => {

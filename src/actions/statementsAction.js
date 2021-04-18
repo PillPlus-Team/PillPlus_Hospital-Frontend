@@ -122,10 +122,8 @@ export const statementsFetchByMonth = ({ month, year }) => {
             ];
         }
 
-        statements = statements.map((statement) => {
-            return { ...statement, show: true };
-        });
         dispatch({ type: STATEMENTS_FETCH_BY_MONTH, statements: statements, month: month, year: year });
+        dispatch(statementsFilter({ keyword: '', month: month, year: year }));
     };
 };
 
@@ -168,6 +166,7 @@ export const statementsFilter = ({ keyword, month, year }) => {
 //                 return { ...statement, show: true };
 //             });
 //             dispatch({ type: STATEMENTSLIST_FETCH_BY_MONTH, statements: statements, month: month, year: year });
+//             dispatch(statementsFilter({ keyword: '', month: month, year: year }));
 //         }
 //     };
 // };

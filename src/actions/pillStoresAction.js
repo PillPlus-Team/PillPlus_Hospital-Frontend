@@ -96,11 +96,8 @@ export const pillStoresFetch = () => {
             },
         ];
 
-        pillStores = pillStores.map((pillStore) => {
-            return { ...pillStore, show: true };
-        });
-
         dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
+        dispatch(pillStoresFilter({ keyword: '' }));
     };
 };
 
@@ -196,10 +193,9 @@ export const pillStoresDelete = ({ ID }) => {
 
 //         if (res.status === 200) {
 //             let pillStores = await res.json();
-//             pillStores = pillStores.map((pillStore) => {
-//                 return { ...pillStore, show: true };
-//             });
+
 //             dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
+//             dispatch(pillStoresFilter({ keyword: '' }));
 //         }
 //     };
 // };
@@ -227,6 +223,7 @@ export const pillStoresDelete = ({ ID }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//             dispatch(pillStoresFetch())
 //         }
 //     };
 // };
@@ -254,6 +251,7 @@ export const pillStoresDelete = ({ ID }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//             dispatch(pillStoresFetch())
 //         }
 //     };
 // };
@@ -287,6 +285,7 @@ export const pillStoresDelete = ({ ID }) => {
 //                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                     dispatch(pillStoresFetch())
 //                 }
 //             }
 //         });

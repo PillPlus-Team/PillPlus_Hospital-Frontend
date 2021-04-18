@@ -100,10 +100,11 @@ export const accountsFetch = () => {
         ];
 
         accounts = accounts.map((account) => {
-            return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel, show: true };
+            return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
         });
 
         dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
+        dispatch(accountsFilter({ keyword: '' }));
     };
 };
 
@@ -202,9 +203,10 @@ export const accountsDelete = ({ ID }) => {
 //         if (res.status === 200) {
 //             let accounts = await res.json();
 //             accounts = accounts.map((account) => {
-//                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel, show:true };
+//                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             });
 //             dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
+//             dispatch(accountsFilter({keyword:''}));
 //         }
 //     };
 // };
@@ -259,6 +261,7 @@ export const accountsDelete = ({ ID }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//             dispatch(accountsFetch());
 //         }
 //     };
 // };
@@ -294,6 +297,7 @@ export const accountsDelete = ({ ID }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//             dispatch(accountsFetch());
 //         }
 //     };
 // };
@@ -324,6 +328,7 @@ export const accountsDelete = ({ ID }) => {
 //                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                     dispatch(accountsFetch());
 //                 }
 //             }
 //         });

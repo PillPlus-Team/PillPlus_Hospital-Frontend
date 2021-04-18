@@ -154,6 +154,7 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
 //                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                     dispatch(prescriptionsFetch());
 //                 }
 //             }
 //         });

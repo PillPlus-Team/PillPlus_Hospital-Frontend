@@ -2,6 +2,7 @@ import { USER_LOGIN, USER_EDIT_PROFILE_TOGGLE, USER_UPDATE_PROFILE, USER_LOGOUT 
 
 import { menuListFetch } from './menuListActions';
 import { roleListFetch } from './roleListActions';
+import { accountsFetch } from './accountsAction';
 
 import { roles } from './ultis';
 
@@ -182,6 +183,7 @@ export const userLogout = ({ history }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//             dispatch(accountsFetch())
 //         }
 //     };
 // };
