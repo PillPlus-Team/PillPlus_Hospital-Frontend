@@ -5,7 +5,7 @@ import { roleListFetch } from './roleListActions';
 
 import { roles } from './ultis';
 
-import { ConfirmDialog, Toast } from './swals';
+import { ConfirmDialog, ChaningModal, Toast } from './swals';
 
 export const userLogin = ({ email, password, history }) => {
     return async (dispatch) => {
@@ -38,6 +38,60 @@ export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) =>
         const { user } = getState();
         dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUrl, name, surname, email, phone } });
         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+    };
+};
+
+export const userChangePassword = () => {
+    return async () => {
+        ChaningModal.mixin({
+            progressSteps: ['1', '2'],
+        })
+            .queue([
+                {
+                    title: 'รหัสผ่านเดิม',
+                    html:
+                        '<p>โปรดกรอก รหัสผ่านเดิมของท่าน</p>' +
+                        '<input id="old-password" class="swal2-input" type="password" placeholder="รหัสผ่าน" autocomplete="off">',
+                    preConfirm: () => {
+                        if (!document.getElementById('old-password').value) {
+                            ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่าน');
+                        } else {
+                            return document.getElementById('old-password').value;
+                        }
+                    },
+                    confirmButtonText: 'ถัดไป',
+                    cancelButtonText: 'ยกเลิก',
+                },
+                {
+                    title: 'ป้อนรหัสผ่านใหม่',
+                    html:
+                        '<p>โปรดกรอก รหัสผ่านที่ท่านต้องการ</p>' +
+                        '<input id="new-password-1" class="swal2-input" type="password" placeholder="รหัสผ่านใหม่" autocomplete="off">' +
+                        '<input id="new-password-2" class="swal2-input" type="password" placeholder="รหัสผ่านใหม่ (อีกครั้ง)" autocomplete="off">',
+                    preConfirm: () => {
+                        if (!document.getElementById('new-password-1').value || !document.getElementById('new-password-2').value) {
+                            ChaningModal.showValidationMessage('กรุณากรอกข้อมูลให้ครบ');
+                        } else if (document.getElementById('new-password-1').value !== document.getElementById('new-password-2').value) {
+                            ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่านใหม่ ให้ตรงกัน');
+                        } else {
+                            return [document.getElementById('new-password-1').value, document.getElementById('new-password-2').value];
+                        }
+                    },
+                    confirmButtonText: 'ยืนยัน',
+                    cancelButtonText: 'ยกเลิก',
+                },
+            ])
+            .then((result) => {
+                try {
+                    const password = result.value[0];
+                    const newPassword = result.value[1][0];
+                    const reNewPassword = result.value[1][1];
+
+                    if (password && newPassword && reNewPassword) {
+                        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+                    }
+                } catch (error) {}
+            });
     };
 };
 
@@ -132,13 +186,81 @@ export const userLogout = ({ history }) => {
 //     };
 // };
 
+// export const userChangePassword = () => {
+//     return async () => {
+//         ChaningModal.mixin({
+//             progressSteps: ['1', '2'],
+//         })
+//             .queue([
+//                 {
+//                     title: 'รหัสผ่านเดิม',
+//                     html:
+//                         '<p>โปรดกรอก รหัสผ่านเดิมของท่าน</p>' +
+//                         '<input id="old-password" class="swal2-input" type="password" placeholder="รหัสผ่าน" autocomplete="off">',
+//                     preConfirm: () => {
+//                         if (!document.getElementById('old-password').value) {
+//                             ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่าน');
+//                         } else {
+//                             return document.getElementById('old-password').value;
+//                         }
+//                     },
+//                     confirmButtonText: 'ถัดไป',
+//                     cancelButtonText: 'ยกเลิก',
+//                 },
+//                 {
+//                     title: 'ป้อนรหัสผ่านใหม่',
+//                     html:
+//                         '<p>โปรดกรอก รหัสผ่านที่ท่านต้องการ</p>' +
+//                         '<input id="new-password-1" class="swal2-input" type="password" placeholder="รหัสผ่านใหม่" autocomplete="off">' +
+//                         '<input id="new-password-2" class="swal2-input" type="password" placeholder="รหัสผ่านใหม่ (อีกครั้ง)" autocomplete="off">',
+//                     preConfirm: () => {
+//                         if (!document.getElementById('new-password-1').value || !document.getElementById('new-password-2').value) {
+//                             ChaningModal.showValidationMessage('กรุณากรอกข้อมูลให้ครบ');
+//                         } else if (document.getElementById('new-password-1').value !== document.getElementById('new-password-2').value) {
+//                             ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่านใหม่ ให้ตรงกัน');
+//                         } else {
+//                             return [document.getElementById('new-password-1').value, document.getElementById('new-password-2').value];
+//                         }
+//                     },
+//                     confirmButtonText: 'ยืนยัน',
+//                     cancelButtonText: 'ยกเลิก',
+//                 },
+//             ])
+//             .then(async (result) => {
+//                 try {
+//                     const password = result.value[0];
+//                     const newPassword = result.value[1][0];
+//                     const reNewPassword = result.value[1][1];
+
+//                     const res = await fetch('/api/v1/changePassword', {
+//                         method: 'POST',
+//                         headers: {
+//                             'Content-Type': 'application/json',
+//                         },
+//                         body: JSON.stringify({
+//                             password,
+//                             newPassword,
+//                             reNewPassword,
+//                         }),
+//                     });
+
+//                     if (res.status === 200) {
+//                         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//                     } else {
+//                         Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+//                     }
+//                 } catch (error) {}
+//             });
+//     };
+// };
+
 // export const userLogout = ({ history }) => {
 //     return async (dispatch) => {
 //         ConfirmDialog.fire({
 //             title: 'ออกจากระบบ ?',
 //             text: 'ท่านกำลังออกจากระบบ',
 //             icon: 'warning',
-//         }).then(async (result) => { 
+//         }).then(async (result) => {
 //             if (result.isConfirmed) {
 //                 const res = await fetch('/api/v1/logout', {
 //                     method: 'POST',

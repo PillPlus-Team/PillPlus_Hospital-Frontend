@@ -1,18 +1,9 @@
 import { useDispatch } from 'react-redux';
 
-import { userEditProfileToggle } from '../../../actions/userActions';
+import { userEditProfileToggle, userChangePassword } from '../../../actions/userActions';
 
 const ProfileDisplay = ({ userInfo }) => {
     const dispatch = useDispatch();
-
-    const changePasswordHandler = () => {
-        //for Debug
-        console.log('Change Password Click!');
-
-        /*
-            Logic here!
-        */
-    };
 
     return (
         <div className="flex flex-row min-w-max bg-white rounded-lg shadow-md ">
@@ -49,7 +40,9 @@ const ProfileDisplay = ({ userInfo }) => {
                             <button
                                 className="w-52 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
                                 type="button"
-                                onClick={changePasswordHandler}
+                                onClick={() => {
+                                    dispatch(userChangePassword());
+                                }}
                             >
                                 เปลี่ยนรหัสผ่าน
                             </button>

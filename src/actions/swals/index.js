@@ -1,5 +1,7 @@
 import Swal from 'sweetalert2';
 
+export const SwalDefault = Swal;
+
 export const ConfirmDialog = Swal.mixin({
     customClass: {
         confirmButton: 'w-24',
@@ -22,6 +24,18 @@ export const DeleteAlertDialog = Swal.mixin({
     confirmButtonText: 'ลบ',
     cancelButtonText: 'ยกเลิก',
     confirmButtonColor: '#EF4444',
+    cancelButtonColor: '#9CA3AF',
+    showCancelButton: true,
+    showConfirmButton: true,
+    allowEnterKey: false,
+});
+
+export const ChaningModal = Swal.mixin({
+    customClass: {
+        confirmButton: 'w-24',
+        cancelButton: 'w-24',
+    },
+    confirmButtonColor: '#3B82F6',
     cancelButtonColor: '#9CA3AF',
     showCancelButton: true,
     showConfirmButton: true,

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { InputText, InputImageFile } from '../../../components';
 
-import { userEditProfileToggle, userUpdateProfile } from '../../../actions/userActions';
+import { userEditProfileToggle, userUpdateProfile, userChangePassword } from '../../../actions/userActions';
 
 const ProfileEditor = ({ userInfo, accounts }) => {
     const dispatch = useDispatch();
@@ -36,15 +36,6 @@ const ProfileEditor = ({ userInfo, accounts }) => {
     useEffect(() => {
         setCanSubmit(isValidAvatarUrl && isValidName && isValidSurname && isValidEmail && isValidPhone);
     }, [isValidAvatarUrl, isValidName, isValidSurname, isValidEmail, isValidPhone]);
-
-    const changePasswordHandler = () => {
-        //for Debug
-        console.log('Change Password Click!');
-
-        /*
-            Logic here!
-        */
-    };
 
     const submitHandler = () => {
         if (canSubmit) {
@@ -183,7 +174,9 @@ const ProfileEditor = ({ userInfo, accounts }) => {
                         <button
                             className="w-52 p-2 bg-blue-500 text-white rounded-lg focus:outline-none hover:bg-blue-800"
                             type="button"
-                            onClick={changePasswordHandler}
+                            onClick={() => {
+                                dispatch(userChangePassword());
+                            }}
                         >
                             เปลี่ยนรหัสผ่าน
                         </button>
