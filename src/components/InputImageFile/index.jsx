@@ -39,7 +39,7 @@ const InputImageFile = ({ className, id, name, accept, limitSizeMB, initImageUrl
                 alt="preview"
                 src={previewImageUrl}
                 onMouseEnter={() => {
-                    document.getElementById('img-preview').src = 'https://static.thenounproject.com/png/1156518-200.png';
+                    document.getElementById('img-preview').src = '/images/upload-image.png';
                 }}
                 onMouseOut={() => {
                     document.getElementById('img-preview').src = previewImageUrl;

@@ -11,6 +11,8 @@ import PillStoreRowAdder from './components/PillStoreRowAdder';
 
 import { pillStoresFetch, pillStoresFilter, pillStoresAddToggle } from '../../actions/pillStoresAction';
 
+const itemPerPage = 6;
+
 const ManagePillStorePage = () => {
     const dispatch = useDispatch();
 
@@ -19,8 +21,6 @@ const ManagePillStorePage = () => {
     const pillStores = useSelector((state) => state.pillStores);
 
     const [currentPage, setCurrentPage] = useState(0);
-
-    const itemPerPage = 6;
 
     let pillStoresFilteredID = pillStores.list.map((pillStore) => {
         if (pillStore.show) {

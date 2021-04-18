@@ -18,7 +18,6 @@ const InputTextarea = ({ id, name, initValue = '', placeholder, required, maxLen
     useEffect(() => {
         onValueChange(value);
         validation();
-        console.log(value);
     }, [value]);
 
     useEffect(() => {

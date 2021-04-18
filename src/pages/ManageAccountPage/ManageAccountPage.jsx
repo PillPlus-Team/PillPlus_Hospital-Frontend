@@ -11,6 +11,8 @@ import AccountRowAdder from './components/AccountRowAdder';
 
 import { accountsFetch, accountsFilter, accountAddToggle } from '../../actions/accountsAction';
 
+const itemPerPage = 6;
+
 const ManageAccountPage = () => {
     const dispatch = useDispatch();
 
@@ -20,8 +22,6 @@ const ManageAccountPage = () => {
     const accounts = useSelector((state) => state.accounts);
 
     const [currentPage, setCurrentPage] = useState(0);
-
-    const itemPerPage = 6;
 
     let accountsFilteredID = accounts.list.map((account) => {
         if (account.show) {

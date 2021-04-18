@@ -11,17 +11,19 @@ import StatementRowDisplay from './components/StatementRowDisplay';
 import { statementsFetchByMonth, statementsFilter } from '../../actions/statementsAction';
 
 const buildYearList = () => {
-    let yearList = [];
-
     const nowYear = new Date().getFullYear();
+
     let startYear = 2020;
+    let years = [];
     while (startYear <= nowYear) {
-        yearList.push(startYear);
+        years.push(startYear);
         startYear += 1;
     }
 
-    return yearList;
+    return years;
 };
+
+const itemPerPage = 7;
 
 const monthList = ['ม.ค.', 'ก.พ.', 'มี.ค', 'เม.ย', 'พ.ค', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค', 'พ.ย', 'ธ.ค.'];
 const yearList = buildYearList();
@@ -37,8 +39,6 @@ const StatementPage = () => {
     const [year, setYear] = useState(new Date().getFullYear());
 
     const [currentPage, setCurrentPage] = useState(0);
-
-    const itemPerPage = 6;
 
     let statementsFilteredID = statements.list.map((statement) => {
         if (statement.show) {
