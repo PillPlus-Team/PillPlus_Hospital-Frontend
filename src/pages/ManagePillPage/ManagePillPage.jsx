@@ -45,7 +45,7 @@ const ManagePillPage = () => {
         <PageLayout pageTitle="จัดการข้อมูลยา" userInfo={user} menuList={menuList}>
             <div className="relative">
                 <div className="flex w-full justify-end absolute -top-14">
-                    <p className="flex justify-center items-center mr-6 text-white text-lg">
+                    <p className="flex justify-center items-center mr-6 text-white text-lg min-w-max">
                         ทั้งหมด {pillsFilteredID.length.toLocaleString('th-TH')} รายการ
                     </p>
                     <SearchBar
