@@ -1,8 +1,8 @@
 import { ACCOUNTS_FETCH, ACCOUNTS_SHOW, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_DELETE, ACCOUNTS_UPDATE } from './types';
 
-import { roles } from './ultis';
+import { roles, stringGenerate } from './ultis';
 
-import { DeleteAlertDialog, Toast } from './swals';
+import { DeleteAlertDialog, ImportantNotificationModal, Toast } from './swals';
 
 export const accountsFetch = () => {
     return async (dispatch) => {
@@ -134,6 +134,8 @@ export const accountAddToggle = () => {
 
 export const accountsAdd = ({ name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
+        const password = stringGenerate(10);
+
         const account = {
             ID: Math.floor(Math.random() * 100000000),
             name,
@@ -147,7 +149,16 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
 
         dispatch({ type: ACCOUNTS_ADD, account: account });
         dispatch(accountsFilter({ keyword: '' }));
-        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+        ImportantNotificationModal.fire({
+            title: 'สร้างบัญชีผู้ใช้ สำเร็จ',
+            html:
+                `<br> ID ${account.ID} : ${account.name} ${account.surname}<br>` +
+                `สิทธิ์ผู้ใช้ <b>${account.role}</b></p> <br><br>` +
+                `Email : ${account.email} <br>` +
+                `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+                `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+            icon: 'success',
+        });
     };
 };
 
@@ -239,12 +250,14 @@ export const accountsDelete = ({ ID }) => {
 //     return async (dispatch, getState) => {
 //         const { user } = getState();
 
+//         const password = stringGenerate(10);
 //         const res = await fetch('/api/v1/addAccount', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
 //             body: JSON.stringify({
+//                 password,
 //                 name,
 //                 surname,
 //                 email,
@@ -257,8 +270,17 @@ export const accountsDelete = ({ ID }) => {
 //             let account = await res.json();
 //             account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             dispatch({ type: ACCOUNTS_ADD, account: account });
-//             dispatch(accountsFilter({ keyword:'' }))
-//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//             dispatch(accountsFilter({ keyword: '' }));
+//             ImportantNotificationModal.fire({
+//                 title: 'สร้างบัญชีผู้ใช้สำเร็จ',
+//                 html:
+//                     `<br> ID ${account.ID} : ${account.name} ${account.surname}<br>` +
+//                     `สิทธิ์ผู้ใช้ <b>${account.role}</b></p> <br><br>` +
+//                     `Email : ${account.email} <br>` +
+//                     `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+//                     `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+//                 icon: 'success',
+//             });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //             dispatch(accountsFetch());

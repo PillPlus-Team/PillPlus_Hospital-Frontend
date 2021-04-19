@@ -8,7 +8,9 @@ import {
     PILLSTORES_DELETE,
 } from './types';
 
-import { DeleteAlertDialog, Toast } from './swals';
+import { stringGenerate } from './ultis';
+
+import { DeleteAlertDialog, ImportantNotificationModal, Toast } from './swals';
 
 export const pillStoresFetch = () => {
     return async (dispatch) => {
@@ -127,6 +129,8 @@ export const pillStoresAddToggle = () => {
 
 export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
     return async (dispatch) => {
+        const password = stringGenerate(10);
+
         const pillStore = {
             ID: Math.floor(Math.random() * 100000000),
             name,
@@ -138,7 +142,16 @@ export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
 
         dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
         dispatch(pillStoresFilter({ keyword: '' }));
-        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+        ImportantNotificationModal.fire({
+            title: 'สร้างบัญชีร้านขายยา สำเร็จ',
+            html:
+                `<br> ID ${pillStore.ID} : ${pillStore.name} <br>` +
+                `ชื่อร้าน <b>${pillStore.phamacy}</b></p> <br>` +
+                `Email : ${pillStore.email} <br>` +
+                `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+                `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+            icon: 'success',
+        });
     };
 };
 
@@ -208,22 +221,33 @@ export const pillStoresDelete = ({ ID }) => {
 
 // export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
 //     return async (dispatch) => {
+//         const password = stringGenerate(10);
+
 //         const res = await fetch('/api/v1/addPillStore', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
-//             body: JSON.stringify({ name, phamacy, location, email, phone }),
+//             body: JSON.stringify({ password, name, phamacy, location, email, phone }),
 //         });
 
 //         if (res.status === 200) {
 //             const pillStore = await res.json();
 //             dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
 //             dispatch(pillStoresFilter({ keyword: '' }));
-//             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//             ImportantNotificationModal.fire({
+//                 title: 'สร้างบัญชีร้านขายยา สำเร็จ',
+//                 html:
+//                     `<br> ID ${pillStore.ID} : ${pillStore.name} <br>` +
+//                     `ชื่อร้าน <b>${pillStore.phamacy}</b></p> <br>` +
+//                     `Email : ${pillStore.email} <br>` +
+//                     `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+//                     `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+//                 icon: 'success',
+//             });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-//             dispatch(pillStoresFetch())
+//             dispatch(pillStoresFetch());
 //         }
 //     };
 // };
