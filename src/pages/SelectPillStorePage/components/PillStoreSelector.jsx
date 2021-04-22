@@ -11,7 +11,7 @@ const initList = [
     },
 ];
 
-const PillStoreSelector = ({ selectedPrescriptionID }) => {
+const PillStoreSelector = ({ selectedPrescription }) => {
     const dispatch = useDispatch();
 
     const [availablePillStoreList, setAvailablePillStoreList] = useState(initList);
@@ -28,8 +28,6 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
     });
 
     useEffect(() => {
-        console.log('Hack Re-Rendered!');
-
         /*Mock-availablePillStores*/
         const mock = [
             {
@@ -43,7 +41,10 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
                 location: '154/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
             },
         ];
-        setAvailablePillStoreList([...initList, ...mock]);
+
+        if (selectedPrescription.pills.length !== 0) {
+            setAvailablePillStoreList([...initList, ...mock]);
+        }
 
         /* For Production */
         // const fetchData = async () => {
@@ -53,11 +54,13 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
         //             'Content-Type': 'application/json',
         //         },
         //         body: JSON.stringify({
-        //             PrescriptionID: selectedPrescriptionID,
+        //             PrescriptionID: selectedPrescription.ID,
         //         }),
         //     });
         //     const availablePillStores = await res.json();
-        //     setAvailablePillStoreList([...initList, ...availablePillStores]);
+        //     if (selectedPrescription.pills.length !== 0) {
+        //         setAvailablePillStoreList([...initList, ...availablePillStores]);
+        //     }
         // };
 
         // fetchData();
@@ -66,7 +69,7 @@ const PillStoreSelector = ({ selectedPrescriptionID }) => {
     useEffect(() => {
         dispatch(
             prescriptionSelectPillStore({
-                ID: selectedPrescriptionID,
+                ID: selectedPrescription.ID,
                 pillStoreID: selectedPillStore.ID,
                 pillStorePhamacy: selectedPillStore.phamacy,
                 pillStoreLocation: selectedPillStore.location,
