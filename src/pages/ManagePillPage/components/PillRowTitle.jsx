@@ -20,7 +20,7 @@ const PillRowTitle = () => {
                 <th className="w-36 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     ราคา/หน่วย
                 </th>
-                <th className="w-28 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                <th className="w-32 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     ประเภท
                 </th>
                 <th className="w-20 relative px-6 py-3" scope="col">

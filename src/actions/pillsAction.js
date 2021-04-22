@@ -12,7 +12,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 150.0,
-                type: 'in',
+                type: 'ED',
             },
             {
                 ID: 10000002,
@@ -21,7 +21,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'ขวด',
                 price: 159.0,
-                type: 'out',
+                type: 'NED',
             },
             {
                 ID: 10000003,
@@ -30,7 +30,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 12.0,
-                type: 'in',
+                type: 'ED',
             },
             {
                 ID: 10000004,
@@ -39,7 +39,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 150.0,
-                type: 'in',
+                type: 'ED',
             },
             {
                 ID: 10000005,
@@ -48,7 +48,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'ขวด',
                 price: 159.0,
-                type: 'out',
+                type: 'NED',
             },
             {
                 ID: 10000006,
@@ -57,7 +57,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 12.0,
-                type: 'in',
+                type: 'ED',
             },
             {
                 ID: 10000007,
@@ -66,7 +66,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 150.0,
-                type: 'in',
+                type: 'ED',
             },
             {
                 ID: 10000008,
@@ -75,7 +75,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'ขวด',
                 price: 159.0,
-                type: 'out',
+                type: 'NED',
             },
             {
                 ID: 10000009,
@@ -84,7 +84,7 @@ export const pillsFetch = () => {
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
                 unit: 'เม็ด',
                 price: 12.0,
-                type: 'in',
+                type: 'ED',
             },
         ];
 

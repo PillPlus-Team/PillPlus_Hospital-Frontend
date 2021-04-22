@@ -8,6 +8,8 @@ import { roles } from './ultis';
 
 import { ConfirmDialog, ChaningModal, Toast } from './swals';
 
+import { API_URL } from '../config';
+
 export const userLogin = ({ email, password, history }) => {
     return async (dispatch) => {
         let user = {
@@ -16,7 +18,7 @@ export const userLogin = ({ email, password, history }) => {
             surname: 'ตาแพร่',
             email: 'phoom0529@gmail.com',
             phone: '0931425177',
-            role: 'Super Adminstrator',
+            role: 'Super Administrator',
             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
         };
 
@@ -74,6 +76,11 @@ export const userChangePassword = () => {
                             ChaningModal.showValidationMessage('กรุณากรอกข้อมูลให้ครบ');
                         } else if (document.getElementById('new-password-1').value !== document.getElementById('new-password-2').value) {
                             ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่านใหม่ ให้ตรงกัน');
+                        } else if (
+                            document.getElementById('new-password-1').value.length < 6 ||
+                            document.getElementById('new-password-2').value.length < 6
+                        ) {
+                            ChaningModal.showValidationMessage('รหัสผ่านใหม่ ต้องมีความยาวมากกว่า 6 ตัวอักษร');
                         } else {
                             return [document.getElementById('new-password-1').value, document.getElementById('new-password-2').value];
                         }
@@ -114,22 +121,27 @@ export const userLogout = ({ history }) => {
 /* For Production */
 // export const userLogin = ({ email, password, history }) => {
 //     return async (dispatch) => {
-//         const res = await fetch('/api/v1/login', {
+//         const res = await fetch(API_URL + '/auth/login', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
 //             body: JSON.stringify({
-//                 email,
-//                 password,
+//                 email: email,
+//                 password: password,
 //             }),
 //         });
 
 //         if (res.status == 200) {
 //             const user = await res.json();
-//             dispatch({ type: USER_LOGIN, user: { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel } });
+
+//             dispatch({
+//                 type: USER_LOGIN,
+//                 user: { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel },
+//             });
 //             dispatch(menuListFetch());
 //             dispatch(roleListFetch());
+
 //             history.push('/home');
 //         } else if (res.status == 403) {
 //             Toast.fire({
@@ -156,20 +168,13 @@ export const userLogout = ({ history }) => {
 //     return async (dispatch, getState) => {
 //         const { user } = getState();
 
-//         let updateAvatarUrl;
-//         if (avatarUrl === user.avatarUrl) {
-//             updateAvatarUrl = '';
-//         } else {
-//             updateAvatarUrl = avatarUrl;
-//         }
-
-//         const res = await fetch('/api/v1/editProfile', {
+//         const res = await fetch(API_URL + 'auth/updateProfile', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
 //             body: JSON.stringify({
-//                 avatarUrl: updateAvatarUrl,
+//                 avatarUrl,
 //                 name,
 //                 surname,
 //                 email,
@@ -183,7 +188,7 @@ export const userLogout = ({ history }) => {
 //             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //         } else {
 //             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-//             dispatch(accountsFetch())
+//             dispatch(accountsFetch());
 //         }
 //     };
 // };
@@ -220,6 +225,11 @@ export const userLogout = ({ history }) => {
 //                             ChaningModal.showValidationMessage('กรุณากรอกข้อมูลให้ครบ');
 //                         } else if (document.getElementById('new-password-1').value !== document.getElementById('new-password-2').value) {
 //                             ChaningModal.showValidationMessage('กรุณากรอกรหัสผ่านใหม่ ให้ตรงกัน');
+//                         } else if (
+//                             document.getElementById('new-password-1').value.length < 6 ||
+//                             document.getElementById('new-password-2').value.length < 6
+//                         ) {
+//                             ChaningModal.showValidationMessage('รหัสผ่านใหม่ ต้องมีความยาวมากกว่า 6 ตัวอักษร');
 //                         } else {
 //                             return [document.getElementById('new-password-1').value, document.getElementById('new-password-2').value];
 //                         }
@@ -234,7 +244,7 @@ export const userLogout = ({ history }) => {
 //                     const newPassword = result.value[1][0];
 //                     const reNewPassword = result.value[1][1];
 
-//                     const res = await fetch('/api/v1/changePassword', {
+//                     const res = await fetch(API_URL + '/auth/resetPassword', {
 //                         method: 'POST',
 //                         headers: {
 //                             'Content-Type': 'application/json',
@@ -264,7 +274,7 @@ export const userLogout = ({ history }) => {
 //             icon: 'warning',
 //         }).then(async (result) => {
 //             if (result.isConfirmed) {
-//                 const res = await fetch('/api/v1/logout', {
+//                 const res = await fetch(API_URL + '/auth/logout', {
 //                     method: 'POST',
 //                     headers: {
 //                         'Content-Type': 'application/json',
@@ -274,8 +284,7 @@ export const userLogout = ({ history }) => {
 //                 if (res.status == 200) {
 //                     dispatch({ type: USER_LOGOUT });
 //                     history.push('/login');
-//                 }
-//                 else{
+//                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
 //                 }
 //             }

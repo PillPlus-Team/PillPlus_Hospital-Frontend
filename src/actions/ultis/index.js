@@ -1,7 +1,7 @@
 /*Priority Left to Right*/
 export const roles = [
-    { role: ['Super Adminstrator'], roleLevel: 0 },
-    { role: ['Adminstrator'], roleLevel: 1 },
+    { role: ['Super Administrator'], roleLevel: 0 },
+    { role: ['Administrator'], roleLevel: 1 },
     { role: ['Staff', 'Cashier'], roleLevel: 2 },
 ];
 

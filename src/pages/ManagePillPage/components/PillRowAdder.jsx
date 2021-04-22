@@ -135,12 +135,12 @@ const PillRowAdder = ({ pills }) => {
                         }}
                     />
                 </td>
-                <td className="w-28 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-gray-500 align-top">
                     <InputDropdown
                         id="InputDropdown-type-adder"
                         name="type"
-                        optionList={['in', 'out']}
-                        selectedIndex={['in', 'out'].indexOf(type)}
+                        optionList={['ED', 'NED']}
+                        selectedIndex={['ED', 'NED'].indexOf(type)}
                         onValueChange={(state) => {
                             setType(state);
                         }}

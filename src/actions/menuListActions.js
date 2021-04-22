@@ -6,11 +6,11 @@ export const menuListFetch = () => {
     return async (dispatch, getState) => {
         const menuAccessible = [
             {
-                role: 'Super Adminstrator',
+                role: 'Super Administrator',
                 menuIndex: [0, 1, 2, 3, 4, 5, 6],
             },
             {
-                role: 'Adminstrator',
+                role: 'Administrator',
                 menuIndex: [0, 1, 2, 3, 4, 5, 6],
             },
             {

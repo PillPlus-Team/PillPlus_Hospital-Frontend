@@ -31,7 +31,7 @@ const PillRowDisplay = ({ index, pill }) => {
                         {Number(pill.price).toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 })}
                     </p>
                 </td>
-                <td className="w-28 px-6 py-4 text-gray-500">{pill.type}</td>
+                <td className="w-32 px-6 py-4 text-gray-500">{pill.type}</td>
 
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
