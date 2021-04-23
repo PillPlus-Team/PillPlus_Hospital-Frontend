@@ -18,7 +18,7 @@ const accountsReducer = (state = initState, action) => {
         case ACCOUNTS_SHOW: {
             let list = state.list;
             list = list.map((account) => {
-                if (action.IDList.includes(account.ID)) {
+                if (action._idList.includes(account._id)) {
                     return { ...account, show: true };
                 } else {
                     return { ...account, show: false };
@@ -40,7 +40,7 @@ const accountsReducer = (state = initState, action) => {
         case ACCOUNTS_EDIT_TOGGLE: {
             let list = state.list;
             list = list.map((account) => {
-                if (account.ID === action.ID) {
+                if (account._id === action._id) {
                     return { ...account, editing: !account.editing };
                 } else {
                     return account;
@@ -53,7 +53,7 @@ const accountsReducer = (state = initState, action) => {
         case ACCOUNTS_UPDATE: {
             let list = state.list;
             list = list.map((account) => {
-                if (account.ID === action.account.ID) {
+                if (account._id === action.account._id) {
                     return {
                         ...action.account,
                         editing: false,
@@ -68,7 +68,7 @@ const accountsReducer = (state = initState, action) => {
 
         case ACCOUNTS_DELETE: {
             let list = state.list;
-            list = list.filter((account) => account.ID !== action.ID);
+            list = list.filter((account) => account._id !== action._id);
 
             return { ...state, list };
         }

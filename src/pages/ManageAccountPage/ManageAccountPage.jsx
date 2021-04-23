@@ -23,31 +23,31 @@ const ManageAccountPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let accountsFilteredID = accounts.list.map((account) => {
+    let accountsFiltered_id = accounts.list.map((account) => {
         if (account.show) {
-            return account.ID;
+            return account._id;
         }
     });
-    accountsFilteredID = accountsFilteredID.filter((ID) => ID != null);
+    accountsFiltered_id = accountsFiltered_id.filter((_id) => _id != null);
 
-    const isEmpty = accountsFilteredID.length === 0;
+    const isEmpty = accountsFiltered_id.length === 0;
 
     useEffect(() => {
         dispatch(accountsFetch());
     }, []);
 
     useEffect(() => {
-        if (accountsFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(Math.floor(accountsFilteredID.length / (itemPerPage + 1)));
+        if (accountsFiltered_id.length / itemPerPage <= currentPage) {
+            setCurrentPage(Math.floor(accountsFiltered_id.length / (itemPerPage + 1)));
         }
-    }, [accountsFilteredID]);
+    }, [accountsFiltered_id]);
 
     return (
         <PageLayout pageTitle="จัดการบัญชีผู้ใช้" userInfo={user} menuList={menuList}>
             <div className="relative">
                 <div className="flex w-full justify-end absolute -top-14">
                     <p className="flex justify-center items-center mr-6 text-white text-lg min-w-max">
-                        ทั้งหมด {accountsFilteredID.length.toLocaleString('th-TH')} รายการ
+                        ทั้งหมด {accountsFiltered_id.length.toLocaleString('th-TH')} รายการ
                     </p>
                     <SearchBar
                         onSearchClick={(keyword) => {
@@ -61,13 +61,13 @@ const ManageAccountPage = () => {
 
                     {accounts.list.map((account) => {
                         const isInShowRange =
-                            currentPage * itemPerPage <= accountsFilteredID.indexOf(account.ID) &&
-                            accountsFilteredID.indexOf(account.ID) < currentPage * itemPerPage + itemPerPage;
+                            currentPage * itemPerPage <= accountsFiltered_id.indexOf(account._id) &&
+                            accountsFiltered_id.indexOf(account._id) < currentPage * itemPerPage + itemPerPage;
                         return (
                             <>
                                 {account.show && isInShowRange && (
                                     <AccountRow
-                                        index={accountsFilteredID.indexOf(account.ID) + 1}
+                                        index={accountsFiltered_id.indexOf(account._id) + 1}
                                         account={account}
                                         accounts={accounts.list}
                                         userInfo={user}
@@ -94,7 +94,7 @@ const ManageAccountPage = () => {
                         </button>
                     )}
                     <ReactPaginate
-                        pageCount={accountsFilteredID.length / itemPerPage}
+                        pageCount={accountsFiltered_id.length / itemPerPage}
                         initialPage={currentPage}
                         forcePage={currentPage}
                         marginPagesDisplayed={2}
@@ -109,8 +109,8 @@ const ManageAccountPage = () => {
                         breakClassName="flex justify-center items-center w-10 h-12 bg-white hover:bg-gray-200 cursor-pointer"
                         breakLinkClassName="flex justify-center items-center w-full h-full "
                         activeClassName="flex justify-center items-center w-10 h-12 bg-gray-200 hover:bg-gray-200 cursor-pointer"
-                        previousLabel={<span aria-hidden="true">&laquo;</span>}
-                        nextLabel={<span aria-hidden="true">&raquo;</span>}
+                        previousLabel={<span aria-h_idden="true">&laquo;</span>}
+                        nextLabel={<span aria-h_idden="true">&raquo;</span>}
                         breakLabel="..."
                         onPageChange={(page) => {
                             setCurrentPage(page.selected);

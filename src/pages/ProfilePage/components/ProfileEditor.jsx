@@ -61,10 +61,6 @@ const ProfileEditor = ({ userInfo, accounts }) => {
             />
             <table className="table-fixed w-96 ml-32 mt-24 text-lg">
                 <tr>
-                    <td className="font-bold w-32 min-w-max py-4">ID</td>
-                    <td className="w-96">{userInfo.ID}</td>
-                </tr>
-                <tr>
                     <td className="font-bold w-32 min-w-min py-4">ชื่อ</td>
                     <td>
                         <InputText

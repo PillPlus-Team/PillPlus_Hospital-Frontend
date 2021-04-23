@@ -38,7 +38,7 @@ const AccountRowEditor = ({ index, account, accounts, roleList }) => {
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(accountUpdate({ ID: account.ID, name, surname, email, phone, role }));
+            dispatch(accountUpdate({ _id: account._id, name, surname, email, phone, role }));
         }
     };
 
@@ -46,7 +46,6 @@ const AccountRowEditor = ({ index, account, accounts, roleList }) => {
         <tbody className="divide-y divide-gray-200">
             <tr>
                 <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
-                <td className="w-24 px-6 py-4 whitespace-nowrap text-gray-500">{account.ID}</td>
                 <td className="w-28 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-name-${index}`}
@@ -89,7 +88,7 @@ const AccountRowEditor = ({ index, account, accounts, roleList }) => {
                         }}
                     />
                 </td>
-                <td className="w-48 px-6 py-4 whitespace-nowrap text-gray-500">
+                <td className="w-52 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
                         id={`InputText-email-${index}`}
                         name="email"
@@ -163,7 +162,7 @@ const AccountRowEditor = ({ index, account, accounts, roleList }) => {
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(accountsEditToggle({ ID: account.ID }));
+                            dispatch(accountsEditToggle({ _id: account._id }));
                         }}
                     >
                         ยกเลิก

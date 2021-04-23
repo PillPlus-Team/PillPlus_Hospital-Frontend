@@ -5,16 +5,13 @@ const AccountRowTitle = () => {
                 <th className="w-10 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     ลำดับ
                 </th>
-                <th className="w-24 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
-                    ID
-                </th>
                 <th className="w-28 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     ชื่อ
                 </th>
                 <th className="w-28 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     นามสกุล
                 </th>
-                <th className="w-48 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
+                <th className="w-52 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     Email
                 </th>
                 <th className="w-40 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
