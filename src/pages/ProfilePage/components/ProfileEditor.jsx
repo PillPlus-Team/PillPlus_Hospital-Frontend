@@ -8,13 +8,13 @@ import { userEditProfileToggle, userUpdateProfile, userChangePassword } from '..
 const ProfileEditor = ({ userInfo, accounts }) => {
     const dispatch = useDispatch();
 
-    const [avatarUrl, setAvatarUrl] = useState(userInfo.avatarUrl);
+    const [avatarUri, setavatarUri] = useState(userInfo.avatarUri);
     const [name, setName] = useState(userInfo.name);
     const [surname, setSurname] = useState(userInfo.surname);
     const [email, setEmail] = useState(userInfo.email);
     const [phone, setPhone] = useState(userInfo.phone);
 
-    const [isValidAvatarUrl, setIsValidAvatarUrl] = useState(true);
+    const [isValidavatarUri, setIsValidavatarUri] = useState(true);
     const [isValidName, setIsValidName] = useState(true);
     const [isValidSurname, setIsValidSurname] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
@@ -34,12 +34,12 @@ const ProfileEditor = ({ userInfo, accounts }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidAvatarUrl && isValidName && isValidSurname && isValidEmail && isValidPhone);
-    }, [isValidAvatarUrl, isValidName, isValidSurname, isValidEmail, isValidPhone]);
+        setCanSubmit(isValidavatarUri && isValidName && isValidSurname && isValidEmail && isValidPhone);
+    }, [isValidavatarUri, isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(userUpdateProfile({ avatarUrl, name, surname, email, phone }));
+            dispatch(userUpdateProfile({ avatarUri, name, surname, email, phone }));
         }
     };
 
@@ -51,12 +51,12 @@ const ProfileEditor = ({ userInfo, accounts }) => {
                 name="avatar"
                 accept="image/jpeg"
                 limitSizeMB={250}
-                initImageUrl={avatarUrl}
+                initImageUrl={avatarUri}
                 onValidChange={(state) => {
-                    setIsValidAvatarUrl(state);
+                    setIsValidavatarUri(state);
                 }}
                 onValueChange={(state) => {
-                    setAvatarUrl(state);
+                    setavatarUri(state);
                 }}
             />
             <table className="table-fixed w-96 ml-32 mt-24 text-lg">

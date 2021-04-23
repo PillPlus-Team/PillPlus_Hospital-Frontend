@@ -19,7 +19,7 @@ import { API_URL } from '../config';
 //             email: 'phoom0529@gmail.com',
 //             phone: '0931425177',
 //             role: 'Super Administrator',
-//             avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+//             avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
 //         };
 
 //         user = { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel };
@@ -36,10 +36,10 @@ import { API_URL } from '../config';
 //     };
 // };
 
-// export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) => {
+// export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) => {
 //     return async (dispatch, getState) => {
 //         const { user } = getState();
-//         dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUrl, name, surname, email, phone } });
+//         dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUri, name, surname, email, phone } });
 //         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //     };
 // };
@@ -134,7 +134,7 @@ export const userLogin = ({ email, password, history }) => {
             }),
         });
 
-        if (res.status == 200) {
+        if (res.status === 200) {
             const user = await res.json();
 
             dispatch({
@@ -145,7 +145,7 @@ export const userLogin = ({ email, password, history }) => {
             dispatch(roleListFetch());
 
             history.push('/home');
-        } else if (res.status == 403) {
+        } else if (res.status === 403) {
             Toast.fire({
                 title: 'อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง',
                 icon: 'error',
@@ -166,7 +166,7 @@ export const userEditProfileToggle = () => {
     };
 };
 
-export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) => {
+export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) => {
     return async (dispatch, getState) => {
         const { user } = getState();
 
@@ -178,7 +178,7 @@ export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) =>
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                avatarUrl,
+                avatarUri,
                 name,
                 surname,
                 email,
@@ -186,9 +186,9 @@ export const userUpdateProfile = ({ avatarUrl, name, surname, email, phone }) =>
             }),
         });
 
-        if (res.status == 200) {
+        if (res.status === 200) {
             const editedUser = await res.json();
-            dispatch({ type: USER_UPDATE_PROFILE, user: { ...editedUser } });
+            dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, ...editedUser } });
             Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
         } else {
             Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
@@ -289,7 +289,7 @@ export const userLogout = ({ history }) => {
                     },
                 });
 
-                if (res.status == 200) {
+                if (res.status === 200) {
                     dispatch({ type: USER_LOGOUT });
                     history.push('/login');
                 } else {

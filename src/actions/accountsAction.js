@@ -16,8 +16,7 @@ export const accountsFetch = () => {
                 email: 'phoom0529@gmail.com',
                 phone: '0899997333',
                 role: 'Administrator',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000002,
@@ -26,8 +25,7 @@ export const accountsFetch = () => {
                 email: 'phoom1477@gmail.com',
                 phone: '0899997222',
                 role: 'Staff',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000003,
@@ -36,8 +34,7 @@ export const accountsFetch = () => {
                 email: 'phoom1234@gmail.com',
                 phone: '0899997444',
                 role: 'Cashier',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000004,
@@ -46,8 +43,7 @@ export const accountsFetch = () => {
                 email: 'phukphoomtaphrae@gmail.com',
                 phone: '0899997123',
                 role: 'Cashier',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000005,
@@ -56,8 +52,7 @@ export const accountsFetch = () => {
                 email: 'phoom0529@gmail.com',
                 phone: '0899997333',
                 role: 'Administrator',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000006,
@@ -66,8 +61,7 @@ export const accountsFetch = () => {
                 email: 'phoom1477@gmail.com',
                 phone: '0899997222',
                 role: 'Staff',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000007,
@@ -76,8 +70,7 @@ export const accountsFetch = () => {
                 email: 'phoom1234@gmail.com',
                 phone: '0899997444',
                 role: 'Cashier',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000008,
@@ -86,8 +79,7 @@ export const accountsFetch = () => {
                 email: 'phukphoomtaphrae@gmail.com',
                 phone: '0899997123',
                 role: 'Cashier',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
                 ID: 10000009,
@@ -96,8 +88,7 @@ export const accountsFetch = () => {
                 email: 'phoom0529@gmail.com',
                 phone: '0899997333',
                 role: 'Administrator',
-                createdBy: '-',
-                avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
+                avatarUri: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
         ];
 
@@ -146,7 +137,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
             email,
             role,
             roleLevel: roles.find((element) => element.role.includes(role)).roleLevel,
-            avatarUrl: 'https://www.journalnetwork.org/assets/default-profile-54364fb08cf8b2a24e80ed8969012690.jpg',
+            avatarUri: 'https://www.journalnetwork.org/assets/default-profile-54364fb08cf8b2a24e80ed8969012690.jpg',
         };
 
         dispatch({ type: ACCOUNTS_ADD, account: account });
