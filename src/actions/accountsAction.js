@@ -4,6 +4,8 @@ import { roles, stringGenerate } from './ultis';
 
 import { DeleteAlertDialog, ImportantNotificationModal, Toast } from './swals';
 
+import { API_URL } from '../config';
+
 export const accountsFetch = () => {
     return async (dispatch) => {
         let accounts = [
@@ -204,7 +206,7 @@ export const accountsDelete = ({ ID }) => {
 /* For Production */
 // export const accountsFetch = () => {
 //     return async (dispatch) => {
-//         const res = await fetch('/api/v1/getAccounts', {
+//         const res = await fetch(API_URL + '/admin/account', {
 //             method: 'GET',
 //             headers: {
 //                 'Content-Type': 'application/json',
@@ -217,7 +219,7 @@ export const accountsDelete = ({ ID }) => {
 //                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 //             });
 //             dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
-//             dispatch(accountsFilter({keyword:''}));
+//             dispatch(accountsFilter({ keyword: '' }));
 //         }
 //     };
 // };
