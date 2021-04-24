@@ -6,7 +6,7 @@ export const pillsFetch = () => {
     return async (dispatch) => {
         let pills = [
             {
-                ID: 10000001,
+                _id: 10000001,
                 sn: '10225463',
                 name: 'ยา A',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -15,7 +15,7 @@ export const pillsFetch = () => {
                 type: 'ED',
             },
             {
-                ID: 10000002,
+                _id: 10000002,
                 sn: '10225480',
                 name: 'ยา B',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -24,7 +24,7 @@ export const pillsFetch = () => {
                 type: 'NED',
             },
             {
-                ID: 10000003,
+                _id: 10000003,
                 sn: '10225888',
                 name: 'ยา C',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -33,7 +33,7 @@ export const pillsFetch = () => {
                 type: 'ED',
             },
             {
-                ID: 10000004,
+                _id: 10000004,
                 sn: '10225463',
                 name: 'ยา A',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -42,7 +42,7 @@ export const pillsFetch = () => {
                 type: 'ED',
             },
             {
-                ID: 10000005,
+                _id: 10000005,
                 sn: '10225480',
                 name: 'ยา B',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -51,7 +51,7 @@ export const pillsFetch = () => {
                 type: 'NED',
             },
             {
-                ID: 10000006,
+                _id: 10000006,
                 sn: '10225888',
                 name: 'ยา C',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -60,7 +60,7 @@ export const pillsFetch = () => {
                 type: 'ED',
             },
             {
-                ID: 10000007,
+                _id: 10000007,
                 sn: '10225463',
                 name: 'ยา A',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -69,7 +69,7 @@ export const pillsFetch = () => {
                 type: 'ED',
             },
             {
-                ID: 10000008,
+                _id: 10000008,
                 sn: '10225480',
                 name: 'ยา B',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -78,7 +78,7 @@ export const pillsFetch = () => {
                 type: 'NED',
             },
             {
-                ID: 10000009,
+                _id: 10000009,
                 sn: '10225888',
                 name: 'ยา C',
                 description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น',
@@ -97,17 +97,17 @@ export const pillsFilter = ({ keyword }) => {
     return async (dispatch, getState) => {
         const { pills } = getState();
 
-        let IDList = [];
+        let _idList = [];
         pills.list.map((pill) => {
             const keys = Object.keys(pill);
             for (let i = 0; i < keys.length; i++) {
                 if (String(pill[keys[i]]).includes(keyword)) {
-                    return IDList.push(pill.ID);
+                    return _idList.push(pill._id);
                 }
             }
         });
 
-        dispatch({ type: PILLS_SHOW, IDList: IDList });
+        dispatch({ type: PILLS_SHOW, _idList: _idList });
     };
 };
 
@@ -120,7 +120,7 @@ export const pillsAddToggle = () => {
 export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
     return async (dispatch) => {
         const pill = {
-            ID: Math.floor(Math.random() * 100000000),
+            _id: Math.floor(Math.random() * 100000000),
             sn,
             name,
             description,
@@ -135,28 +135,28 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
     };
 };
 
-export const pillsEditToggle = ({ ID }) => {
+export const pillsEditToggle = ({ _id }) => {
     return {
         type: PILLS_EDIT_TOGGLE,
-        ID: ID,
+        _id: _id,
     };
 };
 
-export const pillsUpdate = ({ ID, sn, name, description, unit, price, type }) => {
+export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) => {
     return async (dispatch, getState) => {
         const { pills } = getState();
-        const pill = pills.list.find((pill) => pill.ID === ID);
+        const pill = pills.list.find((pill) => pill._id === _id);
 
         dispatch({ type: PILLS_UPDATE, pill: { ...pill, sn, name, description, unit, price, type } });
         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
-export const pillsDelete = ({ ID }) => {
+export const pillsDelete = ({ _id }) => {
     return async (dispatch, getState) => {
         const { pills } = getState();
 
-        const pill = pills.list.find((pill) => pill.ID === ID);
+        const pill = pills.list.find((pill) => pill._id === _id);
 
         DeleteAlertDialog.fire({
             title: 'ยืนยันที่จะลบข้อมูลยา',
@@ -164,7 +164,7 @@ export const pillsDelete = ({ ID }) => {
             icon: 'warning',
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({ type: PILLS_DELETE, ID: ID });
+                dispatch({ type: PILLS_DELETE, _id: _id });
                 Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
             }
         });
@@ -218,21 +218,21 @@ export const pillsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillsEditToggle = ({ ID }) => {
+// export const pillsEditToggle = ({ _id }) => {
 //     return {
 //         type: PILLS_EDIT_TOGGLE,
-//         ID: ID,
+//         _id: _id,
 //     };
 // };
 
-// export const pillsUpdate = ({ ID, sn, name, description, unit, price, type }) => {
+// export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/editPill', {
 //             method: 'POST',
 //             headers: {
 //                 'Content-Type': 'application/json',
 //             },
-//             body: JSON.stringify({ ID, sn, name, description, unit, price, type }),
+//             body: JSON.stringify({ _id, sn, name, description, unit, price, type }),
 //         });
 
 //         if (res.status === 200) {
@@ -246,11 +246,11 @@ export const pillsDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillsDelete = ({ ID }) => {
+// export const pillsDelete = ({ _id }) => {
 //     return async (dispatch) => {
 //         const { pills } = getState();
 
-//         const pill = pills.list.find((pill) => pill.ID === ID);
+//         const pill = pills.list.find((pill) => pill._id === _id);
 
 //         DeleteAlertDialog.fire({
 //             title: 'ยืนยันที่จะลบข้อมูลยา',
@@ -264,12 +264,12 @@ export const pillsDelete = ({ ID }) => {
 //                         'Content-Type': 'application/json',
 //                     },
 //                     body: JSON.stringify({
-//                         ID,
+//                         _id,
 //                     }),
 //                 });
 
 //                 if (res.status === 200) {
-//                     dispatch({ type: PILLS_DELETE, ID: ID });
+//                     dispatch({ type: PILLS_DELETE, _id: _id });
 //                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });

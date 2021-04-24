@@ -2,14 +2,14 @@ import { ACCOUNTS_FETCH, ACCOUNTS_SHOW, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOU
 
 import { roles, stringGenerate } from './ultis';
 
-import { DeleteAlertDialog, ImportantNotificationModal, Toast } from './swals';
+import { LoadingModal, DeleteAlertDialog, ImportantNotificationModal, Toast } from './swals';
 
 import { API_URL } from '../config';
 
 /* For Production */
 export const accountsFetch = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/admin/account/all', {
+        const res = await fetch(API_URL + '/account/all', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
@@ -19,7 +19,7 @@ export const accountsFetch = () => {
         });
 
         if (res.status === 200) {
-            let accounts = await res.json().then((result) => result.data);
+            let accounts = await res.json();
             accounts = accounts.map((account) => {
                 return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
             });
@@ -56,9 +56,12 @@ export const accountAddToggle = () => {
 
 export const accountsAdd = ({ name, surname, email, phone, role }) => {
     return async (dispatch) => {
+        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+        LoadingModal.showLoading();
+
         const password = stringGenerate(6);
 
-        const res = await fetch(API_URL + '/admin/account', {
+        const res = await fetch(API_URL + '/account', {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
@@ -76,7 +79,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
         });
 
         if (res.status === 200) {
-            let account = await res.json().then((result) => result.data);
+            let account = await res.json();
             account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
 
             dispatch({ type: ACCOUNTS_ADD, account: account });
@@ -107,10 +110,13 @@ export const accountsEditToggle = ({ _id }) => {
 
 export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
     return async (dispatch, getState) => {
+        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+        LoadingModal.showLoading();
+
         const { accounts } = getState();
         const account = accounts.list.find((account) => account._id === _id);
 
-        const res = await fetch(API_URL + `/admin/account/${_id}`, {
+        const res = await fetch(API_URL + `/account/${_id}`, {
             method: 'PUT',
             mode: 'cors',
             credentials: 'include',
@@ -127,7 +133,7 @@ export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
         });
 
         if (res.status === 200) {
-            let editedData = await res.json().then((result) => result.data);
+            let editedData = await res.json();
             editedData = { ...editedData, roleLevel: roles.find((element) => element.role.includes(editedData.role)).roleLevel };
 
             dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, ...editedData } });
@@ -150,7 +156,10 @@ export const accountsDelete = ({ _id }) => {
             icon: 'warning',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await fetch(API_URL + `/admin/account/${_id}`, {
+                LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+                LoadingModal.showLoading();
+
+                const res = await fetch(API_URL + `/account/${_id}`, {
                     method: 'DELETE',
                     mode: 'cors',
                     credentials: 'include',
@@ -292,7 +301,7 @@ export const accountsDelete = ({ _id }) => {
 
 // export const accountsAdd = ({ name, surname, email, phone, role }) => {
 //     return async (dispatch, getState) => {
-//         const password = stringGenerate(10);
+//         const password = stringGenerate(6);
 
 //         const account = {
 //             _id: Math.floor(Math.random() * 100000000),

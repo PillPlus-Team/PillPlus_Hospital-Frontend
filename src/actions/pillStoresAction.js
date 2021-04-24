@@ -16,6 +16,7 @@ export const pillStoresFetch = () => {
     return async (dispatch) => {
         let pillStores = [
             {
+                _id: 10000001,
                 ID: 10000001,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาอม ยาดม ยาหม่อง',
@@ -25,6 +26,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000002,
                 ID: 10000002,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาพิษ bodyslam',
@@ -34,6 +36,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000003,
                 ID: 10000003,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาดี ยาอี ยาไอซ์',
@@ -43,6 +46,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000004,
                 ID: 10000004,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาอม ยาดม ยาหม่อง',
@@ -52,6 +56,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000005,
                 ID: 10000005,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาพิษ bodyslam',
@@ -61,6 +66,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000006,
                 ID: 10000006,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาดี ยาอี ยาไอซ์',
@@ -70,6 +76,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000007,
                 ID: 10000007,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาอม ยาดม ยาหม่อง',
@@ -79,6 +86,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000008,
                 ID: 10000008,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาพิษ bodyslam',
@@ -88,6 +96,7 @@ export const pillStoresFetch = () => {
                 avatarUrl: 'https://avatars2.githubusercontent.com/u/36500890?s=460&u=c6d4793fcb2ec759704fa68bfe4806e93fbf2569&v=4',
             },
             {
+                _id: 10000009,
                 ID: 10000009,
                 name: 'พักตร์ภูมิ ตาแพร่',
                 phamacy: 'ยาดี ยาอี ยาไอซ์',
@@ -107,17 +116,17 @@ export const pillStoresFilter = ({ keyword }) => {
     return async (dispatch, getState) => {
         const { pillStores } = getState();
 
-        let IDList = [];
+        let _idList = [];
         pillStores.list.map((pillStore) => {
             const keys = Object.keys(pillStore);
             for (let i = 0; i < keys.length; i++) {
                 if (String(pillStore[keys[i]]).includes(keyword)) {
-                    return IDList.push(pillStore.ID);
+                    return _idList.push(pillStore._id);
                 }
             }
         });
 
-        dispatch({ type: PILLSTORES_SHOW, IDList: IDList });
+        dispatch({ type: PILLSTORES_SHOW, _idList: _idList });
     };
 };
 
@@ -132,6 +141,7 @@ export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
         const password = stringGenerate(10);
 
         const pillStore = {
+            _id: Math.floor(Math.random() * 100000000),
             ID: Math.floor(Math.random() * 100000000),
             name,
             phamacy,
@@ -155,28 +165,28 @@ export const pillStoresAdd = ({ name, phamacy, location, email, phone }) => {
     };
 };
 
-export const pillStoresEditToggle = ({ ID }) => {
+export const pillStoresEditToggle = ({ _id }) => {
     return {
         type: PILLSTORES_EDIT_TOGGLE,
-        ID: ID,
+        _id: _id,
     };
 };
 
-export const pillStoresUpdate = ({ ID, name, phamacy, location, email, phone }) => {
+export const pillStoresUpdate = ({ _id, name, phamacy, location, email, phone }) => {
     return async (dispatch, getState) => {
         const { pillStores } = getState();
-        const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+        const pillStore = pillStores.list.find((pillStore) => pillStore._id === _id);
 
         dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...pillStore, name, phamacy, location, email, phone } });
         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
     };
 };
 
-export const pillStoresDelete = ({ ID }) => {
+export const pillStoresDelete = ({ _id }) => {
     return async (dispatch, getState) => {
         const { pillStores } = getState();
 
-        const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+        const pillStore = pillStores.list.find((pillStore) => pillStore._id === _id);
 
         DeleteAlertDialog.fire({
             title: 'ยืนยันที่จะลบบัญชีร้านขายยา',
@@ -187,7 +197,7 @@ export const pillStoresDelete = ({ ID }) => {
             icon: 'warning',
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({ type: PILLSTORES_DELETE, ID: ID });
+                dispatch({ type: PILLSTORES_DELETE, _id: _id });
                 Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
             }
         });
@@ -252,14 +262,14 @@ export const pillStoresDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillStoresEditToggle = ({ ID }) => {
+// export const pillStoresEditToggle = ({ _id }) => {
 //     return {
 //         type: PILLSTORES_EDIT_TOGGLE,
 //         ID: ID,
 //     };
 // };
 
-// export const pillStoresUpdate = ({ ID, name, phamacy, location, email, phone }) => {
+// export const pillStoresUpdate = ({ _id, name, phamacy, location, email, phone }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/editPillStore', {
 //             method: 'POST',
@@ -280,11 +290,11 @@ export const pillStoresDelete = ({ ID }) => {
 //     };
 // };
 
-// export const pillStoresDelete = ({ ID }) => {
+// export const pillStoresDelete = ({ _id }) => {
 //     return async (dispatch, getState) => {
 //         const { pillStores } = getState();
 
-//         const pillStore = pillStores.list.find((pillStore) => pillStore.ID === ID);
+//         const pillStore = pillStores.list.find((pillStore) => pillStore._id === _id);
 
 //         DeleteAlertDialog.fire({
 //             title: 'ยืนยันที่จะลบบัญชีร้านขายยา',
@@ -305,7 +315,7 @@ export const pillStoresDelete = ({ ID }) => {
 //                     }),
 //                 });
 //                 if (res.status === 200) {
-//                     dispatch({ type: PILLSTORES_DELETE, ID: ID });
+//                     dispatch({ type: PILLSTORES_DELETE, _id: _id });
 //                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
 //                 } else {
 //                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });

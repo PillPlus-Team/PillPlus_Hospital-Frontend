@@ -6,7 +6,7 @@ import { accountsFetch } from './accountsAction';
 
 import { roles } from './ultis';
 
-import { ConfirmDialog, ChaningModal, Toast } from './swals';
+import { LoadingModal, ConfirmDialog, ChaningModal, Toast } from './swals';
 
 import { API_URL } from '../config';
 
@@ -60,7 +60,33 @@ export const userEditProfileToggle = () => {
 
 export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) => {
     return async (dispatch, getState) => {
+        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+        LoadingModal.showLoading();
+
         const { user } = getState();
+
+        let editedData;
+
+        if (avatarUri !== user.avatarUri) {
+            let blob = await fetch(avatarUri).then((result) => result.blob());
+
+            let formData = new FormData();
+            formData.append('avatar', blob);
+
+            const res = await fetch(API_URL + '/picture/avatar', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                body: formData,
+            });
+
+            if (res.status === 200) {
+                editedData = { ...editedData, avatarUri: await res.json().then((result) => result.data.avatar) };
+                Toast.fire({ title: 'อัพโหลดรูปโปรไฟล์ สำเร็จ', icon: 'success' });
+            } else {
+                Toast.fire({ title: 'ไม่สามารถอัพโหลดรูปโปรไฟล์ได้', icon: 'error' });
+            }
+        }
 
         const res = await fetch(API_URL + '/auth/updateProfile', {
             method: 'PUT',
@@ -70,7 +96,6 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                avatarUri: avatarUri,
                 name: name,
                 surname: surname,
                 email: email,
@@ -79,15 +104,14 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
         });
 
         if (res.status === 200) {
-            const editedData = await res.json();
-
-            dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, ...editedData } });
-            dispatch(accountsFetch());
-            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            editedData = { ...editedData, ...(await res.json()) };
+            Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
         } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(accountsFetch());
+            Toast.fire({ title: 'ไม่สามารถ บันทึกข้อมูลได้', icon: 'error' });
         }
+
+        dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, ...editedData } });
+        dispatch(accountsFetch());
     };
 };
 
@@ -175,7 +199,7 @@ export const userLogout = ({ history }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await fetch(API_URL + '/auth/logout', {
-                    method: 'POST',
+                    method: 'GET',
                     mode: 'cors',
                     credentials: 'include',
                     headers: {
@@ -225,7 +249,7 @@ export const userLogout = ({ history }) => {
 //         const { user } = getState();
 //         dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, avatarUri, name, surname, email, phone } });
 //         dispatch(accountsFetch());
-//         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+//         Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
 //     };
 // };
 

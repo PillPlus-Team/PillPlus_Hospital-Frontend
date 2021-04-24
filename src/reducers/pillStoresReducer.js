@@ -18,7 +18,7 @@ const pillStoresReducer = (state = initState, action) => {
         case PILLSTORES_SHOW: {
             let list = state.list;
             list = list.map((pillStore) => {
-                if (action.IDList.includes(pillStore.ID)) {
+                if (action._idList.includes(pillStore._id)) {
                     return { ...pillStore, show: true };
                 } else {
                     return { ...pillStore, show: false };
@@ -40,7 +40,7 @@ const pillStoresReducer = (state = initState, action) => {
         case PILLSTORES_EDIT_TOGGLE: {
             let list = state.list;
             list = list.map((pillStore) => {
-                if (pillStore.ID === action.ID) {
+                if (pillStore._id === action._id) {
                     return { ...pillStore, editing: !pillStore.editing };
                 } else {
                     return pillStore;
@@ -53,7 +53,7 @@ const pillStoresReducer = (state = initState, action) => {
         case PILLSTORES_UPDATE: {
             let list = state.list;
             list = list.map((pillStore) => {
-                if (pillStore.ID === action.pillStore.ID) {
+                if (pillStore._id === action.pillStore._id) {
                     return {
                         ...action.pillStore,
                         editing: false,
@@ -68,7 +68,7 @@ const pillStoresReducer = (state = initState, action) => {
 
         case PILLSTORES_DELETE: {
             let list = state.list;
-            list = list.filter((pillStore) => pillStore.ID !== action.ID);
+            list = list.filter((pillStore) => pillStore._id !== action._id);
 
             return { ...state, list };
         }

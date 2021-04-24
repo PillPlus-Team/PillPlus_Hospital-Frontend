@@ -57,7 +57,7 @@ const ManageAccountPage = () => {
                 </div>
                 <TableRowSlot>
                     <AccountRowTitle />
-                    {isEmpty && !accounts.adding && <RowEmpty colSpan="9" text="ไม่มีข้อมูล" />}
+                    {isEmpty && !accounts.adding && <RowEmpty colSpan="8" text="ไม่มีข้อมูล" />}
 
                     {accounts.list.map((account) => {
                         const isInShowRange =

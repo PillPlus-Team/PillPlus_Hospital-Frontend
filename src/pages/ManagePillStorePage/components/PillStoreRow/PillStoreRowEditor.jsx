@@ -39,7 +39,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillStoresUpdate({ ID: pillStore.ID, name, phamacy, location, email, phone }));
+            dispatch(pillStoresUpdate({ _id: pillStore._id, name, phamacy, location, email, phone }));
         }
     };
 
@@ -172,7 +172,7 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(pillStoresEditToggle({ ID: pillStore.ID }));
+                            dispatch(pillStoresEditToggle({ _id: pillStore._id }));
                         }}
                     >
                         ยกเลิก

@@ -22,31 +22,31 @@ const ManagePillPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let pillsFilteredID = pills.list.map((pill) => {
+    let pillsFiltered_id = pills.list.map((pill) => {
         if (pill.show) {
-            return pill.ID;
+            return pill._id;
         }
     });
-    pillsFilteredID = pillsFilteredID.filter((ID) => ID != null);
+    pillsFiltered_id = pillsFiltered_id.filter((_id) => _id != null);
 
-    const isEmpty = pillsFilteredID.length === 0;
+    const isEmpty = pillsFiltered_id.length === 0;
 
     useEffect(() => {
         dispatch(pillsFetch());
     }, []);
 
     useEffect(() => {
-        if (pillsFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(Math.floor(pillsFilteredID.length / (itemPerPage + 1)));
+        if (pillsFiltered_id.length / itemPerPage <= currentPage) {
+            setCurrentPage(Math.floor(pillsFiltered_id.length / (itemPerPage + 1)));
         }
-    }, [pillsFilteredID]);
+    }, [pillsFiltered_id]);
 
     return (
         <PageLayout pageTitle="จัดการข้อมูลยา" userInfo={user} menuList={menuList}>
             <div className="relative">
                 <div className="flex w-full justify-end absolute -top-14">
                     <p className="flex justify-center items-center mr-6 text-white text-lg min-w-max">
-                        ทั้งหมด {pillsFilteredID.length.toLocaleString('th-TH')} รายการ
+                        ทั้งหมด {pillsFiltered_id.length.toLocaleString('th-TH')} รายการ
                     </p>
                     <SearchBar
                         onSearchClick={(keyword) => {
@@ -60,12 +60,12 @@ const ManagePillPage = () => {
 
                     {pills.list.map((pill) => {
                         const isInShowRange =
-                            currentPage * itemPerPage <= pillsFilteredID.indexOf(pill.ID) &&
-                            pillsFilteredID.indexOf(pill.ID) < currentPage * itemPerPage + itemPerPage;
+                            currentPage * itemPerPage <= pillsFiltered_id.indexOf(pill._id) &&
+                            pillsFiltered_id.indexOf(pill._id) < currentPage * itemPerPage + itemPerPage;
                         return (
                             <>
                                 {pill.show && isInShowRange && (
-                                    <PillRow index={pillsFilteredID.indexOf(pill.ID) + 1} pill={pill} pills={pills.list} />
+                                    <PillRow index={pillsFiltered_id.indexOf(pill._id) + 1} pill={pill} pills={pills.list} />
                                 )}
                             </>
                         );
@@ -86,7 +86,7 @@ const ManagePillPage = () => {
                         </button>
                     )}
                     <ReactPaginate
-                        pageCount={pillsFilteredID.length / itemPerPage}
+                        pageCount={pillsFiltered_id.length / itemPerPage}
                         initialPage={currentPage}
                         forcePage={currentPage}
                         marginPagesDisplayed={2}
@@ -101,8 +101,8 @@ const ManagePillPage = () => {
                         breakClassName="flex justify-center items-center w-10 h-12 bg-white hover:bg-gray-200 cursor-pointer"
                         breakLinkClassName="flex justify-center items-center w-full h-full "
                         activeClassName="flex justify-center items-center w-10 h-12 bg-gray-200 hover:bg-gray-200 cursor-pointer"
-                        previousLabel={<span aria-hidden="true">&laquo;</span>}
-                        nextLabel={<span aria-hidden="true">&raquo;</span>}
+                        previousLabel={<span aria-h_idden="true">&laquo;</span>}
+                        nextLabel={<span aria-h_idden="true">&raquo;</span>}
                         breakLabel="..."
                         onPageChange={(page) => {
                             setCurrentPage(page.selected);

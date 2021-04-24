@@ -10,7 +10,7 @@ const pillsReducer = (state = initState, action) => {
         case PILLS_SHOW: {
             let list = state.list;
             list = list.map((pill) => {
-                if (action.IDList.includes(pill.ID)) {
+                if (action._idList.includes(pill._id)) {
                     return { ...pill, show: true };
                 } else {
                     return { ...pill, show: false };
@@ -32,7 +32,7 @@ const pillsReducer = (state = initState, action) => {
         case PILLS_EDIT_TOGGLE: {
             let list = state.list;
             list = list.map((pill) => {
-                if (pill.ID === action.ID) {
+                if (pill._id === action._id) {
                     return { ...pill, editing: !pill.editing };
                 } else {
                     return pill;
@@ -45,7 +45,7 @@ const pillsReducer = (state = initState, action) => {
         case PILLS_UPDATE: {
             let list = state.list;
             list = list.map((pill) => {
-                if (pill.ID === action.pill.ID) {
+                if (pill._id === action.pill._id) {
                     return {
                         ...action.pill,
                         editing: false,
@@ -60,7 +60,7 @@ const pillsReducer = (state = initState, action) => {
 
         case PILLS_DELETE: {
             let list = state.list;
-            list = list.filter((pill) => pill.ID !== action.ID);
+            list = list.filter((pill) => pill._id !== action._id);
 
             return { ...state, list };
         }

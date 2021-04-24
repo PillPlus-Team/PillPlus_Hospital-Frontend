@@ -29,7 +29,7 @@ const PillStoreRowDisplay = ({ index, pillStore }) => {
                         class="text-indigo-600 hover:text-indigo-900 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(pillStoresEditToggle({ ID: pillStore.ID }));
+                            dispatch(pillStoresEditToggle({ _id: pillStore._id }));
                         }}
                     >
                         แก้ไข
@@ -40,7 +40,7 @@ const PillStoreRowDisplay = ({ index, pillStore }) => {
                         className="text-red-600 hover:text-red-900 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(pillStoresDelete({ ID: pillStore.ID }));
+                            dispatch(pillStoresDelete({ _id: pillStore._id }));
                         }}
                     >
                         ลบ

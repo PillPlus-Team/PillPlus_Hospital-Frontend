@@ -36,14 +36,14 @@ const PillRowEditor = ({ index, pill, pills }) => {
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillsUpdate({ ID: pill.ID, sn, name, description, unit, price, type }));
+            dispatch(pillsUpdate({ _id: pill._id, sn, name, description, unit, price, type }));
         }
     };
 
     return (
         <tbody className="divide-y divide-gray-200">
             <tr>
-                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10">{index}</td>
+                <td className="w-10 px-6 py-4 whitespace-nowrap text-gray-500 pl-10 align-top">{index}</td>
                 <td className="w-32 px-6 py-4 whitespace-nowrap text-gray-500 align-top">
                     <InputText
                         id={`InputText-sn-${index}`}
@@ -167,7 +167,7 @@ const PillRowEditor = ({ index, pill, pills }) => {
                         className="text-gray-800 hover:text-gray-500 hover:underline focus:outline-none"
                         type="button"
                         onClick={() => {
-                            dispatch(pillsEditToggle({ ID: pill.ID }));
+                            dispatch(pillsEditToggle({ _id: pill._id }));
                         }}
                     >
                         ยกเลิก

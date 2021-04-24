@@ -50,8 +50,8 @@ const ProfileEditor = ({ userInfo, accounts }) => {
                 id="InputImageFile-avatar"
                 name="avatar"
                 accept="image/jpeg"
-                limitSizeMB={250}
-                initImageUrl={avatarUri}
+                limitSizeMB={1}
+                initImageUri={avatarUri}
                 onValidChange={(state) => {
                     setIsValidavatarUri(state);
                 }}

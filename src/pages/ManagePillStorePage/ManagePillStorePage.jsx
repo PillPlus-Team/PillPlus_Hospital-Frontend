@@ -22,31 +22,31 @@ const ManagePillStorePage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let pillStoresFilteredID = pillStores.list.map((pillStore) => {
+    let pillStoresFiltered_id = pillStores.list.map((pillStore) => {
         if (pillStore.show) {
-            return pillStore.ID;
+            return pillStore._id;
         }
     });
-    pillStoresFilteredID = pillStoresFilteredID.filter((ID) => ID != null);
+    pillStoresFiltered_id = pillStoresFiltered_id.filter((_id) => _id != null);
 
-    const isEmpty = pillStoresFilteredID.length === 0;
+    const isEmpty = pillStoresFiltered_id.length === 0;
 
     useEffect(() => {
         dispatch(pillStoresFetch());
     }, []);
 
     useEffect(() => {
-        if (pillStoresFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(Math.floor(pillStoresFilteredID.length / (itemPerPage + 1)));
+        if (pillStoresFiltered_id.length / itemPerPage <= currentPage) {
+            setCurrentPage(Math.floor(pillStoresFiltered_id.length / (itemPerPage + 1)));
         }
-    }, [pillStoresFilteredID]);
+    }, [pillStoresFiltered_id]);
 
     return (
         <PageLayout pageTitle="จัดการบัญชีร้านขายยา" userInfo={user} menuList={menuList}>
             <div className="relative">
                 <div className="flex w-full justify-end absolute -top-14">
                     <p className="flex justify-center items-center mr-6 text-white text-lg min-w-max">
-                        ทั้งหมด {pillStoresFilteredID.length.toLocaleString('th-TH')} รายการ
+                        ทั้งหมด {pillStoresFiltered_id.length.toLocaleString('th-TH')} รายการ
                     </p>
                     <SearchBar
                         onSearchClick={(keyword) => {
@@ -60,13 +60,13 @@ const ManagePillStorePage = () => {
 
                     {pillStores.list.map((pillStore) => {
                         const isInShowRange =
-                            currentPage * itemPerPage <= pillStoresFilteredID.indexOf(pillStore.ID) &&
-                            pillStoresFilteredID.indexOf(pillStore.ID) < currentPage * itemPerPage + itemPerPage;
+                            currentPage * itemPerPage <= pillStoresFiltered_id.indexOf(pillStore._id) &&
+                            pillStoresFiltered_id.indexOf(pillStore._id) < currentPage * itemPerPage + itemPerPage;
                         return (
                             <>
                                 {pillStore.show && isInShowRange && (
                                     <PillStoreRow
-                                        index={pillStoresFilteredID.indexOf(pillStore.ID) + 1}
+                                        index={pillStoresFiltered_id.indexOf(pillStore._id) + 1}
                                         pillStore={pillStore}
                                         pillStores={pillStores.list}
                                     />
@@ -91,7 +91,7 @@ const ManagePillStorePage = () => {
                         </button>
                     )}
                     <ReactPaginate
-                        pageCount={pillStoresFilteredID.length / itemPerPage}
+                        pageCount={pillStoresFiltered_id.length / itemPerPage}
                         initialPage={currentPage}
                         forcePage={currentPage}
                         marginPagesDisplayed={2}
@@ -106,8 +106,8 @@ const ManagePillStorePage = () => {
                         breakClassName="flex justify-center items-center w-10 h-12 bg-white hover:bg-gray-200 cursor-pointer"
                         breakLinkClassName="flex justify-center items-center w-full h-full "
                         activeClassName="flex justify-center items-center w-10 h-12 bg-gray-200 hover:bg-gray-200 cursor-pointer"
-                        previousLabel={<span aria-hidden="true">&laquo;</span>}
-                        nextLabel={<span aria-hidden="true">&raquo;</span>}
+                        previousLabel={<span aria-h_idden="true">&laquo;</span>}
+                        nextLabel={<span aria-h_idden="true">&raquo;</span>}
                         breakLabel="..."
                         onPageChange={(page) => {
                             setCurrentPage(page.selected);

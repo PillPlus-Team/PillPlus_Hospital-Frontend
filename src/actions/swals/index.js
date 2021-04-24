@@ -2,6 +2,11 @@ import Swal from 'sweetalert2';
 
 export const SwalDefault = Swal;
 
+export const LoadingModal = Swal.mixin({
+    allowEnterKey: false,
+    allowOutsideClick: false,
+})
+
 export const ConfirmDialog = Swal.mixin({
     customClass: {
         confirmButton: 'w-24',
