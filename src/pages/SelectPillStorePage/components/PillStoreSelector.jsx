@@ -2,10 +2,11 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import { prescriptionSelectPillStore } from '../../../actions/prescriptionsAction';
+import { API_URL } from '../../../config';
 
 const initList = [
     {
-        ID: 10000000,
+        ID: 'PS10000003',
         pharmacy: 'โรงพยาบาล (ค่าเริ่มต้น)',
         location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
     },
@@ -28,48 +29,31 @@ const PillStoreSelector = ({ selectedPrescription }) => {
     });
 
     useEffect(() => {
-        /*Mock-availablePillStores*/
-        const mock = [
-            {
-                ID: 10000001,
-                pharmacy: 'ร้าน A',
-                location: '99/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
-            },
-            {
-                ID: 10000002,
-                pharmacy: 'ร้าน B',
-                location: '154/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
-            },
-        ];
+        
+        const setPillStoreChoices = async () => {
+            /* API For Mock */
+            const res = await fetch(API_URL + '/pillStore/all', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (selectedPrescription.pills.length !== 0) {
-            setAvailablePillStoreList([...initList, ...mock]);
-        }
+            const availablePillStores = await res.json();
+            if (selectedPrescription.pills.length !== 0) {
+                setAvailablePillStoreList([...initList, ...availablePillStores]);
+            }
+        };
 
-        /* For Production */
-        // const fetchData = async () => {
-        //     const res = await fetch('/api/v1/getAvailablePillStore', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             PrescriptionID: selectedPrescription.ID,
-        //         }),
-        //     });
-        //     const availablePillStores = await res.json();
-        //     if (selectedPrescription.pills.length !== 0) {
-        //         setAvailablePillStoreList([...initList, ...availablePillStores]);
-        //     }
-        // };
-
-        // fetchData();
+        setPillStoreChoices();
     }, []);
 
     useEffect(() => {
         dispatch(
             prescriptionSelectPillStore({
-                ID: selectedPrescription.ID,
+                _id: selectedPrescription._id,
                 pillStoreID: selectedPillStore.ID,
                 pillStorePharmacy: selectedPillStore.pharmacy,
                 pillStoreLocation: selectedPillStore.location,

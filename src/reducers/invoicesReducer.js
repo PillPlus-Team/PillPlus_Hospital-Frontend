@@ -1,6 +1,6 @@
 import { INVOICES_FETCH, INVOICES_SELECT, INVOICES_PAY } from '../actions/types';
 
-const initState = { list: [], selectedInvoiceID: null };
+const initState = { list: [], selectedInvoice_id: null };
 
 const invoicesReducer = (state = initState, action) => {
     switch (action.type) {
@@ -10,21 +10,21 @@ const invoicesReducer = (state = initState, action) => {
         case INVOICES_SELECT: {
             let list = state.list;
             list = list.map((invoice) => {
-                if (invoice.ID === action.ID) {
+                if (invoice._id === action._id) {
                     return { ...invoice, selected: true };
                 } else {
                     return { ...invoice, selected: false };
                 }
             });
 
-            return { ...state, list, selectedInvoiceID: action.ID };
+            return { ...state, list, selectedInvoice_id: action._id };
         }
 
         case INVOICES_PAY: {
             let list = state.list;
-            list = list.filter((invoice) => invoice.ID !== action.ID);
+            list = list.filter((invoice) => invoice._id !== action._id);
 
-            return { ...state, list, selectedInvoiceID: null };
+            return { ...state, list, selectedInvoice_id: null };
         }
 
         default:

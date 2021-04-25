@@ -1,6 +1,6 @@
 import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from '../actions/types';
 
-const initState = { list: [], selectedPrescriptionID: null };
+const initState = { list: [], selectedPrescription_id: null };
 
 const prescriptionsReducer = (state = initState, action) => {
     switch (action.type) {
@@ -10,20 +10,20 @@ const prescriptionsReducer = (state = initState, action) => {
         case PRESCRIPTIONS_SELECT: {
             let list = state.list;
             list = list.map((prescription) => {
-                if (prescription.ID === action.ID) {
+                if (prescription._id === action._id) {
                     return { ...prescription, selected: true };
                 } else {
                     return { ...prescription, selected: false };
                 }
             });
 
-            return { ...state, list, selectedPrescriptionID: action.ID };
+            return { ...state, list, selectedPrescription_id: action._id };
         }
         
         case PRESCRIPTIONS_SELECT_PILLSTORE: {
             let list = state.list;
             list = list.map((prescription) => {
-                if (prescription.ID === action.ID) {
+                if (prescription._id === action._id) {
                     return {
                         ...prescription,
                         pillStoreID: action.pillStoreID,
@@ -40,9 +40,9 @@ const prescriptionsReducer = (state = initState, action) => {
 
         case PRESCRIPTIONS_UPDATE_PILLSTORE: {
             let list = state.list;
-            list = list.filter((prescription) => prescription.ID !== action.ID);
+            list = list.filter((prescription) => prescription._id !== action._id);
 
-            return { ...state, list, selectedPrescriptionID: null };
+            return { ...state, list, selectedPrescription_id: null };
         }
 
         default:

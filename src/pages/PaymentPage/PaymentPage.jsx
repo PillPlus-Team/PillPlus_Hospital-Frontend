@@ -14,7 +14,7 @@ const PaymentPage = () => {
     const menuList = useSelector((state) => state.menuList);
     const invoices = useSelector((state) => state.invoices);
 
-    const selectedInvoice = invoices.list.find((element) => element.ID === invoices.selectedInvoiceID);
+    const selectedInvoice = invoices.list.find((element) => element._id === invoices.selectedInvoice_id);
 
     useEffect(() => {
         dispatch(invoicesFetch());
@@ -29,7 +29,7 @@ const PaymentPage = () => {
                         <PatientQueue
                             patientQueueList={invoices.list}
                             onSelected={(selectedIndex) => {
-                                dispatch(invoicesSelect({ ID: invoices.list[selectedIndex].ID }));
+                                dispatch(invoicesSelect({ _id: invoices.list[selectedIndex]._id }));
                             }}
                         />
                     </div>
@@ -55,7 +55,7 @@ const PaymentPage = () => {
                         type="button"
                         disabled={!selectedInvoice}
                         onClick={() => {
-                            dispatch(invoicesPay({ ID: invoices.selectedInvoiceID }));
+                            dispatch(invoicesPay({ _id: invoices.selectedInvoice_id }));
                         }}
                     >
                         ยืนยันการชำระเงิน

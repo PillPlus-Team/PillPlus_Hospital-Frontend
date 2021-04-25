@@ -7,6 +7,7 @@ import PillStoreSelector from './components/PillStoreSelector';
 import PrescriptionInfoMonitor from './components/PrescriptionInfoMonitor';
 
 import { prescriptionsFetch, prescriptionsSelect, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
+import { invoicesFetch } from '../../actions/invoicesAction';
 
 const SelectPillStorePage = () => {
     const dispatch = useDispatch();
@@ -15,10 +16,11 @@ const SelectPillStorePage = () => {
     const menuList = useSelector((state) => state.menuList);
     const prescriptions = useSelector((state) => state.prescriptions);
 
-    const selectedPrescription = prescriptions.list.find((element) => element.ID === prescriptions.selectedPrescriptionID);
+    const selectedPrescription = prescriptions.list.find((element) => element._id === prescriptions.selectedPrescription_id);
 
     useEffect(() => {
         dispatch(prescriptionsFetch());
+        dispatch(invoicesFetch())
     }, []);
 
     return (
@@ -30,7 +32,7 @@ const SelectPillStorePage = () => {
                         <PatientQueue
                             patientQueueList={prescriptions.list}
                             onSelected={(selectedIndex) => {
-                                dispatch(prescriptionsSelect({ ID: prescriptions.list[selectedIndex].ID }));
+                                dispatch(prescriptionsSelect({ _id: prescriptions.list[selectedIndex]._id }));
                             }}
                         />
                     </div>
@@ -47,7 +49,7 @@ const SelectPillStorePage = () => {
                             <div className="flex items-center w-160 h-20 p-2 bg-white shadow-md rounded-lg">
                                 {/*Hack react-life-cycle */}
                                 {prescriptions.list.map((prescription) => {
-                                    return prescription.selected && <PillStoreSelector selectedPrescription={selectedPrescription}/>;
+                                    return prescription.selected && <PillStoreSelector selectedPrescription={selectedPrescription} />;
                                 })}
                             </div>
                         )}
@@ -72,7 +74,7 @@ const SelectPillStorePage = () => {
                         type="button"
                         disabled={!selectedPrescription}
                         onClick={() => {
-                            dispatch(prescriptionsUpdatePillStore({ ID: prescriptions.selectedPrescriptionID }));
+                            dispatch(prescriptionsUpdatePillStore({ _id: prescriptions.selectedPrescription_id }));
                         }}
                     >
                         ยันยันสถานที่รับยา

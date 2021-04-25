@@ -4,7 +4,7 @@ const PrescriptionInfoMonitor = ({ prescription }) => {
             <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
                 <tr>
                     <td className="font-bold w-36 py-2">รหัสใบสั่งยา</td>
-                    <td className="w-96 py-2">{prescription.ID}</td>
+                    <td className="w-96 py-2">{prescription._id}</td>
                 </tr>
                 <tr>
                     <td className="font-bold w-36 py-2">รหัส HN</td>

@@ -4,15 +4,21 @@ const InvoiceInfoMonitor = ({ invoice }) => {
             <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
                 <tr>
                     <td className="font-bold w-36 py-2">รหัสใบเสร็จ</td>
-                    <td className="w-96 py-2">{invoice.ID}</td>
+                    <td className="w-96 py-2">{invoice._id}</td>
                 </tr>
+
                 <tr>
                     <td className="font-bold w-36 py-2">รหัส HN</td>
                     <td className="w-96 py-2">{invoice.hn}</td>
                 </tr>
+
                 <tr>
                     <td className="font-bold w-36 py-2">ชื่อ</td>
                     <td className="w-96 py-2">{invoice.name}</td>
+                </tr>
+                <tr>
+                    <td className="font-bold w-36 py-2">เลขประจำตัวประชาชน</td>
+                    <td className="w-96 py-2">{invoice.identificationNumber}</td>
                 </tr>
                 <tr>
                     <td className="font-bold w-36 py-2">แพทย์ผู้รับผิดชอบ</td>
