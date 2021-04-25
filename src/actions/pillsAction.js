@@ -31,7 +31,7 @@ export const pillsFilter = ({ keyword }) => {
 
         let _idList = [];
         pills.list.map((pill) => {
-            const keys = Object.keys(pill);
+            const keys = Object.keys(pill).filter((key) => key != '_id');
             for (let i = 0; i < keys.length; i++) {
                 if (String(pill[keys[i]]).includes(keyword)) {
                     return _idList.push(pill._id);
@@ -260,7 +260,7 @@ export const pillsDelete = ({ _id }) => {
 
 //         let _idList = [];
 //         pills.list.map((pill) => {
-//             const keys = Object.keys(pill);
+//             const keys = Object.keys(pill).filter((key) => key != '_id');
 //             for (let i = 0; i < keys.length; i++) {
 //                 if (String(pill[keys[i]]).includes(keyword)) {
 //                     return _idList.push(pill._id);

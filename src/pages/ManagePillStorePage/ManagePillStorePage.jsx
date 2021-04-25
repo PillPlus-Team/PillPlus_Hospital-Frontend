@@ -106,8 +106,8 @@ const ManagePillStorePage = () => {
                         breakClassName="flex justify-center items-center w-10 h-12 bg-white hover:bg-gray-200 cursor-pointer"
                         breakLinkClassName="flex justify-center items-center w-full h-full "
                         activeClassName="flex justify-center items-center w-10 h-12 bg-gray-200 hover:bg-gray-200 cursor-pointer"
-                        previousLabel={<span aria-h_idden="true">&laquo;</span>}
-                        nextLabel={<span aria-h_idden="true">&raquo;</span>}
+                        previousLabel={<span aria-hidden="true">&laquo;</span>}
+                        nextLabel={<span aria-hidden="true">&raquo;</span>}
                         breakLabel="..."
                         onPageChange={(page) => {
                             setCurrentPage(page.selected);

@@ -36,7 +36,7 @@ export const accountsFilter = ({ keyword }) => {
 
         let _idList = [];
         accounts.list.map((account) => {
-            const keys = Object.keys(account);
+            const keys = Object.keys(account).filter((key) => key != '_id');
             for (let i = 0; i < keys.length; i++) {
                 if (String(account[keys[i]]).includes(keyword)) {
                     return _idList.push(account._id);
@@ -281,7 +281,7 @@ export const accountsDelete = ({ _id }) => {
 
 //         let _idList = [];
 //         accounts.list.map((account) => {
-//             const keys = Object.keys(account);
+//             const keys = Object.keys(account).filter((key) => key != '_id');
 //             for (let i = 0; i < keys.length; i++) {
 //                 if (String(account[keys[i]]).includes(keyword)) {
 //                     return _idList.push(account._id);

@@ -11,7 +11,7 @@ const statementsReducer = (state = initState, action) => {
             if (state.month === action.month && state.year === action.year) {
                 let list = state.list;
                 list = list.map((statement) => {
-                    if (action.IDList.includes(statement.ID)) {
+                    if (action._idList.includes(statement._id)) {
                         return { ...statement, show: true };
                     } else {
                         return { ...statement, show: false };

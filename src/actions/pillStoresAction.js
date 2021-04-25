@@ -41,7 +41,7 @@ export const pillStoresFilter = ({ keyword }) => {
 
         let _idList = [];
         pillStores.list.map((pillStore) => {
-            const keys = Object.keys(pillStore);
+            const keys = Object.keys(pillStore).filter((key) => key != '_id');
             for (let i = 0; i < keys.length; i++) {
                 if (String(pillStore[keys[i]]).includes(keyword)) {
                     return _idList.push(pillStore._id);
@@ -292,7 +292,7 @@ export const pillStoresDelete = ({ _id }) => {
 
 //         let _idList = [];
 //         pillStores.list.map((pillStore) => {
-//             const keys = Object.keys(pillStore);
+//             const keys = Object.keys(pillStore).filter((key) => key != '_id');
 //             for (let i = 0; i < keys.length; i++) {
 //                 if (String(pillStore[keys[i]]).includes(keyword)) {
 //                     return _idList.push(pillStore._id);

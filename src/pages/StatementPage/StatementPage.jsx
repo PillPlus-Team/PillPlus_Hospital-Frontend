@@ -40,31 +40,31 @@ const StatementPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let statementsFilteredID = statements.list.map((statement) => {
+    let statementsFiltered_id = statements.list.map((statement) => {
         if (statement.show) {
-            return statement.ID;
+            return statement._id;
         }
     });
-    statementsFilteredID = statementsFilteredID.filter((ID) => ID != null);
+    statementsFiltered_id = statementsFiltered_id.filter((_id) => _id != null);
 
-    const isEmpty = statementsFilteredID.length === 0;
+    const isEmpty = statementsFiltered_id.length === 0;
 
     useEffect(() => {
         dispatch(statementsFetchByMonth({ month: month, year: year }));
     }, [month, year]);
 
     useEffect(() => {
-        if (statementsFilteredID.length / itemPerPage <= currentPage) {
-            setCurrentPage(Math.floor(statementsFilteredID.length / (itemPerPage + 1)));
+        if (statementsFiltered_id.length / itemPerPage <= currentPage) {
+            setCurrentPage(Math.floor(statementsFiltered_id.length / (itemPerPage + 1)));
         }
-    }, [statementsFilteredID]);
+    }, [statementsFiltered_id]);
 
     return (
         <PageLayout pageTitle="เช็คยอดร้านขายยา" userInfo={user} menuList={menuList}>
             <div className="relative">
                 <div className="flex w-full justify-end absolute -top-14 min-w-max">
                     <p className="flex justify-center items-center mr-6 text-white text-lg min-w-max">
-                        ทั้งหมด {statementsFilteredID.length.toLocaleString('th-TH')} รายการ
+                        ทั้งหมด {statementsFiltered_id.length.toLocaleString('th-TH')} รายการ
                     </p>
                     <div className="flex justify-center items-center w-28 mr-2">
                         <InputDropdown
@@ -100,12 +100,12 @@ const StatementPage = () => {
 
                     {statements.list.map((statement) => {
                         const isInShowRange =
-                            currentPage * itemPerPage <= statementsFilteredID.indexOf(statement.ID) &&
-                            statementsFilteredID.indexOf(statement.ID) < currentPage * itemPerPage + itemPerPage;
+                            currentPage * itemPerPage <= statementsFiltered_id.indexOf(statement._id) &&
+                            statementsFiltered_id.indexOf(statement._id) < currentPage * itemPerPage + itemPerPage;
                         return (
                             <>
                                 {statement.show && isInShowRange && (
-                                    <StatementRowDisplay index={statementsFilteredID.indexOf(statement.ID) + 1} statement={statement} />
+                                    <StatementRowDisplay index={statementsFiltered_id.indexOf(statement._id) + 1} statement={statement} />
                                 )}
                             </>
                         );
@@ -114,7 +114,7 @@ const StatementPage = () => {
 
                 <div className="flex flex-row items-center mt-4">
                     <ReactPaginate
-                        pageCount={statementsFilteredID.length / itemPerPage}
+                        pageCount={statementsFiltered_id.length / itemPerPage}
                         initialPage={currentPage}
                         forcePage={currentPage}
                         marginPagesDisplayed={2}
