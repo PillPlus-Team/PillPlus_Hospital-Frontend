@@ -9,13 +9,13 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState(pillStore.name);
-    const [phamacy, setPhamacy] = useState(pillStore.phamacy);
+    const [pharmacy, setPharmacy] = useState(pillStore.pharmacy);
     const [location, setLocation] = useState(pillStore.location);
     const [email, setEmail] = useState(pillStore.email);
     const [phone, setPhone] = useState(pillStore.phone);
 
     const [isValidName, setIsValidName] = useState(true);
-    const [isValidPhamacy, setIsValidPhamacy] = useState(true);
+    const [isValidPharmacy, setIsValidPharmacy] = useState(true);
     const [isValidLocation, setIsValidLocation] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidPhone, setIsValidPhone] = useState(true);
@@ -34,12 +34,12 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone);
-    }, [isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone]);
+        setCanSubmit(isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone);
+    }, [isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillStoresUpdate({ _id: pillStore._id, name, phamacy, location, email, phone }));
+            dispatch(pillStoresUpdate({ _id: pillStore._id, name, pharmacy, location, email, phone }));
         }
     };
 
@@ -71,10 +71,10 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                 </td>
                 <td className="w-36 px-6 py-4 whitespace-nowrap text-gray-500">
                     <InputText
-                        id={`InputText-phamacy-${index}`}
-                        name="phamacy"
+                        id={`InputText-pharmacy-${index}`}
+                        name="pharmacy"
                         type="text"
-                        initValue={phamacy}
+                        initValue={pharmacy}
                         placeholder="ชื่อร้าน"
                         autoComplete="off"
                         required
@@ -83,10 +83,10 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         pattern="^[a-zA-Zก-๏0-9\s]+$"
                         msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
-                            setIsValidPhamacy(state);
+                            setIsValidPharmacy(state);
                         }}
                         onValueChange={(state) => {
-                            setPhamacy(state);
+                            setPharmacy(state);
                         }}
                     />
                 </td>

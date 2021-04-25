@@ -12,7 +12,7 @@ export const invoicesFetch = () => {
                 startTime: 1618415601123,
                 queueNo: 1,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-                pillStorePhamacy: 'ร้าน A',
+                pillStorePharmacy: 'ร้าน A',
                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 pills: [],
                 serviceCharge: 30.0,
@@ -25,7 +25,7 @@ export const invoicesFetch = () => {
                 startTime: 1618415651123,
                 queueNo: 2,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-                pillStorePhamacy: 'ร้าน A',
+                pillStorePharmacy: 'ร้าน A',
                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 pills: [
                     { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด', totalPrice: 10.0 },
@@ -46,7 +46,7 @@ export const invoicesFetch = () => {
                 startTime: 1618415661123,
                 queueNo: 3,
                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-                pillStorePhamacy: 'ร้าน A',
+                pillStorePharmacy: 'ร้าน A',
                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
                 pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด', totalPrice: 10.0 }],
                 serviceCharge: 50.0,
@@ -76,7 +76,7 @@ export const invoicesPay = ({ ID }) => {
             title: 'ยืนยันการชำระเงิน',
             html:
                 `<br> HN ${invoice.hn} : ${invoice.name} <br><br>` +
-                `รับยาที่ ${invoice.pillStorePhamacy} <br>` +
+                `รับยาที่ ${invoice.pillStorePharmacy} <br>` +
                 `ที่อยู่ ${invoice.pillStoreLocation} <br><br>` +
                 `ยอดชำระทั้งสิ้น <b>${Number(invoice.totalPay).toLocaleString('th-TH', {
                     style: 'currency',
@@ -129,7 +129,7 @@ export const invoicesPay = ({ ID }) => {
 //             title: 'ยืนยันการชำระเงิน',
 //             html:
 //                 `<br> HN ${invoice.hn} : ${invoice.name} <br><br>` +
-//                 `รับยาที่ ${invoice.pillStorePhamacy} <br>` +
+//                 `รับยาที่ ${invoice.pillStorePharmacy} <br>` +
 //                 `ที่อยู่ ${invoice.pillStoreLocation} <br><br>` +
 //                 `ยอดชำระทั้งสิ้น <b>${Number(invoice.totalPay).toLocaleString('th-TH', {
 //                     style: 'currency',

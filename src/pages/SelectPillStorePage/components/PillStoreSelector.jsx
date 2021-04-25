@@ -6,7 +6,7 @@ import { prescriptionSelectPillStore } from '../../../actions/prescriptionsActio
 const initList = [
     {
         ID: 10000000,
-        phamacy: 'โรงพยาบาล (ค่าเริ่มต้น)',
+        pharmacy: 'โรงพยาบาล (ค่าเริ่มต้น)',
         location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
     },
 ];
@@ -32,12 +32,12 @@ const PillStoreSelector = ({ selectedPrescription }) => {
         const mock = [
             {
                 ID: 10000001,
-                phamacy: 'ร้าน A',
+                pharmacy: 'ร้าน A',
                 location: '99/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
             },
             {
                 ID: 10000002,
-                phamacy: 'ร้าน B',
+                pharmacy: 'ร้าน B',
                 location: '154/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
             },
         ];
@@ -71,7 +71,7 @@ const PillStoreSelector = ({ selectedPrescription }) => {
             prescriptionSelectPillStore({
                 ID: selectedPrescription.ID,
                 pillStoreID: selectedPillStore.ID,
-                pillStorePhamacy: selectedPillStore.phamacy,
+                pillStorePharmacy: selectedPillStore.pharmacy,
                 pillStoreLocation: selectedPillStore.location,
             })
         );
@@ -87,7 +87,7 @@ const PillStoreSelector = ({ selectedPrescription }) => {
                 }}
             >
                 <div class="flex flex-col items-start">
-                    <span class="font-normal ml-3 block truncate">{selectedPillStore.phamacy}</span>
+                    <span class="font-normal ml-3 block truncate">{selectedPillStore.pharmacy}</span>
                     <span class="font-normal ml-3 block truncate text-gray-500 text-sm">{selectedPillStore.location}</span>
                 </div>
                 <span class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -119,7 +119,7 @@ const PillStoreSelector = ({ selectedPrescription }) => {
                                 }}
                             >
                                 <div class="flex flex-col items-start">
-                                    <span class="font-normal ml-3 block truncate">{pillStore.phamacy}</span>
+                                    <span class="font-normal ml-3 block truncate">{pillStore.pharmacy}</span>
                                     <span class="font-normal ml-3 block truncate text-gray-500">{pillStore.location}</span>
                                 </div>
                                 {index === indexSelected && (

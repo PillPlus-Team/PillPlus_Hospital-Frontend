@@ -22,7 +22,7 @@ const PrescriptionInfoMonitor = ({ prescription }) => {
                     <td className="font-bold w-36 py-2">สถานที่รับยา</td>
                     <td className="w-96 py-2">
                         <div className="flex flex-col">
-                            <p>{prescription.pillStorePhamacy}</p>
+                            <p>{prescription.pillStorePharmacy}</p>
                             <p className="text-sm text-gray-400 break-words">{prescription.pillStoreLocation}</p>
                         </div>
                     </td>

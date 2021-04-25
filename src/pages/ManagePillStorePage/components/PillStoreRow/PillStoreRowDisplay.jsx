@@ -14,7 +14,7 @@ const PillStoreRowDisplay = ({ index, pillStore }) => {
                     <p className="break-words">{pillStore.name}</p>
                 </td>
                 <td className="w-36 px-6 py-4 text-gray-500">
-                    <p className="break-words">{pillStore.phamacy}</p>
+                    <p className="break-words">{pillStore.pharmacy}</p>
                 </td>
                 <td className="w-48 px-6 py-4 text-gray-500">
                     <p className="break-words">{pillStore.location}</p>

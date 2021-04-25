@@ -8,7 +8,7 @@ const StatementRowDisplay = ({ index, statement }) => {
                     <p className="break-words">{statement.name}</p>
                 </td>
                 <td className="w-36 px-6 py-4 text-gray-500">
-                    <p className="break-words">{statement.phamacy}</p>
+                    <p className="break-words">{statement.pharmacy}</p>
                 </td>
                 <td className="w-48 px-6 py-4 text-gray-500">
                     <p className="break-words">{statement.location}</p>

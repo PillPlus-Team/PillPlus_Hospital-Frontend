@@ -9,13 +9,13 @@ const PillStoreRowAdder = ({ pillStores }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
-    const [phamacy, setPhamacy] = useState('');
+    const [pharmacy, setPharmacy] = useState('');
     const [location, setLocation] = useState('');
     const [email, setEmail] = useState();
     const [phone, setPhone] = useState('');
 
     const [isValidName, setIsValidName] = useState(false);
-    const [isValidPhamacy, setIsValidPhamacy] = useState(false);
+    const [isValidPharmacy, setIsValidPharmacy] = useState(false);
     const [isValidLocation, setIsValidLocation] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [isValidPhone, setIsValidPhone] = useState(false);
@@ -30,12 +30,12 @@ const PillStoreRowAdder = ({ pillStores }) => {
     });
 
     useEffect(() => {
-        setCanSubmit(isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone);
-    }, [isValidName && isValidPhamacy && isValidLocation && isValidEmail && isValidPhone]);
+        setCanSubmit(isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone);
+    }, [isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {
-            dispatch(pillStoresAdd({ name, phamacy, location, email, phone }));
+            dispatch(pillStoresAdd({ name, pharmacy, location, email, phone }));
         }
     };
 
@@ -66,8 +66,8 @@ const PillStoreRowAdder = ({ pillStores }) => {
                 </td>
                 <td className="w-36 px-6 py-2 whitespace-nowrap text-gray-500">
                     <InputText
-                        id="InputText-phamacy-adder"
-                        name="phamacy"
+                        id="InputText-pharmacy-adder"
+                        name="pharmacy"
                         type="text"
                         placeholder="ชื่อร้าน"
                         autoComplete="off"
@@ -77,10 +77,10 @@ const PillStoreRowAdder = ({ pillStores }) => {
                         pattern="^[a-zA-Zก-๏0-9\s]+$"
                         msgPatternError="อังกฤษ/ไทย/ตัวเลข เท่านั้น"
                         onValidChange={(state) => {
-                            setIsValidPhamacy(state);
+                            setIsValidPharmacy(state);
                         }}
                         onValueChange={(state) => {
-                            setPhamacy(state);
+                            setPharmacy(state);
                         }}
                     />
                 </td>

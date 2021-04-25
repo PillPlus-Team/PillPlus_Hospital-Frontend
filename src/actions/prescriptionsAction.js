@@ -56,12 +56,12 @@ export const prescriptionsSelect = ({ ID }) => {
     };
 };
 
-export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy, pillStoreLocation }) => {
+export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePharmacy, pillStoreLocation }) => {
     return {
         type: PRESCRIPTIONS_SELECT_PILLSTORE,
         ID: ID,
         pillStoreID: pillStoreID,
-        pillStorePhamacy: pillStorePhamacy,
+        pillStorePharmacy: pillStorePharmacy,
         pillStoreLocation: pillStoreLocation,
     };
 };
@@ -76,7 +76,7 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
             title: 'ยืนยันสถานที่รับยา',
             html:
                 `<br> HN ${prescription.hn} : ${prescription.name} <br><br>` +
-                `รับยาที่ <b>${prescription.pillStorePhamacy}</b> <br>` +
+                `รับยาที่ <b>${prescription.pillStorePharmacy}</b> <br>` +
                 `ที่อยู่ <b>${prescription.pillStoreLocation}</b> <br>`,
             icon: 'warning',
         }).then((result) => {
@@ -113,12 +113,12 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //     };
 // };
 
-// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePhamacy, pillStoreLocation }) => {
+// export const prescriptionSelectPillStore = ({ ID, pillStoreID, pillStorePharmacy, pillStoreLocation }) => {
 //     return {
 //         type: PRESCRIPTIONS_SELECT_PILLSTORE,
 //         ID: ID,
 //         pillStoreID: pillStoreID,
-//         pillStorePhamacy: pillStorePhamacy,
+//         pillStorePharmacy: pillStorePharmacy,
 //         pillStoreLocation: pillStoreLocation
 //     };
 // };
@@ -133,7 +133,7 @@ export const prescriptionsUpdatePillStore = ({ ID }) => {
 //             title: 'ยืนยันสถานที่รับยา',
 //             html:
 //                 `<br> HN ${prescription.hn} : ${prescription.name} <br><br>` +
-//                 `รับยาที่ <b>${prescription.pillStorePhamacy}</b> <br>` +
+//                 `รับยาที่ <b>${prescription.pillStorePharmacy}</b> <br>` +
 //                 `ที่อยู่ <b>${prescription.pillStoreLocation}</b> <br>`,
 //             icon: 'warning',
 //         }).then(async (result) => {

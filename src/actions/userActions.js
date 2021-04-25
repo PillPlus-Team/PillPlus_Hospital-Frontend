@@ -81,7 +81,8 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
             });
 
             if (res.status === 200) {
-                editedData = { ...editedData, avatarUri: await res.json().then((result) => result.data.avatar) };
+                editedData = { ...editedData, avatarUri: await res.json().then((result) => result.data.avatarUri) };
+
                 Toast.fire({ title: 'อัพโหลดรูปโปรไฟล์ สำเร็จ', icon: 'success' });
             } else {
                 Toast.fire({ title: 'ไม่สามารถอัพโหลดรูปโปรไฟล์ได้', icon: 'error' });

@@ -22,7 +22,7 @@ const InvoiceInfoMonitor = ({ invoice }) => {
                     <td className="font-bold w-36 py-2">สถานที่รับยา</td>
                     <td className="w-96 py-2">
                         <div className="flex flex-col">
-                            <p>{invoice.pillStorePhamacy}</p>
+                            <p>{invoice.pillStorePharmacy}</p>
                             <p className="text-sm text-gray-400 break-words">{invoice.pillStoreLocation}</p>
                         </div>
                     </td>

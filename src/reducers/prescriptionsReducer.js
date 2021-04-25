@@ -27,7 +27,7 @@ const prescriptionsReducer = (state = initState, action) => {
                     return {
                         ...prescription,
                         pillStoreID: action.pillStoreID,
-                        pillStorePhamacy: action.pillStorePhamacy,
+                        pillStorePharmacy: action.pillStorePharmacy,
                         pillStoreLocation: action.pillStoreLocation,
                     };
                 } else {
