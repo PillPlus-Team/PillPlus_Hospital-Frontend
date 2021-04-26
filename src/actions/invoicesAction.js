@@ -1,4 +1,4 @@
-import { INVOICES_FETCH, INVOICES_SELECT, INVOICES_PAY } from './types';
+import { INVOICES_FETCH, INVOICES_FETCH_BY_IO, INVOICES_SELECT, INVOICES_PAY } from './types';
 
 import { LoadingModal, ConfirmDialog, Toast } from './swals';
 
@@ -10,7 +10,7 @@ export const invoicesFetch = () => {
         LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
         LoadingModal.showLoading();
 
-        const res = await fetch(API_URL + '/invoice/all', {
+        const res = await fetch(API_URL + '/invoice', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
@@ -38,6 +38,34 @@ export const invoicesFetch = () => {
     };
 };
 
+export const invoicesFetchByIO = () => {
+    return async (dispatch) => {
+        const res = await fetch(API_URL + '/invoice', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (res.status === 200) {
+            let invoices = await res.json();
+            invoices = invoices.map((invoice) => {
+                let totalPay = invoice.serviceCharge;
+                invoice.pills.forEach((pill) => {
+                    totalPay += pill.totalPrice;
+                });
+
+                return { ...invoice, totalPay: totalPay };
+            });
+            invoices = invoices.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
+
+            dispatch({ type: INVOICES_FETCH_BY_IO, newInvoices: invoices });
+        }
+    };
+};
+
 export const invoicesSelect = ({ _id }) => {
     return {
         type: INVOICES_SELECT,
@@ -45,7 +73,7 @@ export const invoicesSelect = ({ _id }) => {
     };
 };
 
-export const invoicesPay = ({ _id }) => {
+export const invoicesPay = ({ _id, onSuccess }) => {
     return async (dispatch, getState) => {
         LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
         LoadingModal.showLoading();
@@ -77,6 +105,8 @@ export const invoicesPay = ({ _id }) => {
                     },
                 });
                 if (res.status === 200) {
+                    onSuccess();
+
                     dispatch({ type: INVOICES_PAY, _id: _id });
                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
                 } else {
@@ -185,5 +215,3 @@ export const invoicesPay = ({ _id }) => {
 //         });
 //     };
 // };
-
-

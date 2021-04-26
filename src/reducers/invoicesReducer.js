@@ -1,4 +1,4 @@
-import { INVOICES_FETCH, INVOICES_SELECT, INVOICES_PAY } from '../actions/types';
+import { INVOICES_FETCH, INVOICES_FETCH_BY_IO, INVOICES_SELECT, INVOICES_PAY } from '../actions/types';
 
 const initState = { list: [], selectedInvoice_id: null };
 
@@ -6,6 +6,26 @@ const invoicesReducer = (state = initState, action) => {
     switch (action.type) {
         case INVOICES_FETCH:
             return { list: action.invoices };
+
+        case INVOICES_FETCH_BY_IO: {
+            let selectedInvoice_id = null;
+
+            let list = state.list;
+            list = action.newInvoices.map((newInvoice) => {
+                const oldInvoice = list.find((oldInvoice) => oldInvoice._id === newInvoice._id);
+                if (oldInvoice) {
+                    if (oldInvoice.selected) {
+                        selectedInvoice_id = oldInvoice._id;
+                    }
+
+                    return oldInvoice;
+                } else {
+                    return { ...newInvoice, selected: false };
+                }
+            });
+
+            return { ...state, list, selectedInvoice_id };
+        }
 
         case INVOICES_SELECT: {
             let list = state.list;

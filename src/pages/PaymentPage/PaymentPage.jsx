@@ -5,9 +5,9 @@ import { PageLayout, PatientQueue } from '../../components';
 
 import InvoiceInfoMonitor from './components/InvoiceInfoMonitor';
 
-import { invoicesFetch, invoicesSelect, invoicesPay } from '../../actions/invoicesAction';
+import { invoicesFetch, invoicesFetchByIO, invoicesSelect, invoicesPay } from '../../actions/invoicesAction';
 
-const PaymentPage = () => {
+const PaymentPage = ({ socket }) => {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -17,6 +17,16 @@ const PaymentPage = () => {
     const selectedInvoice = invoices.list.find((element) => element._id === invoices.selectedInvoice_id);
 
     useEffect(() => {
+        socket.emit('join', 'Payment_Room');
+
+        socket.on('message', (message) => {
+            dispatch(invoicesFetchByIO());
+            console.log(message);
+        });
+        socket.on('err', (err) => {
+            console.error(err);
+        });
+
         dispatch(invoicesFetch());
     }, []);
 
@@ -55,7 +65,14 @@ const PaymentPage = () => {
                         type="button"
                         disabled={!selectedInvoice}
                         onClick={() => {
-                            dispatch(invoicesPay({ _id: invoices.selectedInvoice_id }));
+                            dispatch(
+                                invoicesPay({
+                                    _id: invoices.selectedInvoice_id,
+                                    onSuccess: () => {
+                                        socket.emit('room', 'Payment_Room');
+                                    },
+                                })
+                            );
                         }}
                     >
                         ยืนยันการชำระเงิน

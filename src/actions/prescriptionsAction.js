@@ -1,4 +1,10 @@
-import { PRESCRIPTIONS_FETCH, PRESCRIPTIONS_SELECT, PRESCRIPTIONS_SELECT_PILLSTORE, PRESCRIPTIONS_UPDATE_PILLSTORE } from './types';
+import {
+    PRESCRIPTIONS_FETCH,
+    PRESCRIPTIONS_FETCH_BY_IO,
+    PRESCRIPTIONS_SELECT,
+    PRESCRIPTIONS_SELECT_PILLSTORE,
+    PRESCRIPTIONS_UPDATE_PILLSTORE,
+} from './types';
 
 import { LoadingModal, ConfirmDialog, Toast } from './swals';
 
@@ -10,7 +16,7 @@ export const prescriptionsFetch = () => {
         LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
         LoadingModal.showLoading();
 
-        const res = await fetch(API_URL + '/prescription/all', {
+        const res = await fetch(API_URL + '/prescription', {
             method: 'GET',
             mode: 'cors',
             credentials: 'include',
@@ -27,6 +33,26 @@ export const prescriptionsFetch = () => {
         }
 
         LoadingModal.close();
+    };
+};
+
+export const prescriptionsFetchByIO = () => {
+    return async (dispatch) => {
+        const res = await fetch(API_URL + '/prescription', {
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (res.status === 200) {
+            let prescriptions = await res.json();
+            prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
+
+            dispatch({ type: PRESCRIPTIONS_FETCH, newPrescriptions: prescriptions });
+        }
     };
 };
 
@@ -47,7 +73,7 @@ export const prescriptionSelectPillStore = ({ _id, pillStoreID, pillStorePharmac
     };
 };
 
-export const prescriptionsUpdatePillStore = ({ _id }) => {
+export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
     return async (dispatch, getState) => {
         LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
         LoadingModal.showLoading();
@@ -78,6 +104,8 @@ export const prescriptionsUpdatePillStore = ({ _id }) => {
                 });
 
                 if (res.status === 200) {
+                    onSuccess();
+
                     dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, _id: _id });
                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
                 } else {
@@ -175,5 +203,3 @@ export const prescriptionsUpdatePillStore = ({ _id }) => {
 //         });
 //     };
 // };
-
-

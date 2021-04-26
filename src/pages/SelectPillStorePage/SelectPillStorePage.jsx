@@ -6,10 +6,9 @@ import { PageLayout, PatientQueue } from '../../components';
 import PillStoreSelector from './components/PillStoreSelector';
 import PrescriptionInfoMonitor from './components/PrescriptionInfoMonitor';
 
-import { prescriptionsFetch, prescriptionsSelect, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
-import { invoicesFetch } from '../../actions/invoicesAction';
+import { prescriptionsFetch, prescriptionsFetchByIO, prescriptionsSelect, prescriptionsUpdatePillStore } from '../../actions/prescriptionsAction';
 
-const SelectPillStorePage = () => {
+const SelectPillStorePage = ({ socket }) => {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -19,8 +18,17 @@ const SelectPillStorePage = () => {
     const selectedPrescription = prescriptions.list.find((element) => element._id === prescriptions.selectedPrescription_id);
 
     useEffect(() => {
+        socket.emit('join', 'SelectPillStore_Room');
+
+        socket.on('message', (message) => {
+            dispatch(prescriptionsFetchByIO());
+            console.log(message);
+        });
+        socket.on('err', (err) => {
+            console.error(err);
+        });
+
         dispatch(prescriptionsFetch());
-        dispatch(invoicesFetch())
     }, []);
 
     return (
@@ -74,7 +82,14 @@ const SelectPillStorePage = () => {
                         type="button"
                         disabled={!selectedPrescription}
                         onClick={() => {
-                            dispatch(prescriptionsUpdatePillStore({ _id: prescriptions.selectedPrescription_id }));
+                            dispatch(
+                                prescriptionsUpdatePillStore({
+                                    _id: prescriptions.selectedPrescription_id,
+                                    onSuccess: () => {
+                                        socket.emit('room', 'SelectPillStore_Room');
+                                    },
+                                })
+                            );
                         }}
                     >
                         ยันยันสถานที่รับยา

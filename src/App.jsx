@@ -13,6 +13,11 @@ import {
     ManagePillPage,
 } from './pages';
 
+import io from 'socket.io-client';
+import { SOCKET_URL } from './config';
+
+const socket = io(SOCKET_URL);
+
 const App = () => {
     const user = useSelector((state) => state.user);
 
@@ -24,8 +29,12 @@ const App = () => {
 
                     <Route exact path="/profile" component={ProfilePage} />
 
-                    <Route exact path="/select-pillstore" component={SelectPillStorePage} />
-                    <Route exact path="/payment" component={PaymentPage} />
+                    <Route exact path="/select-pillstore">
+                        <SelectPillStorePage socket={socket} />
+                    </Route>
+                    <Route exact path="/payment">
+                        <PaymentPage socket={socket} />
+                    </Route>
                     <Route exact path="/statement" component={StatementPage} />
 
                     <Route exact path="/manage-account" component={ManageAccountPage} />
