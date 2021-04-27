@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
+import { LoadingModal } from '../../../actions/swals';
 import { prescriptionSelectPillStore } from '../../../actions/prescriptionsAction';
 import { API_URL } from '../../../config';
 
@@ -29,8 +30,10 @@ const PillStoreSelector = ({ selectedPrescription }) => {
     });
 
     useEffect(() => {
-        
         const setPillStoreChoices = async () => {
+            LoadingModal.fire({ title: 'กำลังโหลด สถานที่รับยา ...' });
+            LoadingModal.showLoading();
+
             /* API For Mock */
             const res = await fetch(API_URL + '/pillStore/all', {
                 method: 'GET',
@@ -45,6 +48,8 @@ const PillStoreSelector = ({ selectedPrescription }) => {
             if (selectedPrescription.pills.length !== 0) {
                 setAvailablePillStoreList([...initList, ...availablePillStores]);
             }
+
+            LoadingModal.close();
         };
 
         setPillStoreChoices();

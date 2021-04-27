@@ -15,10 +15,16 @@ const SelectPillStorePage = ({ socket }) => {
     const menuList = useSelector((state) => state.menuList);
     const prescriptions = useSelector((state) => state.prescriptions);
 
-    const selectedPrescription = prescriptions.list.find((element) => element._id === prescriptions.selectedPrescription_id);
+    let selectedPrescription;
+    try {
+        selectedPrescription = prescriptions.list.find((element) => element._id === prescriptions.selectedPrescription_id);
+    } catch (err) {
+        selectedPrescription = null;
+    }
 
     useEffect(() => {
         socket.emit('join', 'SelectPillStore_Room');
+        socket.emit('join', 'Payment_Room');
 
         socket.on('message', (message) => {
             dispatch(prescriptionsFetchByIO());
@@ -29,6 +35,12 @@ const SelectPillStorePage = ({ socket }) => {
         });
 
         dispatch(prescriptionsFetch());
+
+        /* componentWillUnmount */
+        return () => {
+            socket.emit('leave', 'SelectPillStore_Room');
+            socket.emit('leave', 'Payment_Room');
+        };
     }, []);
 
     return (
@@ -87,6 +99,10 @@ const SelectPillStorePage = ({ socket }) => {
                                     _id: prescriptions.selectedPrescription_id,
                                     onSuccess: () => {
                                         socket.emit('room', 'SelectPillStore_Room');
+                                        console.log('knock SelectPillStore_Room!');
+
+                                        socket.emit('room', 'Payment_Room');
+                                        console.log('knock Payment_Room!');
                                     },
                                 })
                             );

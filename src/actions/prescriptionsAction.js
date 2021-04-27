@@ -13,9 +13,6 @@ import { API_URL } from '../config';
 /* For Production */
 export const prescriptionsFetch = () => {
     return async (dispatch) => {
-        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
-        LoadingModal.showLoading();
-
         const res = await fetch(API_URL + '/prescription', {
             method: 'GET',
             mode: 'cors',
@@ -31,8 +28,6 @@ export const prescriptionsFetch = () => {
 
             dispatch({ type: PRESCRIPTIONS_FETCH, prescriptions: prescriptions });
         }
-
-        LoadingModal.close();
     };
 };
 
@@ -51,7 +46,7 @@ export const prescriptionsFetchByIO = () => {
             let prescriptions = await res.json();
             prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
 
-            dispatch({ type: PRESCRIPTIONS_FETCH, newPrescriptions: prescriptions });
+            dispatch({ type: PRESCRIPTIONS_FETCH_BY_IO, newPrescriptions: prescriptions });
         }
     };
 };
@@ -90,7 +85,7 @@ export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
             icon: 'warning',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await fetch(API_URL + `/prescription/selectPillStore`, {
+                const res = await fetch(API_URL + `/invoice/selectPillStore`, {
                     method: 'POST',
                     mode: 'cors',
                     credentials: 'include',

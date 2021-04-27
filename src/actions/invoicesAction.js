@@ -7,9 +7,6 @@ import { API_URL } from '../config';
 /* For Production */
 export const invoicesFetch = () => {
     return async (dispatch) => {
-        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
-        LoadingModal.showLoading();
-
         const res = await fetch(API_URL + '/invoice', {
             method: 'GET',
             mode: 'cors',
@@ -33,8 +30,6 @@ export const invoicesFetch = () => {
 
             dispatch({ type: INVOICES_FETCH, invoices: invoices });
         }
-
-        LoadingModal.close();
     };
 };
 

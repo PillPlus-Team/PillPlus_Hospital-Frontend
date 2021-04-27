@@ -65,8 +65,7 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
 
         const { user } = getState();
 
-        let editedData;
-
+        let newAvatarUri = user.avatarUri;
         if (avatarUri !== user.avatarUri) {
             let blob = await fetch(avatarUri).then((result) => result.blob());
 
@@ -81,7 +80,7 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
             });
 
             if (res.status === 200) {
-                editedData = { ...editedData, avatarUri: await res.json().then((result) => result.data.avatarUri) };
+                newAvatarUri = await res.json().then((result) => result.data.avatarUri);
 
                 Toast.fire({ title: 'อัพโหลดรูปโปรไฟล์ สำเร็จ', icon: 'success' });
             } else {
@@ -97,6 +96,7 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                avatarUri: newAvatarUri,
                 name: name,
                 surname: surname,
                 email: email,
@@ -104,8 +104,10 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
             }),
         });
 
+        let editedData;
         if (res.status === 200) {
-            editedData = { ...editedData, ...(await res.json()) };
+            editedData = { ...(await res.json()) };
+            
             Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
         } else {
             Toast.fire({ title: 'ไม่สามารถ บันทึกข้อมูลได้', icon: 'error' });

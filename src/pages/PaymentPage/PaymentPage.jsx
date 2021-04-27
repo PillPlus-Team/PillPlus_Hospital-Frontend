@@ -14,7 +14,12 @@ const PaymentPage = ({ socket }) => {
     const menuList = useSelector((state) => state.menuList);
     const invoices = useSelector((state) => state.invoices);
 
-    const selectedInvoice = invoices.list.find((element) => element._id === invoices.selectedInvoice_id);
+    let selectedInvoice;
+    try {
+        selectedInvoice = invoices.list.find((element) => element._id === invoices.selectedInvoice_id);
+    } catch (err) {
+        selectedInvoice = null;
+    }
 
     useEffect(() => {
         socket.emit('join', 'Payment_Room');
@@ -28,6 +33,11 @@ const PaymentPage = ({ socket }) => {
         });
 
         dispatch(invoicesFetch());
+
+        /* componentWillUnmount */
+        return () => {
+            socket.emit('leave', 'Payment_Room');
+        };
     }, []);
 
     return (
@@ -70,6 +80,7 @@ const PaymentPage = ({ socket }) => {
                                     _id: invoices.selectedInvoice_id,
                                     onSuccess: () => {
                                         socket.emit('room', 'Payment_Room');
+                                        console.log('knock Payment_Room!');
                                     },
                                 })
                             );

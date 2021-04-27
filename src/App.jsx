@@ -16,7 +16,7 @@ import {
 import io from 'socket.io-client';
 import { SOCKET_URL } from './config';
 
-const socket = io(SOCKET_URL);
+const socket = io(SOCKET_URL, { withCredentials: true });
 
 const App = () => {
     const user = useSelector((state) => state.user);
