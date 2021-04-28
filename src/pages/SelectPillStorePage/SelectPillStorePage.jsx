@@ -23,10 +23,9 @@ const SelectPillStorePage = ({ socket }) => {
     }
 
     useEffect(() => {
-        socket.emit('join', 'SelectPillStore_Room');
-        socket.emit('join', 'Payment_Room');
+        dispatch(prescriptionsFetch());
 
-        socket.on('message', (message) => {
+        socket.on('messagee', (message) => {
             dispatch(prescriptionsFetchByIO());
             console.log(message);
         });
@@ -34,12 +33,21 @@ const SelectPillStorePage = ({ socket }) => {
             console.error(err);
         });
 
-        dispatch(prescriptionsFetch());
+        setTimeout(() => {
+            socket.emit('join', 'SelectPillStore_Room');
+            console.log('join -> SelectPillStore_Room :', socket.id);
 
-        /* componentWillUnmount */
+            socket.emit('join', 'Shared_Room');
+            console.log('join -> Shared_Room :', socket.id);
+        }, 100);
+
+        /* componentWillUnmount*/
         return () => {
             socket.emit('leave', 'SelectPillStore_Room');
-            socket.emit('leave', 'Payment_Room');
+            console.log('leave -> SelectPillStore_Room :', socket.id);
+
+            socket.emit('leave', 'Shared_Room');
+            console.log('leave -> Shared_Room :', socket.id);
         };
     }, []);
 
@@ -101,8 +109,8 @@ const SelectPillStorePage = ({ socket }) => {
                                         socket.emit('room', 'SelectPillStore_Room');
                                         console.log('knock SelectPillStore_Room!');
 
-                                        socket.emit('room', 'Payment_Room');
-                                        console.log('knock Payment_Room!');
+                                        socket.emit('room', 'Shared_Room');
+                                        console.log('knock Shared_Room!');
                                     },
                                 })
                             );
