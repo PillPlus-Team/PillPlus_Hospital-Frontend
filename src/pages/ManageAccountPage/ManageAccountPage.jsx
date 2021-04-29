@@ -23,12 +23,17 @@ const ManageAccountPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let accountsFiltered_id = accounts.list.map((account) => {
-        if (account.show) {
-            return account._id;
-        }
-    });
-    accountsFiltered_id = accountsFiltered_id.filter((_id) => _id != null);
+    let accountsFiltered_id = [];
+    try {
+        accountsFiltered_id = accounts.list.map((account) => {
+            if (account.show) {
+                return account._id;
+            }
+        });
+        accountsFiltered_id = accountsFiltered_id.filter((_id) => _id != null);
+    } catch (err) {
+        accountsFiltered_id = [];
+    }
 
     const isEmpty = accountsFiltered_id.length === 0;
 

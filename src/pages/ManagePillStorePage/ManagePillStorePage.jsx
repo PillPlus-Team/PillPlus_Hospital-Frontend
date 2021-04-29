@@ -22,12 +22,17 @@ const ManagePillStorePage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let pillStoresFiltered_id = pillStores.list.map((pillStore) => {
-        if (pillStore.show) {
-            return pillStore._id;
-        }
-    });
-    pillStoresFiltered_id = pillStoresFiltered_id.filter((_id) => _id != null);
+    let pillStoresFiltered_id = [];
+    try {
+        pillStoresFiltered_id = pillStores.list.map((pillStore) => {
+            if (pillStore.show) {
+                return pillStore._id;
+            }
+        });
+        pillStoresFiltered_id = pillStoresFiltered_id.filter((_id) => _id != null);
+    } catch (err) {
+        pillStoresFiltered_id = [];
+    }
 
     const isEmpty = pillStoresFiltered_id.length === 0;
 

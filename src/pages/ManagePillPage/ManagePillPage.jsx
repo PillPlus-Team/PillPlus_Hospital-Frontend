@@ -22,12 +22,17 @@ const ManagePillPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let pillsFiltered_id = pills.list.map((pill) => {
-        if (pill.show) {
-            return pill._id;
-        }
-    });
-    pillsFiltered_id = pillsFiltered_id.filter((_id) => _id != null);
+    let pillsFiltered_id = [];
+    try {
+        pillsFiltered_id = pills.list.map((pill) => {
+            if (pill.show) {
+                return pill._id;
+            }
+        });
+        pillsFiltered_id = pillsFiltered_id.filter((_id) => _id != null);
+    } catch (err) {
+        pillsFiltered_id = [];
+    }
 
     const isEmpty = pillsFiltered_id.length === 0;
 

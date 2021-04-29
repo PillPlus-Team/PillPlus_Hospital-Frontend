@@ -40,12 +40,17 @@ const StatementPage = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
-    let statementsFiltered_id = statements.list.map((statement) => {
-        if (statement.show) {
-            return statement._id;
-        }
-    });
-    statementsFiltered_id = statementsFiltered_id.filter((_id) => _id != null);
+    let statementsFiltered_id = [];
+    try {
+        statementsFiltered_id = statements.list.map((statement) => {
+            if (statement.show) {
+                return statement._id;
+            }
+        });
+        statementsFiltered_id = statementsFiltered_id.filter((_id) => _id != null);
+    } catch (err) {
+        statementsFiltered_id = [];
+    }
 
     const isEmpty = statementsFiltered_id.length === 0;
 
