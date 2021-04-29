@@ -25,20 +25,20 @@ const SelectPillStorePage = ({ socket }) => {
     useEffect(() => {
         dispatch(prescriptionsFetch());
 
-        socket.on('messagee', (message) => {
+        socket.on('message', (message) => {
             dispatch(prescriptionsFetchByIO());
             console.log(message);
         });
-        socket.on('err', (err) => {
-            console.error(err);
+        socket.on('err', (errror) => {
+            console.error(errror);
         });
 
         setTimeout(() => {
             socket.emit('join', 'SelectPillStore_Room');
             console.log('join -> SelectPillStore_Room :', socket.id);
 
-            socket.emit('join', 'Shared_Room');
-            console.log('join -> Shared_Room :', socket.id);
+            socket.emit('join', 'Payment_Room');
+            console.log('join -> Payment_Room :', socket.id);
         }, 100);
 
         /* componentWillUnmount*/
@@ -46,8 +46,10 @@ const SelectPillStorePage = ({ socket }) => {
             socket.emit('leave', 'SelectPillStore_Room');
             console.log('leave -> SelectPillStore_Room :', socket.id);
 
-            socket.emit('leave', 'Shared_Room');
-            console.log('leave -> Shared_Room :', socket.id);
+            socket.emit('leave', 'Payment_Room');
+            console.log('leave -> Payment_Room :', socket.id);
+
+            socket.removeAllListeners();
         };
     }, []);
 
@@ -109,8 +111,8 @@ const SelectPillStorePage = ({ socket }) => {
                                         socket.emit('room', 'SelectPillStore_Room');
                                         console.log('knock SelectPillStore_Room!');
 
-                                        socket.emit('room', 'Shared_Room');
-                                        console.log('knock Shared_Room!');
+                                        socket.emit('room', 'Payment_Room');
+                                        console.log('knock Payment_Room!');
                                     },
                                 })
                             );

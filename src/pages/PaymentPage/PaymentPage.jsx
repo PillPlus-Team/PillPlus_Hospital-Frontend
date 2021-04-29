@@ -24,20 +24,17 @@ const PaymentPage = ({ socket }) => {
     useEffect(() => {
         dispatch(invoicesFetch());
 
-        socket.on('messagee', (message) => {
+        socket.on('message', (message) => {
             dispatch(invoicesFetchByIO());
             console.log(message);
         });
-        socket.on('err', (err) => {
-            console.error(err);
+        socket.on('err', (errror) => {
+            console.error(errror);
         });
 
         setTimeout(() => {
             socket.emit('join', 'Payment_Room');
             console.log('join -> Payment_Room :', socket.id);
-
-            socket.emit('join', 'Shared_Room');
-            console.log('join -> Shared_Room :', socket.id);
         }, 100);
 
         /* componentWillUnmount*/
@@ -45,8 +42,7 @@ const PaymentPage = ({ socket }) => {
             socket.emit('leave', 'Payment_Room');
             console.log('leave -> Payment_Room :', socket.id);
 
-            socket.emit('leave', 'Shared_Room');
-            console.log('leave -> Shared_Room :', socket.id);
+            socket.removeAllListeners();
         };
     }, []);
 
@@ -91,9 +87,6 @@ const PaymentPage = ({ socket }) => {
                                     onSuccess: () => {
                                         socket.emit('room', 'Payment_Room');
                                         console.log('knock Payment_Room!');
-
-                                        socket.emit('room', 'Shared_Room');
-                                        console.log('knock Shared_Room!');
                                     },
                                 })
                             );

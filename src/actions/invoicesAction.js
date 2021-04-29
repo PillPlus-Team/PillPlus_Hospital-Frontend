@@ -99,6 +99,7 @@ export const invoicesPay = ({ _id, onSuccess }) => {
                         'Content-Type': 'application/json',
                     },
                 });
+
                 if (res.status === 200) {
                     onSuccess();
 
