@@ -146,6 +146,7 @@ const PillStoreRowAdder = ({ pillStores }) => {
                         }}
                     />
                 </td>
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-center font-medium"></td>
                 <td className="w-20 px-6 py-2 whitespace-nowrap text-center font-medium">
                     <button
                         className={`focus:outline-none ${

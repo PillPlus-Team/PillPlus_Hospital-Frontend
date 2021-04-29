@@ -23,6 +23,9 @@ const PillStoreRowTitle = () => {
                 <th className="w-32 px-6 py-3 text-left font-medium text-gray-700 tracking-wider" scope="col">
                     เบอร์ติดต่อ
                 </th>
+                <th className="w-32 relative px-6 py-3" scope="col">
+                    <span class="sr-only">สถานะ</span>
+                </th>
                 <th className="w-20 relative px-6 py-3" scope="col">
                     <span class="sr-only">แก้ไข</span>
                 </th>

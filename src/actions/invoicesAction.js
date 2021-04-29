@@ -80,8 +80,8 @@ export const invoicesPay = ({ _id, onSuccess }) => {
             title: 'ยืนยันการชำระเงิน',
             html:
                 `<br> HN ${invoice.hn} : ${invoice.name} <br><br>` +
-                `รับยาที่ ${invoice.pillStorePharmacy} <br>` +
-                `ที่อยู่ ${invoice.pillStoreLocation} <br><br>` +
+                `รับยาที่ ${invoice.pillStore.pharmacy} <br>` +
+                `ที่อยู่ ${invoice.pillStore.location} <br><br>` +
                 `ยอดชำระทั้งสิ้น <b>${Number(invoice.totalPay).toLocaleString('th-TH', {
                     style: 'currency',
                     currency: 'THB',

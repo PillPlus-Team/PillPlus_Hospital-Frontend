@@ -155,6 +155,14 @@ const PillStoreRowEditor = ({ index, pillStore, pillStores }) => {
                         }}
                     />
                 </td>
+                <td className="w-32 px-6 py-2 whitespace-nowrap text-center font-medium">
+                    {!pillStore.activated && (
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-600">Not Activated</span>
+                    )}
+                    {pillStore.activated && (
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-600">Activated</span>
+                    )}
+                </td>
                 <td className="w-20 px-6 py-4 whitespace-nowrap text-center font-medium">
                     <button
                         className={`focus:outline-none ${

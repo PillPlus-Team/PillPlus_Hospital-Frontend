@@ -56,7 +56,7 @@ const ManagePillStorePage = () => {
                 </div>
                 <TableRowSlot>
                     <PillStoreRowTitle />
-                    {isEmpty && !pillStores.adding && <RowEmpty colSpan="9" text="ไม่มีข้อมูล" />}
+                    {isEmpty && !pillStores.adding && <RowEmpty colSpan="10" text="ไม่มีข้อมูล" />}
 
                     {pillStores.list.map((pillStore) => {
                         const isInShowRange =
