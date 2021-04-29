@@ -125,8 +125,10 @@ export const invoicesPay = ({ _id, onSuccess }) => {
 //                 startTime: 1618415601123,
 //                 queueNo: 1,
 //                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-//                 pillStorePharmacy: 'ร้าน A',
-//                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 pillStore: {
+//                     pharmacy: 'ร้าน A',
+//                     location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 },
 //                 pills: [],
 //                 serviceCharge: 30.0,
 //             },
@@ -137,8 +139,10 @@ export const invoicesPay = ({ _id, onSuccess }) => {
 //                 startTime: 1618415651123,
 //                 queueNo: 2,
 //                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-//                 pillStorePharmacy: 'ร้าน A',
-//                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 pillStore: {
+//                     pharmacy: 'ร้าน A',
+//                     location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 },
 //                 pills: [
 //                     { name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด', totalPrice: 10.0 },
 //                     { name: 'ยา B', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 2, unit: 'ขวด', totalPrice: 200.0 },
@@ -157,8 +161,10 @@ export const invoicesPay = ({ _id, onSuccess }) => {
 //                 startTime: 1618415661123,
 //                 queueNo: 3,
 //                 doctor: 'นพ.สมชาย เจริญรุ่งเรือง',
-//                 pillStorePharmacy: 'ร้าน A',
-//                 pillStoreLocation: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 pillStore: {
+//                     pharmacy: 'ร้าน A',
+//                     location: '123/5 ต.หายา อ.ยาหาย จ.กรุงเทพ 12345',
+//                 },
 //                 pills: [{ name: 'ยา A', description: 'ทานหลังอาหาร 15 นาที เช้า,เย็น', amount: 10, unit: 'เม็ด', totalPrice: 10.0 }],
 //                 serviceCharge: 50.0,
 //             },
