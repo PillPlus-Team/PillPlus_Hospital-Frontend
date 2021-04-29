@@ -79,8 +79,6 @@ export const pillStoresAdd = ({ name, pharmacy, location, email, phone }) => {
                 location: location,
                 email: email,
                 phone: phone,
-                lat: '12356',
-                lng: '12356',
                 password: password,
             }),
         });
