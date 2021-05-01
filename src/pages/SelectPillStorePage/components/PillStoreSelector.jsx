@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { LoadingModal } from '../../../actions/swals';
+import { LoadingModal, Toast } from '../../../actions/swals';
 import { prescriptionSelectPillStore } from '../../../actions/prescriptionsAction';
 import { API_URL } from '../../../config';
 
@@ -44,12 +44,20 @@ const PillStoreSelector = ({ selectedPrescription }) => {
                 },
             });
 
-            const availablePillStores = await res.json();
-            if (selectedPrescription.pills.length !== 0) {
-                setAvailablePillStoreList([...initList, ...availablePillStores]);
-            }
+            if (res.status === 200) {
+                const availablePillStores = await res.json();
 
-            LoadingModal.close();
+                if (selectedPrescription.pills.length !== 0) {
+                    setAvailablePillStoreList([...initList, ...availablePillStores]);
+                } else {
+                    setAvailablePillStoreList([...initList]);
+                }
+
+                LoadingModal.close();
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                setAvailablePillStoreList([...initList]);
+            }
         };
 
         setPillStoreChoices();
