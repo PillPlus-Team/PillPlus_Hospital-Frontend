@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../../components';
 
@@ -21,7 +21,9 @@ const PillRowEditor = ({ index, pill, pills }) => {
     const [isValidUnit, setIsValidUnit] = useState(true);
     const [isValidPrice, setIsValidPrice] = useState(true);
 
-    const [canSubmit, setCanSubmit] = useState(true);
+    const canSubmit = useMemo(() => {
+        return isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice;
+    }, [isValidSn, isValidName, isValidDescription, isValidUnit, isValidPrice]);
 
     let snAlreadyUse = [];
     pills.map((value) => {
@@ -29,10 +31,6 @@ const PillRowEditor = ({ index, pill, pills }) => {
             snAlreadyUse.push(value.email);
         }
     });
-
-    useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice);
-    }, [isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {

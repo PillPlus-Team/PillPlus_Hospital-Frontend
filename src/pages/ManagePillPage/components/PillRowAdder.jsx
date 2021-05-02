@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../components';
 
 import { pillsAddToggle, pillsAdd } from '../../../actions/pillsAction';
 
 const PillRowAdder = ({ pills }) => {
+    console.log('rendered');
     const dispatch = useDispatch();
 
     const [sn, setSn] = useState('');
@@ -21,16 +22,14 @@ const PillRowAdder = ({ pills }) => {
     const [isValidUnit, setIsValidUnit] = useState(true);
     const [isValidPrice, setIsValidPrice] = useState(false);
 
-    const [canSubmit, setCanSubmit] = useState(false);
+    const canSubmit = useMemo(() => {
+        return isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice;
+    }, [isValidSn, isValidName, isValidDescription, isValidUnit, isValidPrice]);
 
     let snAlreadyUse = [];
     pills.map((pill) => {
         snAlreadyUse.push(pill.sn);
     });
-
-    useEffect(() => {
-        setCanSubmit(isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice);
-    }, [isValidSn && isValidName && isValidDescription && isValidUnit && isValidPrice]);
 
     const submitHandler = () => {
         if (canSubmit) {

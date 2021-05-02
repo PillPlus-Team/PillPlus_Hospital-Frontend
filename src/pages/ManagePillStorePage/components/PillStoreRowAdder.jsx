@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 import { InputText } from '../../../components';
 
@@ -20,7 +20,9 @@ const PillStoreRowAdder = ({ pillStores }) => {
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [isValidPhone, setIsValidPhone] = useState(false);
 
-    const [canSubmit, setCanSubmit] = useState(false);
+    const canSubmit = useMemo(() => {
+        return isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone;
+    }, [isValidName, isValidPharmacy, isValidLocation, isValidEmail, isValidPhone]);
 
     let emailAlreadyUse = [];
     let phoneAlreadyUse = [];
@@ -28,10 +30,6 @@ const PillStoreRowAdder = ({ pillStores }) => {
         emailAlreadyUse.push(pillStore.email);
         phoneAlreadyUse.push(pillStore.phone);
     });
-
-    useEffect(() => {
-        setCanSubmit(isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone);
-    }, [isValidName && isValidPharmacy && isValidLocation && isValidEmail && isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 import { InputText, InputImageFile } from '../../../components';
 
@@ -20,7 +20,9 @@ const ProfileEditor = ({ userInfo, accounts }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidPhone, setIsValidPhone] = useState(true);
 
-    const [canSubmit, setCanSubmit] = useState(false);
+    const canSubmit = useMemo(() => {
+        return isValidavatarUri && isValidName && isValidSurname && isValidEmail && isValidPhone;
+    }, [isValidavatarUri, isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     let emailAlreadyUse = [];
     let phoneAlreadyUse = [];
@@ -32,10 +34,6 @@ const ProfileEditor = ({ userInfo, accounts }) => {
             phoneAlreadyUse.push(value.phone);
         }
     });
-
-    useEffect(() => {
-        setCanSubmit(isValidavatarUri && isValidName && isValidSurname && isValidEmail && isValidPhone);
-    }, [isValidavatarUri, isValidName, isValidSurname, isValidEmail, isValidPhone]);
 
     const submitHandler = () => {
         if (canSubmit) {

@@ -3,7 +3,7 @@ export { default as PageLayout } from './PageLayout';
 export { default as PatientQueue } from './PatientQueue';
 
 export { default as TableRowSlot } from './TableRowSlot';
-export { default as RowEmpty } from './RowEmpty';
+export { default as RowEmpty } from './RowEmpty/index.jsx';
 
 export { default as SearchBar } from './SearchBar';
 
