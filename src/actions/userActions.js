@@ -107,7 +107,7 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
         let editedData;
         if (res.status === 200) {
             editedData = { ...(await res.json()) };
-            
+
             Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
         } else {
             Toast.fire({ title: 'ไม่สามารถ บันทึกข้อมูลได้', icon: 'error' });
