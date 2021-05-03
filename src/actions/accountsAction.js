@@ -1,4 +1,5 @@
 import { ACCOUNTS_FETCH, ACCOUNTS_SHOW, ACCOUNTS_ADD_TOGGLE, ACCOUNTS_ADD, ACCOUNTS_EDIT_TOGGLE, ACCOUNTS_DELETE, ACCOUNTS_UPDATE } from './types';
+import { USER_LOGOUT } from './types';
 
 import { roles, stringGenerate } from './ultis';
 
@@ -17,6 +18,9 @@ export const accountsFetch = () => {
                 'Content-Type': 'application/json',
             },
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             let accounts = await res.json();
@@ -77,6 +81,9 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
                 password: password,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             let account = await res.json();
@@ -131,6 +138,9 @@ export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
                 role,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             let editedData = await res.json();
@@ -167,6 +177,10 @@ export const accountsDelete = ({ _id }) => {
                         'Content-Type': 'application/json',
                     },
                 });
+                if (res.status === 401) {
+                    dispatch({ type: USER_LOGOUT });
+                }
+
                 if (res.status === 200) {
                     dispatch({ type: ACCOUNTS_DELETE, _id: _id });
                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });

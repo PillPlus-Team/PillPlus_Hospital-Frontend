@@ -1,4 +1,5 @@
 import { STATEMENTS_FETCH_BY_MONTH, STATEMENTS_SHOW } from './types';
+import { USER_LOGOUT } from './types';
 
 export const statementsFetchByMonth = ({ month, year }) => {
     return async (dispatch) => {
@@ -147,7 +148,7 @@ export const statementsFilter = ({ keyword, month, year }) => {
 };
 
 /* For Production */
-// export const statementsFetchByMonth = ({ month, year }) => {
+// export const statementsFetchByMonth = ({ month, year, history }) => {
 //     return async (dispatch) => {
 //         const res = await fetch('/api/v1/getAccounts', {
 //             method: 'POST',
@@ -159,6 +160,9 @@ export const statementsFilter = ({ keyword, month, year }) => {
 //                 year,
 //             },
 //         });
+//         if (res.status === 401) {
+//             dispatch({ type: USER_LOGOUT });
+//         }
 
 //         if (res.status === 200) {
 //             let statements = await res.json();

@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 
 import { LoadingModal, Toast } from '../../../actions/swals';
 import { prescriptionSelectPillStore } from '../../../actions/prescriptionsAction';
+
 import { API_URL } from '../../../config';
+import { USER_LOGOUT } from '../../../actions/types';
 
 const PillStoreSelector = ({ selectedPrescription }) => {
     const dispatch = useDispatch();
@@ -12,6 +14,8 @@ const PillStoreSelector = ({ selectedPrescription }) => {
     const [selectedPillStore, setSelectedPillStore] = useState(null);
     const [indexSelected, setIndexSelected] = useState(0);
     const [showOption, setShowOption] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     window.addEventListener('click', (event) => {
         if (document.getElementById('pillstore-selector') !== null) {
@@ -25,6 +29,7 @@ const PillStoreSelector = ({ selectedPrescription }) => {
         const setPillStoreChoices = async () => {
             LoadingModal.fire({ title: 'กำลังโหลด สถานที่รับยา ...' });
             LoadingModal.showLoading();
+            setLoading(true);
 
             /* API For Mock */
             const res = await fetch(API_URL + `/pillStore/available/${selectedPrescription._id}`, {
@@ -35,25 +40,28 @@ const PillStoreSelector = ({ selectedPrescription }) => {
                     'Content-Type': 'application/json',
                 },
             });
+            if (res.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
 
             if (res.status === 200) {
                 let availablePillStores = await res.json();
                 availablePillStores = availablePillStores.filter((pillStore) => pillStore.status);
-
                 setAvailablePillStoreList(availablePillStores);
-
-                LoadingModal.close();
             } else {
                 Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
                 setAvailablePillStoreList(null);
             }
+
+            LoadingModal.close();
+            setLoading(false);
         };
 
         setPillStoreChoices();
     }, []);
 
     useEffect(() => {
-        if (availablePillStoreList) {
+        if (availablePillStoreList && availablePillStoreList.length !== 0) {
             setSelectedPillStore(availablePillStoreList[0]);
         } else {
             setSelectedPillStore(null);
@@ -76,7 +84,7 @@ const PillStoreSelector = ({ selectedPrescription }) => {
 
     return (
         <div className="w-full relative" id="pillstore-selector">
-            {!selectedPillStore && !LoadingModal.isLoading && (
+            {!selectedPillStore && !loading && (
                 <div class="relative w-full bg-white border-2 border-red-300 rounded-md shadow-sm pl-2 pr-10 py-2 text-left">
                     <div class="flex flex-col items-start w-full h-full">
                         <p class="font-bold ml-3 block truncate text-red-700 ">ไม่สามารถเลือกสถานที่รับยาได้</p>

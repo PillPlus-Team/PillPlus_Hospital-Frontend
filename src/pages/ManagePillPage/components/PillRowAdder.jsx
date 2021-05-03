@@ -6,7 +6,6 @@ import { InputText, InputNumber, InputDropdown, InputTextarea } from '../../../c
 import { pillsAddToggle, pillsAdd } from '../../../actions/pillsAction';
 
 const PillRowAdder = ({ pills }) => {
-    console.log('rendered');
     const dispatch = useDispatch();
 
     const [sn, setSn] = useState('');

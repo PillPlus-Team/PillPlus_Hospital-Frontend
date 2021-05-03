@@ -7,6 +7,7 @@ import {
     PILLSTORES_UPDATE,
     PILLSTORES_DELETE,
 } from './types';
+import { USER_LOGOUT } from './types';
 
 import { stringGenerate } from './ultis';
 
@@ -25,6 +26,9 @@ export const pillStoresFetch = () => {
                 'Content-Type': 'application/json',
             },
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const pillStores = await res.json();
@@ -82,6 +86,9 @@ export const pillStoresAdd = ({ name, pharmacy, location, email, phone }) => {
                 password: password,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const pillStore = await res.json();
@@ -135,6 +142,9 @@ export const pillStoresUpdate = ({ _id, name, pharmacy, location, email, phone }
                 phone: phone,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const editedPillStore = await res.json();
@@ -173,6 +183,10 @@ export const pillStoresDelete = ({ _id }) => {
                         'Content-Type': 'application/json',
                     },
                 });
+                if (res.status === 401) {
+                    dispatch({ type: USER_LOGOUT });
+                }
+                
                 if (res.status === 200) {
                     dispatch({ type: PILLSTORES_DELETE, _id: _id });
                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });

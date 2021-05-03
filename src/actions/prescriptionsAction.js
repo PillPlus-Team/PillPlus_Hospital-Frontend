@@ -5,6 +5,7 @@ import {
     PRESCRIPTIONS_SELECT_PILLSTORE,
     PRESCRIPTIONS_UPDATE_PILLSTORE,
 } from './types';
+import { USER_LOGOUT } from './types';
 
 import { LoadingModal, ConfirmDialog, Toast } from './swals';
 
@@ -21,6 +22,9 @@ export const prescriptionsFetch = () => {
                 'Content-Type': 'application/json',
             },
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             let prescriptions = await res.json();
@@ -41,6 +45,9 @@ export const prescriptionsFetchByIO = () => {
                 'Content-Type': 'application/json',
             },
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             let prescriptions = await res.json();
@@ -97,6 +104,9 @@ export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
                         pillStoreID: prescription.pillStoreID,
                     }),
                 });
+                if (res.status === 401) {
+                    dispatch({ type: USER_LOGOUT });
+                }
 
                 if (res.status === 200) {
                     onSuccess();

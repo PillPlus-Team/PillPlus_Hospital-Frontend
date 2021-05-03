@@ -20,7 +20,7 @@ const socket = io(SOCKET_URL);
 
 const App = () => {
     const user = useSelector((state) => state.user);
-    
+
     return (
         <BrowserRouter>
             {user && (

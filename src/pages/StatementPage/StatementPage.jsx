@@ -55,7 +55,7 @@ const StatementPage = () => {
     const isEmpty = statementsFiltered_id.length === 0;
 
     useEffect(() => {
-        dispatch(statementsFetchByMonth({ month: month, year: year }));
+        dispatch(statementsFetchByMonth({ month, year }));
     }, [month, year]);
 
     useEffect(() => {

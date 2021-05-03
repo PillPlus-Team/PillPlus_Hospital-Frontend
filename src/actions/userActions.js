@@ -103,6 +103,9 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
                 phone: phone,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         let editedData;
         if (res.status === 200) {

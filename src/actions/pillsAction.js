@@ -1,4 +1,5 @@
 import { PILLS_FETCH, PILLS_SHOW, PILLS_ADD_TOGGLE, PILLS_ADD, PILLS_EDIT_TOGGLE, PILLS_UPDATE, PILLS_DELETE } from './types';
+import { USER_LOGOUT } from './types';
 
 import { LoadingModal, DeleteAlertDialog, Toast } from './swals';
 
@@ -15,6 +16,9 @@ export const pillsFetch = () => {
                 'Content-Type': 'application/json',
             },
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const pills = await res.json();
@@ -70,6 +74,9 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
                 type: type,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const pill = await res.json();
@@ -115,6 +122,9 @@ export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) =
                 type: type,
             }),
         });
+        if (res.status === 401) {
+            dispatch({ type: USER_LOGOUT });
+        }
 
         if (res.status === 200) {
             const editedPill = await res.json();
@@ -150,6 +160,10 @@ export const pillsDelete = ({ _id }) => {
                         'Content-Type': 'application/json',
                     },
                 });
+                if (res.status === 401) {
+                    dispatch({ type: USER_LOGOUT });
+                }
+
                 if (res.status === 200) {
                     dispatch({ type: PILLS_DELETE, _id: _id });
                     Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
