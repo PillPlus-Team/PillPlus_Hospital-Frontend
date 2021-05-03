@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
 
 import { PageLayout, PatientQueue } from '../../components';
 
@@ -13,6 +14,9 @@ const PaymentPage = ({ socket }) => {
     const user = useSelector((state) => state.user);
     const menuList = useSelector((state) => state.menuList);
     const invoices = useSelector((state) => state.invoices);
+
+    const contentToPrintRef = useRef(null);
+    const printHandler = useReactToPrint({ content: () => contentToPrintRef.current });
 
     let selectedInvoice;
     try {
@@ -69,9 +73,16 @@ const PaymentPage = ({ socket }) => {
                             </div>
                         )}
                         {selectedInvoice && (
-                            <div id="content-for-print" className="flex w-160 h-160">
-                                <InvoiceInfoMonitor invoice={selectedInvoice} />
-                            </div>
+                            <>
+                                <div className="hidden" id="content-to-print">
+                                    <div className="w-screen h-screen" ref={contentToPrintRef}>
+                                        <InvoiceInfoMonitor invoice={selectedInvoice} />
+                                    </div>
+                                </div>
+                                <div className="flex w-160 h-160">
+                                    <InvoiceInfoMonitor invoice={selectedInvoice} />
+                                </div>
+                            </>
                         )}
                     </div>
                     <button
@@ -87,6 +98,8 @@ const PaymentPage = ({ socket }) => {
                                     onSuccess: () => {
                                         socket.emit('room', 'Payment_Room');
                                         console.log('knock Payment_Room!');
+
+                                        printHandler();
                                     },
                                 })
                             );
