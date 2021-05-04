@@ -11,7 +11,7 @@ import AccountRowAdder from './components/AccountRowAdder';
 
 import { accountsFetch, accountsFilter, accountAddToggle } from '../../actions/accountsAction';
 
-const itemPerPage = 6;
+const itemPerPage = 5;
 
 const ManageAccountPage = () => {
     const dispatch = useDispatch();

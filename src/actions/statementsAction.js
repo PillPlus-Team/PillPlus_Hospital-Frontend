@@ -7,7 +7,7 @@ import { API_URL } from '../config';
 export const statementsFetchByMonth = ({ month, year }) => {
     return async (dispatch) => {
         try {
-            const res = await fetch(API_URL + `/invoice/pillStoreStatements`, {
+            const res = await fetch(API_URL + `/invoice/pillStoreStatements?year=${year}&month=${month}`, {
                 method: 'GET',
                 mode: 'cors',
                 credentials: 'include',
@@ -30,7 +30,6 @@ export const statementsFetchByMonth = ({ month, year }) => {
             if (error.status === 401) {
                 dispatch({ type: USER_LOGOUT });
             }
-            console.log(error);
         }
     };
 };

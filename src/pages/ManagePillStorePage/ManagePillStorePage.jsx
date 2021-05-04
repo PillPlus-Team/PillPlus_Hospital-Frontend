@@ -11,7 +11,7 @@ import PillStoreRowAdder from './components/PillStoreRowAdder';
 
 import { pillStoresFetch, pillStoresFilter, pillStoresAddToggle } from '../../actions/pillStoresAction';
 
-const itemPerPage = 6;
+const itemPerPage = 5;
 
 const ManagePillStorePage = () => {
     const dispatch = useDispatch();
