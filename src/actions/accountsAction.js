@@ -10,32 +10,37 @@ import { API_URL } from '../config';
 /* For Production */
 export const accountsFetch = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/account/all', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
-
-        if (res.status === 200) {
-            let accounts = await res.json();
-            accounts = accounts.map((account) => {
-                return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+        try {
+            const res = await fetch(API_URL + '/account/all', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
 
-            dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
-            dispatch(accountsFilter({ keyword: '' }));
+            if (res.status === 200) {
+                let accounts = await res.json();
+                accounts = accounts.map((account) => {
+                    return { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+                });
+
+                dispatch({ type: ACCOUNTS_FETCH, accounts: accounts });
+                dispatch(accountsFilter({ keyword: '' }));
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
         }
     };
 };
 
 export const accountsFilter = ({ keyword }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { accounts } = getState();
 
         let _idList = [];
@@ -65,46 +70,53 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
 
         const password = stringGenerate(6);
 
-        const res = await fetch(API_URL + '/account', {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                surname: surname,
-                email: email,
-                phone: phone,
-                role: role,
-                password: password,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
-
-        if (res.status === 200) {
-            let account = await res.json();
-            account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
-
-            dispatch({ type: ACCOUNTS_ADD, account: account });
-            dispatch(accountsFilter({ keyword: '' }));
-            ImportantNotificationModal.fire({
-                title: 'สร้างบัญชีผู้ใช้สำเร็จ',
-                html:
-                    `<br> ${account.name} ${account.surname}<br>` +
-                    `สิทธิ์ผู้ใช้ <b>${account.role}</b></p> <br><br>` +
-                    `Email : ${account.email} <br>` +
-                    `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
-                    `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
-                icon: 'success',
+        try {
+            const res = await fetch(API_URL + '/account', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    surname: surname,
+                    email: email,
+                    phone: phone,
+                    role: role,
+                    password: password,
+                }),
             });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(accountsFetch());
+
+            if (res.status === 200) {
+                let account = await res.json();
+                account = { ...account, roleLevel: roles.find((element) => element.role.includes(account.role)).roleLevel };
+
+                dispatch({ type: ACCOUNTS_ADD, account: account });
+                dispatch(accountsFilter({ keyword: '' }));
+                ImportantNotificationModal.fire({
+                    title: 'สร้างบัญชีผู้ใช้สำเร็จ',
+                    html:
+                        `<br> ${account.name} ${account.surname}<br>` +
+                        `สิทธิ์ผู้ใช้ <b>${account.role}</b></p> <br><br>` +
+                        `Email : ${account.email} <br>` +
+                        `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+                        `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+                    icon: 'success',
+                });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(accountsFetch());
+            }
         }
+
+        LoadingModal.close();
     };
 };
 
@@ -123,40 +135,47 @@ export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
         const { accounts } = getState();
         const account = accounts.list.find((account) => account._id === _id);
 
-        const res = await fetch(API_URL + `/account/${_id}`, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                surname,
-                email,
-                phone,
-                role,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
+        try {
+            const res = await fetch(API_URL + `/account/${_id}`, {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name,
+                    surname,
+                    email,
+                    phone,
+                    role,
+                }),
+            });
+
+            if (res.status === 200) {
+                let editedData = await res.json();
+                editedData = { ...editedData, roleLevel: roles.find((element) => element.role.includes(editedData.role)).roleLevel };
+
+                dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, ...editedData } });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(accountsFetch());
+            }
         }
 
-        if (res.status === 200) {
-            let editedData = await res.json();
-            editedData = { ...editedData, roleLevel: roles.find((element) => element.role.includes(editedData.role)).roleLevel };
-
-            dispatch({ type: ACCOUNTS_UPDATE, account: { ...account, ...editedData } });
-            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(accountsFetch());
-        }
+        LoadingModal.close();
     };
 };
 
 export const accountsDelete = ({ _id }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { accounts } = getState();
         const account = accounts.list.find((account) => account._id === _id);
 
@@ -169,25 +188,32 @@ export const accountsDelete = ({ _id }) => {
                 LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
                 LoadingModal.showLoading();
 
-                const res = await fetch(API_URL + `/account/${_id}`, {
-                    method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (res.status === 401) {
-                    dispatch({ type: USER_LOGOUT });
+                try {
+                    const res = await fetch(API_URL + `/account/${_id}`, {
+                        method: 'DELETE',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (res.status === 200) {
+                        dispatch({ type: ACCOUNTS_DELETE, _id: _id });
+                        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+                    } else {
+                        throw res;
+                    }
+                } catch (error) {
+                    if (error.status === 401) {
+                        dispatch({ type: USER_LOGOUT });
+                    } else {
+                        Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                        dispatch(accountsFetch());
+                    }
                 }
 
-                if (res.status === 200) {
-                    dispatch({ type: ACCOUNTS_DELETE, _id: _id });
-                    Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-                } else {
-                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-                    dispatch(accountsFetch());
-                }
+                LoadingModal.close();
             }
         });
     };

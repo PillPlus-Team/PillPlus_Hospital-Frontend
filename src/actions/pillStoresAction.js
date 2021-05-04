@@ -18,29 +18,34 @@ import { API_URL } from '../config';
 /* For Production */
 export const pillStoresFetch = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/pillStore/all', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
+        try {
+            const res = await fetch(API_URL + '/pillStore/all', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (res.status === 200) {
-            const pillStores = await res.json();
+            if (res.status === 200) {
+                const pillStores = await res.json();
 
-            dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
-            dispatch(pillStoresFilter({ keyword: '' }));
+                dispatch({ type: PILLSTORES_FETCH, pillStores: pillStores });
+                dispatch(pillStoresFilter({ keyword: '' }));
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
         }
     };
 };
 
 export const pillStoresFilter = ({ keyword }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { pillStores } = getState();
 
         let _idList = [];
@@ -70,45 +75,52 @@ export const pillStoresAdd = ({ name, pharmacy, location, email, phone }) => {
 
         const password = stringGenerate(6);
 
-        const res = await fetch(API_URL + '/pillStore', {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                pharmacy: pharmacy,
-                location: location,
-                email: email,
-                phone: phone,
-                password: password,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
-
-        if (res.status === 200) {
-            const pillStore = await res.json();
-
-            dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
-            dispatch(pillStoresFilter({ keyword: '' }));
-            ImportantNotificationModal.fire({
-                title: 'สร้างบัญชีร้านขายยา สำเร็จ',
-                html:
-                    `<br> ID ${pillStore.ID} : ${pillStore.name} <br>` +
-                    `ชื่อร้าน <b>${pillStore.pharmacy}</b></p> <br>` +
-                    `Email : ${pillStore.email} <br>` +
-                    `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
-                    `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
-                icon: 'success',
+        try {
+            const res = await fetch(API_URL + '/pillStore', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    pharmacy: pharmacy,
+                    location: location,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                }),
             });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(pillStoresFetch());
+
+            if (res.status === 200) {
+                const pillStore = await res.json();
+
+                dispatch({ type: PILLSTORES_ADD, pillStore: pillStore });
+                dispatch(pillStoresFilter({ keyword: '' }));
+                ImportantNotificationModal.fire({
+                    title: 'สร้างบัญชีร้านขายยา สำเร็จ',
+                    html:
+                        `<br> ID ${pillStore.ID} : ${pillStore.name} <br>` +
+                        `ชื่อร้าน <b>${pillStore.pharmacy}</b></p> <br>` +
+                        `Email : ${pillStore.email} <br>` +
+                        `รหัสผ่าน : <p class='text-red-500 inline-block'>${password}</p> <br><br>` +
+                        `<p class='text-red-500'>รหัสผ่านสำหรับใช้งานชั่วคราว <br> โปรดทำการเปลี่ยนแปลงในภายหลัง</p> <br>`,
+                    icon: 'success',
+                });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(pillStoresFetch());
+            }
         }
+
+        LoadingModal.close();
     };
 };
 
@@ -127,39 +139,46 @@ export const pillStoresUpdate = ({ _id, name, pharmacy, location, email, phone }
         const { pillStores } = getState();
         const pillStore = pillStores.list.find((pillStore) => pillStore._id === _id);
 
-        const res = await fetch(API_URL + `/pillStore/${_id}`, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                pharmacy: pharmacy,
-                location: location,
-                email: email,
-                phone: phone,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
+        try {
+            const res = await fetch(API_URL + `/pillStore/${_id}`, {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    pharmacy: pharmacy,
+                    location: location,
+                    email: email,
+                    phone: phone,
+                }),
+            });
+
+            if (res.status === 200) {
+                const editedPillStore = await res.json();
+
+                dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...pillStore, ...editedPillStore } });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(pillStoresFetch());
+            }
         }
 
-        if (res.status === 200) {
-            const editedPillStore = await res.json();
-
-            dispatch({ type: PILLSTORES_UPDATE, pillStore: { ...pillStore, ...editedPillStore } });
-            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(pillStoresFetch());
-        }
+        LoadingModal.close();
     };
 };
 
 export const pillStoresDelete = ({ _id }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { pillStores } = getState();
         const pillStore = pillStores.list.find((pillStore) => pillStore._id === _id);
 
@@ -175,25 +194,32 @@ export const pillStoresDelete = ({ _id }) => {
                 LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
                 LoadingModal.showLoading();
 
-                const res = await fetch(API_URL + `/pillStore/${_id}`, {
-                    method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (res.status === 401) {
-                    dispatch({ type: USER_LOGOUT });
+                try {
+                    const res = await fetch(API_URL + `/pillStore/${_id}`, {
+                        method: 'DELETE',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (res.status === 200) {
+                        dispatch({ type: PILLSTORES_DELETE, _id: _id });
+                        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+                    } else {
+                        throw res;
+                    }
+                } catch (error) {
+                    if (error.status === 401) {
+                        dispatch({ type: USER_LOGOUT });
+                    } else {
+                        Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                        dispatch(pillStoresFetch());
+                    }
                 }
-                
-                if (res.status === 200) {
-                    dispatch({ type: PILLSTORES_DELETE, _id: _id });
-                    Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-                } else {
-                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-                    dispatch(pillStoresFetch());
-                }
+
+                LoadingModal.close();
             }
         });
     };

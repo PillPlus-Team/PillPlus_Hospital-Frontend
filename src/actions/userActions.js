@@ -11,43 +11,47 @@ import { LoadingModal, ConfirmDialog, ChaningModal, Toast } from './swals';
 import { API_URL } from '../config';
 
 /* For Production */
-export const userLogin = ({ email, password, history }) => {
+export const userLogin = ({ email, password }) => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/auth/login', {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        });
-
-        if (res.status === 200) {
-            const user = await res.json();
-
-            dispatch({
-                type: USER_LOGIN,
-                user: { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel },
+        try {
+            const res = await fetch(API_URL + '/auth/login', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
             });
-            dispatch(menuListFetch());
-            dispatch(roleListFetch());
 
-            history.push('/home');
-        } else if (res.status === 403) {
-            Toast.fire({
-                title: 'อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง',
-                icon: 'error',
-            });
-        } else {
-            Toast.fire({
-                title: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
-                text: 'กรุณาติดต่อผู้ดูแลระบบ',
-                icon: 'error',
-            });
+            if (res.status === 200) {
+                const user = await res.json();
+
+                dispatch({
+                    type: USER_LOGIN,
+                    user: { ...user, roleLevel: roles.find((element) => element.role.includes(user.role)).roleLevel },
+                });
+                dispatch(menuListFetch());
+                dispatch(roleListFetch());
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 403) {
+                Toast.fire({
+                    title: 'อีเมล หรือ รหัสผ่าน ไม่ถูกต้อง',
+                    icon: 'error',
+                });
+            } else {
+                Toast.fire({
+                    title: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
+                    text: 'กรุณาติดต่อผู้ดูแลระบบ',
+                    icon: 'error',
+                });
+            }
         }
     };
 };
@@ -67,62 +71,73 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
 
         let newAvatarUri = user.avatarUri;
         if (avatarUri !== user.avatarUri) {
-            let blob = await fetch(avatarUri).then((result) => result.blob());
+            try {
+                let blob = await fetch(avatarUri).then((result) => result.blob());
 
-            let formData = new FormData();
-            formData.append('avatar', blob);
+                let formData = new FormData();
+                formData.append('avatar', blob);
 
-            const res = await fetch(API_URL + '/picture/avatar', {
-                method: 'POST',
-                mode: 'cors',
-                credentials: 'include',
-                body: formData,
-            });
+                const res = await fetch(API_URL + '/picture/avatar', {
+                    method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
+                    body: formData,
+                });
 
-            if (res.status === 200) {
-                newAvatarUri = await res.json().then((result) => result.data.avatarUri);
+                if (res.status === 200) {
+                    newAvatarUri = await res.json().then((result) => result.data.avatarUri);
 
-                Toast.fire({ title: 'อัพโหลดรูปโปรไฟล์ สำเร็จ', icon: 'success' });
-            } else {
+                    Toast.fire({ title: 'อัพโหลดรูปโปรไฟล์ สำเร็จ', icon: 'success' });
+                } else {
+                    throw res;
+                }
+            } catch (error) {
                 Toast.fire({ title: 'ไม่สามารถอัพโหลดรูปโปรไฟล์ได้', icon: 'error' });
             }
         }
 
-        const res = await fetch(API_URL + '/auth/updateProfile', {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                avatarUri: newAvatarUri,
-                name: name,
-                surname: surname,
-                email: email,
-                phone: phone,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
+        try {
+            const res = await fetch(API_URL + '/auth/updateProfile', {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    avatarUri: newAvatarUri,
+                    name: name,
+                    surname: surname,
+                    email: email,
+                    phone: phone,
+                }),
+            });
+
+            let editedData;
+            if (res.status === 200) {
+                editedData = { ...(await res.json()) };
+                dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, ...editedData } });
+
+                Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'ไม่สามารถ บันทึกข้อมูลได้', icon: 'error' });
+            }
         }
 
-        let editedData;
-        if (res.status === 200) {
-            editedData = { ...(await res.json()) };
+        LoadingModal.close();
 
-            Toast.fire({ title: 'บันทึกข้อมูล สำเร็จ', icon: 'success' });
-        } else {
-            Toast.fire({ title: 'ไม่สามารถ บันทึกข้อมูลได้', icon: 'error' });
-        }
-
-        dispatch({ type: USER_UPDATE_PROFILE, user: { ...user, ...editedData } });
         dispatch(accountsFetch());
     };
 };
 
 export const userChangePassword = () => {
-    return async () => {
+    return () => {
         ChaningModal.mixin({
             progressSteps: ['1', '2'],
         })
@@ -167,11 +182,11 @@ export const userChangePassword = () => {
                 },
             ])
             .then(async (result) => {
-                try {
-                    const password = result.value[0];
-                    const newPassword = result.value[1][0];
-                    const reNewPassword = result.value[1][1];
+                const password = result.value[0];
+                const newPassword = result.value[1][0];
+                const reNewPassword = result.value[1][1];
 
+                try {
                     const res = await fetch(API_URL + '/auth/resetPassword', {
                         method: 'PUT',
                         mode: 'cors',
@@ -189,34 +204,39 @@ export const userChangePassword = () => {
                     if (res.status === 200) {
                         Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
                     } else {
-                        Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                        throw res;
                     }
-                } catch (error) {}
+                } catch (error) {
+                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                }
             });
     };
 };
 
-export const userLogout = ({ history }) => {
-    return async (dispatch) => {
+export const userLogout = () => {
+    return (dispatch) => {
         ConfirmDialog.fire({
             title: 'ออกจากระบบ ?',
             text: 'ท่านกำลังออกจากระบบ',
             icon: 'warning',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await fetch(API_URL + '/auth/logout', {
-                    method: 'GET',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+                try {
+                    const res = await fetch(API_URL + '/auth/logout', {
+                        method: 'GET',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
 
-                if (res.status === 200) {
-                    dispatch({ type: USER_LOGOUT });
-                    history.push('/login');
-                } else {
+                    if (res.status === 200) {
+                        dispatch({ type: USER_LOGOUT });
+                    } else {
+                        throw res;
+                    }
+                } catch (error) {
                     Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
                 }
             }

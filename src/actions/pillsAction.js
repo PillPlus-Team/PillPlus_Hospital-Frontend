@@ -8,29 +8,34 @@ import { API_URL } from '../config';
 /* For Production */
 export const pillsFetch = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/pill/all', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
+        try {
+            const res = await fetch(API_URL + '/pill/all', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (res.status === 200) {
-            const pills = await res.json();
+            if (res.status === 200) {
+                const pills = await res.json();
 
-            dispatch({ type: PILLS_FETCH, pills: pills });
-            dispatch(pillsFilter({ keyword: '' }));
+                dispatch({ type: PILLS_FETCH, pills: pills });
+                dispatch(pillsFilter({ keyword: '' }));
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
         }
     };
 };
 
 export const pillsFilter = ({ keyword }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { pills } = getState();
 
         let _idList = [];
@@ -58,36 +63,43 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
         LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
         LoadingModal.showLoading();
 
-        const res = await fetch(API_URL + '/pill', {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sn: sn,
-                name: name,
-                description: description,
-                unit: unit,
-                price: price,
-                type: type,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
+        try {
+            const res = await fetch(API_URL + '/pill', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sn: sn,
+                    name: name,
+                    description: description,
+                    unit: unit,
+                    price: price,
+                    type: type,
+                }),
+            });
+
+            if (res.status === 200) {
+                const pill = await res.json();
+
+                dispatch({ type: PILLS_ADD, pill: pill });
+                dispatch(pillsFilter({ keyword: '' }));
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(pillsFetch());
+            }
         }
 
-        if (res.status === 200) {
-            const pill = await res.json();
-
-            dispatch({ type: PILLS_ADD, pill: pill });
-            dispatch(pillsFilter({ keyword: '' }));
-            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(pillsFetch());
-        }
+        LoadingModal.close();
     };
 };
 
@@ -106,40 +118,47 @@ export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) =
         const { pills } = getState();
         const pill = pills.list.find((pill) => pill._id === _id);
 
-        const res = await fetch(API_URL + `/pill/${_id}`, {
-            method: 'PUT',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                sn: sn,
-                name: name,
-                description: description,
-                unit: unit,
-                price: price,
-                type: type,
-            }),
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
+        try {
+            const res = await fetch(API_URL + `/pill/${_id}`, {
+                method: 'PUT',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sn: sn,
+                    name: name,
+                    description: description,
+                    unit: unit,
+                    price: price,
+                    type: type,
+                }),
+            });
+
+            if (res.status === 200) {
+                const editedPill = await res.json();
+
+                dispatch({ type: PILLS_UPDATE, pill: { ...pill, ...editedPill } });
+                Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                dispatch(pillsFetch());
+            }
         }
 
-        if (res.status === 200) {
-            const editedPill = await res.json();
-
-            dispatch({ type: PILLS_UPDATE, pill: { ...pill, ...editedPill } });
-            Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-        } else {
-            Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-            dispatch(pillsFetch());
-        }
+        LoadingModal.close();
     };
 };
 
 export const pillsDelete = ({ _id }) => {
-    return async (dispatch, getState) => {
+    return (dispatch, getState) => {
         const { pills } = getState();
         const pill = pills.list.find((pill) => pill._id === _id);
 
@@ -152,25 +171,32 @@ export const pillsDelete = ({ _id }) => {
                 LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
                 LoadingModal.showLoading();
 
-                const res = await fetch(API_URL + `/pill/${_id}`, {
-                    method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                if (res.status === 401) {
-                    dispatch({ type: USER_LOGOUT });
+                try {
+                    const res = await fetch(API_URL + `/pill/${_id}`, {
+                        method: 'DELETE',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (res.status === 200) {
+                        dispatch({ type: PILLS_DELETE, _id: _id });
+                        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
+                    } else {
+                        throw res;
+                    }
+                } catch (error) {
+                    if (error.status === 401) {
+                        dispatch({ type: USER_LOGOUT });
+                    } else {
+                        Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                        dispatch(pillsFetch());
+                    }
                 }
 
-                if (res.status === 200) {
-                    dispatch({ type: PILLS_DELETE, _id: _id });
-                    Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success' });
-                } else {
-                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-                    dispatch(pillsFetch());
-                }
+                LoadingModal.close();
             }
         });
     };

@@ -14,46 +14,56 @@ import { API_URL } from '../config';
 /* For Production */
 export const prescriptionsFetch = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/prescription', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
+        try {
+            const res = await fetch(API_URL + '/prescription', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (res.status === 200) {
-            let prescriptions = await res.json();
-            prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
+            if (res.status === 200) {
+                let prescriptions = await res.json();
+                prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
 
-            dispatch({ type: PRESCRIPTIONS_FETCH, prescriptions: prescriptions });
+                dispatch({ type: PRESCRIPTIONS_FETCH, prescriptions: prescriptions });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
         }
     };
 };
 
 export const prescriptionsFetchByIO = () => {
     return async (dispatch) => {
-        const res = await fetch(API_URL + '/prescription', {
-            method: 'GET',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (res.status === 401) {
-            dispatch({ type: USER_LOGOUT });
-        }
+        try {
+            const res = await fetch(API_URL + '/prescription', {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        if (res.status === 200) {
-            let prescriptions = await res.json();
-            prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
+            if (res.status === 200) {
+                let prescriptions = await res.json();
+                prescriptions = prescriptions.sort((element_1, element_2) => element_1.startTime - element_2.startTime);
 
-            dispatch({ type: PRESCRIPTIONS_FETCH_BY_IO, newPrescriptions: prescriptions });
+                dispatch({ type: PRESCRIPTIONS_FETCH_BY_IO, newPrescriptions: prescriptions });
+            } else {
+                throw res;
+            }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            }
         }
     };
 };
@@ -76,10 +86,7 @@ export const prescriptionSelectPillStore = ({ _id, pillStoreID, pillStorePharmac
 };
 
 export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
-    return async (dispatch, getState) => {
-        LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
-        LoadingModal.showLoading();
-
+    return (dispatch, getState) => {
         const { prescriptions } = getState();
         const prescription = prescriptions.list.find((prescription) => prescription._id === _id);
 
@@ -92,31 +99,41 @@ export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
             icon: 'warning',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await fetch(API_URL + `/invoice/selectPillStore`, {
-                    method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        _id: _id,
-                        pillStoreID: prescription.pillStoreID,
-                    }),
-                });
-                if (res.status === 401) {
-                    dispatch({ type: USER_LOGOUT });
+                LoadingModal.fire({ title: 'กำลังดำเนินการ ...' });
+                LoadingModal.showLoading();
+
+                try {
+                    const res = await fetch(API_URL + `/invoice/selectPillStore`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            _id: _id,
+                            pillStoreID: prescription.pillStoreID,
+                        }),
+                    });
+
+                    if (res.status === 200) {
+                        onSuccess();
+
+                        dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, _id: _id });
+                        Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
+                    } else {
+                        throw res;
+                    }
+                } catch (error) {
+                    if (error.status === 401) {
+                        dispatch({ type: USER_LOGOUT });
+                    } else {
+                        Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                        dispatch(prescriptionsFetch());
+                    }
                 }
 
-                if (res.status === 200) {
-                    onSuccess();
-
-                    dispatch({ type: PRESCRIPTIONS_UPDATE_PILLSTORE, _id: _id });
-                    Toast.fire({ title: 'ดำเนินการสำเร็จ', icon: 'success', timer: 1500 });
-                } else {
-                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-                    dispatch(prescriptionsFetch());
-                }
+                LoadingModal.close();
             }
         });
     };
