@@ -99,7 +99,7 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
             }
         }
 
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -155,7 +155,7 @@ export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) =
             }
         }
         
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -200,7 +200,7 @@ export const pillsDelete = ({ _id }) => {
                     }
                 }
 
-                if (!Toast.isTimerRunning()) {
+                if (LoadingModal.isLoading()) {
                     LoadingModal.close();
                 }
             }

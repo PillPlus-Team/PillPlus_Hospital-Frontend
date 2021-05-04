@@ -116,7 +116,7 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
             }
         }
 
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -172,7 +172,7 @@ export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
             }
         }
 
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -217,7 +217,7 @@ export const accountsDelete = ({ _id }) => {
                     }
                 }
 
-                if (!Toast.isTimerRunning()) {
+                if (LoadingModal.isLoading()) {
                     LoadingModal.close();
                 }
             }

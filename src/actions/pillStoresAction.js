@@ -120,7 +120,7 @@ export const pillStoresAdd = ({ name, pharmacy, location, email, phone }) => {
             }
         }
 
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -175,7 +175,7 @@ export const pillStoresUpdate = ({ _id, name, pharmacy, location, email, phone }
             }
         }
 
-        if (!Toast.isTimerRunning()) {
+        if (LoadingModal.isLoading()) {
             LoadingModal.close();
         }
     };
@@ -223,7 +223,7 @@ export const pillStoresDelete = ({ _id }) => {
                     }
                 }
 
-                if (!Toast.isTimerRunning()) {
+                if (LoadingModal.isLoading()) {
                     LoadingModal.close();
                 }
             }

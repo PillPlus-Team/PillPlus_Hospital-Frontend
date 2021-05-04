@@ -135,7 +135,7 @@ export const invoicesPay = ({ _id, onSuccess }) => {
                     }
                 }
 
-                if (!Toast.isTimerRunning()) {
+                if (LoadingModal.isLoading()) {
                     LoadingModal.close();
                 }
             }
