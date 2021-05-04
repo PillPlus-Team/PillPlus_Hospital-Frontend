@@ -99,7 +99,9 @@ export const pillsAdd = ({ sn, name, description, unit, price, type }) => {
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -152,8 +154,10 @@ export const pillsUpdate = ({ _id, sn, name, description, unit, price, type }) =
                 dispatch(pillsFetch());
             }
         }
-
-        LoadingModal.close();
+        
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -196,7 +200,9 @@ export const pillsDelete = ({ _id }) => {
                     }
                 }
 
-                LoadingModal.close();
+                if (!Toast.isTimerRunning()) {
+                    LoadingModal.close();
+                }
             }
         });
     };

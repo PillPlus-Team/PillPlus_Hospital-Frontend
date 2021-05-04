@@ -130,7 +130,9 @@ export const userUpdateProfile = ({ avatarUri, name, surname, email, phone }) =>
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
 
         dispatch(accountsFetch());
     };

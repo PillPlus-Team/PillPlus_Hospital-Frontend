@@ -135,7 +135,9 @@ export const invoicesPay = ({ _id, onSuccess }) => {
                     }
                 }
 
-                LoadingModal.close();
+                if (!Toast.isTimerRunning()) {
+                    LoadingModal.close();
+                }
             }
         });
     };

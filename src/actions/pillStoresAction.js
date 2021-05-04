@@ -120,7 +120,9 @@ export const pillStoresAdd = ({ name, pharmacy, location, email, phone }) => {
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -173,7 +175,9 @@ export const pillStoresUpdate = ({ _id, name, pharmacy, location, email, phone }
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -219,7 +223,9 @@ export const pillStoresDelete = ({ _id }) => {
                     }
                 }
 
-                LoadingModal.close();
+                if (!Toast.isTimerRunning()) {
+                    LoadingModal.close();
+                }
             }
         });
     };

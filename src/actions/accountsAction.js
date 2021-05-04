@@ -116,7 +116,9 @@ export const accountsAdd = ({ name, surname, email, phone, role }) => {
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -170,7 +172,9 @@ export const accountUpdate = ({ _id, name, surname, email, phone, role }) => {
             }
         }
 
-        LoadingModal.close();
+        if (!Toast.isTimerRunning()) {
+            LoadingModal.close();
+        }
     };
 };
 
@@ -213,7 +217,9 @@ export const accountsDelete = ({ _id }) => {
                     }
                 }
 
-                LoadingModal.close();
+                if (!Toast.isTimerRunning()) {
+                    LoadingModal.close();
+                }
             }
         });
     };

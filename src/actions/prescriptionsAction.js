@@ -133,7 +133,9 @@ export const prescriptionsUpdatePillStore = ({ _id, onSuccess }) => {
                     }
                 }
 
-                LoadingModal.close();
+                if (!Toast.isTimerRunning()) {
+                    LoadingModal.close();
+                }
             }
         });
     };
