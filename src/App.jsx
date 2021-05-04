@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import {
     LoginPage,
+    ForgotPasswordPage,
     HomePage,
     ProfilePage,
     SelectPillStorePage,
@@ -47,13 +48,7 @@ const App = () => {
             {!user && (
                 <Switch>
                     <Route exact path="/login" component={LoginPage} />
-                    <Route
-                        exact
-                        path="/forgot-password"
-                        component={() => {
-                            return <div className="flex justify-center items-center w-full h-screen text-2xl">หน้าลืมรหัสผ่าน</div>;
-                        }}
-                    />
+                    <Route exact path="/forgot-password" component={ForgotPasswordPage} />
                     <Redirect to="/login" />
                 </Switch>
             )}
