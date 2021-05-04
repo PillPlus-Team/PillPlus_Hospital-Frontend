@@ -1,4 +1,5 @@
 const InvoiceInfoMonitor = ({ invoice }) => {
+    console.log(invoice.pillStore.openingData);
     return (
         <div className="flex w-full h-full p-4 bg-white shadow-md rounded-lg overflow-y-auto">
             <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
@@ -82,6 +83,28 @@ const InvoiceInfoMonitor = ({ invoice }) => {
                         {Number(invoice.totalPay).toLocaleString('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 })}
                     </td>
                 </tr>
+                <tr>
+                    <td className="font-bold w-36 py-2"></td>
+                    <td className="w-96 py-2 text-right"></td>
+                </tr>
+                <tr>
+                    <td className="w-36 py-2 align-top">
+                        <p className="font-bold">เวลาทำการ</p> <p className="text-gray-400 break-words">{invoice.pillStore.pharmacy}</p>
+                    </td>
+                    <td className="w-96 py-2 align-top">
+                        <div className="flex flex-col justify-start items-end">
+                            {invoice.pillStore.openingData.map((value) => {
+                                return (
+                                    <p className={`${value.opening ? 'text-gray-400' : 'text-red-500'}`}>
+                                        {value.day} :{' '}
+                                        {value.opening ? `${value.openHour}:${value.openMinute} - ${value.closeHour}:${value.closeMinute}` : 'ปิด'}
+                                    </p>
+                                );
+                            })}
+                        </div>
+                    </td>
+                </tr>
+                <tr></tr>
             </table>
         </div>
     );
