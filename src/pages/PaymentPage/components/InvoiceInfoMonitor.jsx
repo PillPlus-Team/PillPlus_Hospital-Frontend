@@ -1,5 +1,6 @@
+import { PATIENT_URL } from '../../../config';
+
 const InvoiceInfoMonitor = ({ invoice }) => {
-    console.log(invoice.pillStore.openingData);
     return (
         <div className="flex w-full h-full p-4 bg-white shadow-md rounded-lg overflow-y-auto">
             <table className="table-fixed w-full min-w-full divide-y divide-gray-200">
@@ -104,7 +105,18 @@ const InvoiceInfoMonitor = ({ invoice }) => {
                         </div>
                     </td>
                 </tr>
-                <tr></tr>
+                <tr>
+                    <td className="font-bold w-36 py-2"></td>
+                    <td className="w-96 py-2 text-right"></td>
+                </tr>
+                <tr>
+                    <td className="font-bold py-2" colSpan="2">
+                        <div className="flex flex-row justify-end space-x-2">
+                            <p>ลิ้งเปลี่ยนสถานที่รับยา :</p>
+                            <p className="underline">{PATIENT_URL}</p>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
     );
