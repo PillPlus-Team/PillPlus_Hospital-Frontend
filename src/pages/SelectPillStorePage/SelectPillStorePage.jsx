@@ -79,7 +79,7 @@ const SelectPillStorePage = ({ socket }) => {
                             <div className="flex items-center w-160 h-20 p-2 bg-white shadow-md rounded-lg">
                                 {/*Hack react-life-cycle */}
                                 {prescriptions.list.map((prescription) => {
-                                    return prescription.selected && <PillStoreSelector selectedPrescription={selectedPrescription} />;
+                                    return prescription.selected && <PillStoreSelector selectedPrescription={selectedPrescription} socket={socket}/>;
                                 })}
                             </div>
                         )}

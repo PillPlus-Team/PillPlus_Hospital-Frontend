@@ -7,7 +7,7 @@ import { prescriptionSelectPillStore } from '../../../actions/prescriptionsActio
 import { API_URL } from '../../../config';
 import { USER_LOGOUT } from '../../../actions/types';
 
-const PillStoreSelector = ({ selectedPrescription }) => {
+const PillStoreSelector = ({ selectedPrescription, socket }) => {
     const dispatch = useDispatch();
 
     const [availablePillStoreList, setAvailablePillStoreList] = useState(null);
@@ -64,6 +64,11 @@ const PillStoreSelector = ({ selectedPrescription }) => {
         };
 
         setPillStoreChoices();
+
+        socket.on('message', (message) => {
+            setPillStoreChoices();
+            console.log(message);
+        });
     }, []);
 
     useEffect(() => {
