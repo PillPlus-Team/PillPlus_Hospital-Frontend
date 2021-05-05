@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+![Reposize](https://img.shields.io/github/repo-size/PillPlus/PillPlus_Hospital-Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# **PillPlus+ Hospital**
 
-## Available Scripts
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/login.JPG" alt="drawing" width="800">
 
-In the project directory, you can run:
+`Web Development | React.js` สำหรับใช้งานในระบบ Pillplus+ ฝั่งโรงพยาบาล
 
-### `yarn start`
+## Developer
+-   Phukphoom Taphrae
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tools & Libraries
+-   react-redux
+-   react-thunk
+-   redux-persist
+-   socket.io-client
+-   sweetalert2
+-   react-paginate
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Preview Web UI
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/home.JPG" alt="drawing" width="800">
 
-### `yarn test`
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/profile.JPG" alt="drawing" width="800">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/editprofile.JPG" alt="drawing" width="800">
 
-### `yarn build`
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/selectpillstore.JPG" alt="drawing" width="800">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/payment.JPG" alt="drawing" width="800">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/payment-print.JPG" alt="drawing" width="800">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/statement.JPG" alt="drawing" width="800">
 
-### `yarn eject`
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/manageaccount.JPG" alt="drawing" width="800">
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/managepillstore.JPG" alt="drawing" width="800">
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src="https://github.com/PillPlus/PillPlus_Hospital-Frontend/blob/master/image-readme/managepill.JPG" alt="drawing" width="800">
