@@ -25,50 +25,57 @@ const PillStoreSelector = ({ selectedPrescription, socket }) => {
         }
     });
 
-    useEffect(() => {
-        const setPillStoreChoices = async () => {
-            setLoading(true);
+    const setPillStoreChoices = async () => {
+        setLoading(true);
 
-            LoadingModal.fire({ title: 'กำลังโหลด สถานที่รับยา ...' });
-            LoadingModal.showLoading();
+        LoadingModal.fire({ title: 'กำลังโหลด สถานที่รับยา ...' });
+        LoadingModal.showLoading();
 
-            try {
-                const res = await fetch(API_URL + `/pillStore/available/${selectedPrescription._id}`, {
-                    method: 'GET',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+        try {
+            const res = await fetch(API_URL + `/pillStore/available/${selectedPrescription._id}`, {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-                if (res.status === 200) {
-                    let availablePillStores = await res.json();
-                    availablePillStores = availablePillStores.filter((pillStore) => pillStore.status);
-                    setAvailablePillStoreList(availablePillStores);
-                } else {
-                    throw res;
-                }
-            } catch (error) {
-                if (error.status === 401) {
-                    dispatch({ type: USER_LOGOUT });
-                } else {
-                    Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
-                    setAvailablePillStoreList(null);
-                }
+            if (res.status === 200) {
+                let availablePillStores = await res.json();
+                availablePillStores = availablePillStores.filter((pillStore) => pillStore.status);
+                setAvailablePillStoreList(availablePillStores);
+            } else {
+                throw res;
             }
+        } catch (error) {
+            if (error.status === 401) {
+                dispatch({ type: USER_LOGOUT });
+            } else {
+                Toast.fire({ title: 'เกิดข้อผิดพลาด ในการดำเนินการ', icon: 'error' });
+                setAvailablePillStoreList(null);
+            }
+        }
 
-            LoadingModal.close();
+        LoadingModal.close();
 
-            setLoading(false);
-        };
+        setLoading(false);
+    };
 
+    const messageListener = (message) => {
+        console.log(message);
+        setPillStoreChoices();
+    };
+
+    useEffect(() => {
         setPillStoreChoices();
 
-        socket.on('message', (message) => {
-            setPillStoreChoices();
-            console.log(message);
-        });
+        socket.on('message', messageListener);
+
+        /* componentWillUnmount*/
+        return () => {
+            socket.off('message', messageListener);
+        };
     }, []);
 
     useEffect(() => {
